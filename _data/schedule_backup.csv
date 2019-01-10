@@ -1,0 +1,417 @@
+draft,type,num,date,day,slides,readings,assignments
+,,1,05-Sep,Wed,"Introductions
+
+* [Course Overview](slides/intro/overview.html) 
+* [Fill out this survey!](https://docs.google.com/forms/d/e/1FAIpQLSd3_DKc5OuyktZHel7hDx6dnUn7fDdL5Lm4GBkkQdLNoizfxA/viewform)
+  * GitHub username for homework
+  * consent form to use GitHub for homework submission
+
+Python 3 Ecosystem and Installation                                                                                                                      
+
+* [Python Development Environment](slides/python/tools.html)
+
+Python Basics and File I/O
+
+* See readings on Python Basics
+* Different Ways to Run Python (demo)
+  * running python on the commandline
+  * interactive shell
+  * IPython
+  * jupyter notebook / lab
+* Modules (demo)
+  * imports
+  * python path
+","Python for Data Analysis
+
+* Ch 1: Preliminaries
+* Ch 2: Python Language Basics, Ipython, Jupyter Notebooks
+* Ch 3: Built-in Data Structures, Functions and Files","
+__Quiz #01__ – due Mon, 9/10, at 3pm (just before class)
+
+* find it on NYU Classes
+* check the Tests and Quizzes section 
+
+__Homework #01__ – due Tue, 9/11, at 11pm
+
+0. [Fill out this survey!](https://docs.google.com/forms/d/e/1FAIpQLSd3_DKc5OuyktZHel7hDx6dnUn7fDdL5Lm4GBkkQdLNoizfxA/viewform)
+1. Install a Python 3 Environment
+  * use [Anaconda](https://conda.io/docs/user-guide/install/index.html)
+  * if you’re already familiar with Python, you can manually install:
+    * Python 3 (using `apt`, `homebrew`, etc.)
+    * `matplotlib`, `jupyter-notebook` (or lab), `pandas`, `numpy` (using `easy-install`, `pip`, etc.)
+2. Go over readings
+3. [Homework #01 Instructions](assignments/01.html)
+
+<!--
+  * histogram
+  * birthday paradox
+  * syllabic poetry
+  * mean, median, mode, etc.
+-->"
+,,2,10-Sep,Mon,"File I/O, Unicode and Strings
+
+* [Files, Encodings, Bytes and Strings](notebooks/files-unicode-bytes-strings.ipynb) (notebook)
+
+
+Sequence Types, Mapping Types, Sets
+
+* [Sequences, Dictionaries and Sets](notebooks/sequences.ipynb) (notebook)
+
+Functions
+
+* [\* and \*\*, Keyword Arguments](notebooks/functions.ipynb) (notebook)
+
+
+","Python for Data Analysis
+
+* Ch 3: Built-in Data Structures, Functions and Files
+
+Articles
+
+* [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
+* [What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text](http://kunststube.net/encoding/)
+* [Unicode HOWTO](https://docs.python.org/3/howto/unicode.html)
+* [Primer on Python Decorators](https://realpython.com/primer-on-python-decorators/)
+","__Quiz #02__ – due Mon, 9/17, at 3pm (just before class)
+
+* find it on NYU Classes
+* check the Tests and Quizzes section"
+,,3,12-Sep,Wed,"Functions
+
+* Functions as Objects
+* Keyword Arguments
+* Lambdas
+* [Decorators](slides/python/decorators.html)
+    * @functools.wraps
+
+Classes
+
+* [Named Tuples and Classes](slides/python/classes-objects.html)
+* Data Classes
+* Iterators and __iter__
+* generators
+
+List/Dictionary/Set Comprehension
+
+* sorted
+* list comprehensions
+* set comprehensions
+* dictionary comprehensions
+
+
+",,"
+
+<!--
+1. Classes, CSVs
+  * create csv class
+  * allow delimiter change
+  * watch out for commas in data
+2. Simple Visualization (maybe)
+  * create drawing package with pil or turtle
+3. Numerical Data, Tabular Data
+  * simple stats (pandas) on xml or csv data set
+  * music generator (numpy)
+-->
+"
+,,4,17-Sep,Mon,"Review Classes
+
+* [Classes, Iterators, Generators](notebooks/classes-review.ipynb) (notebook)
+
+File Formats
+
+* [Data File Formats](slides/python/file-types.html) (slides)
+
+Tabular Data Preview / Homework
+
+Vectors and Matrices (numpy)
+
+* [quick numpy demo](notebooks/numpy/numpy-basics.ipynb) (notebook)
+","Python for Data Analysis 
+* Ch 4: Numpy Basics: Arrays and Vectors 
+* Ch 5. Getting Started with pandas
+* Ch 6. Data Loading, Storage, and File Formats
+  * Skip Web Requests
+  * Skip Databases","__Homework #02__ – due Wed 9/26 (extended from Mon, 9/24), at 11pm
+
+1. [Homework #02 Instructions](assignments/02.html) 
+
+__Quiz #03__ – due Wed, 9/26, at 11pm
+
+* (see NYU Classes)"
+,,5,19-Sep,Wed,"Vectors and Matrices Continued (numpy)
+
+* [Numpy Array Basics](slides/python/numpy-basics.html) (slides)
+* [Companion In-Class NumPy Basics Notebook](notebooks/numpy/numpy-basics-in-class-notebook.ipynb) (notebook)
+
+Tabular Data Continued
+
+* pandas basics
+
+
+",,"<!--
+
+HW03
+* brute force attack web site 
+* use password dictionary
+* retrieving data from the web 
+* finance app?
+* cleaning data for analylsis
+
+-->"
+,,6,24-Sep,Mon,"Tabular Data (pandas)
+
+* [Pandas Basics](slides/python/pandas-basics.html) (slides)",,
+,,7,26-Sep,Wed,"Quick Review Pandas Basics
+
+* [Arithmetic, Basic Selection, Indexing, etc.](slides/python/pandas-review-arithmetic-index.html) (slides)
+
+Apply, Map, Unique
+
+* [Pandas Functions, Function Application](slides/python/pandas-func-ops.html) (slides)
+
+Cleaning / Preparing Data, Loading Data, Data from the Web
+
+* [Pandas for reading files, About APIs, cleaning / preparing data (and pandas basics review)](notebooks/pandas/basics-review-cleaning-regex-api.ipynb) (notebook)
+* Sample Data
+  * [DOHMH Dog Bite Data](https://data.cityofnewyork.us/api/views/rsgh-akpg/rows.csv?accessType=DOWNLOAD)
+  * [NBA news](https://stats-prod.nba.com/wp-json/statscms/v1/rotowire/player/?team=sixers&limit=3)
+  * [UK Carbon Intensity](https://api.carbonintensity.org.uk/)
+  * Using an API
+* pandas for writing files
+
+
+
+
+
+
+","Python for Data Analysis
+
+* Ch 6: Data Loading, Storage, and File Formats
+  * Focus on Scraping
+  * Focus on APIs
+* Ch 7: Data Cleaning and Preparation
+
+
+",
+,,8,01-Oct,Mon,"Data from the Web
+
+* [Data Formats on the Web](slides/data/web-data.html)
+* [Making Requests](slides/data/api-request.html)
+* Using an API 
+  * Pagination and Flattening
+  * .append method
+  * export to csv
+  * .reset_index
+* [What happened to my F.R.I.E.N.D.S? (imdb scrape)](https://www.imdb.com/title/tt0108778/fullcredits?ref_=tt_cl_sm#cast)
+  * requests + beautiful soup
+  * re.find, match object
+* [Scraping, Using an API Class Notes](notebooks/web/data-from-the-web.ipynb) (notebook)
+  * note that you must manually fill in url for API example
+
+Cleaning Data Revisited
+
+* [Global Surface Temperature Change](https://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.txt)
+  * without pandas
+  * with pandas
+
+Curating Data
+
+* see data sets
+
+
+
+
+
+",,"__Homework #03__ – due Tue 10/9 at 11pm
+
+1. [Homework #03 Instructions](assignments/03.html) 
+"
+,,9,03-Oct,Wed,"Plotting and Visualization
+
+* [Matplotlib pt 1](slides/viz/matplotlib-review.html)
+* [Matplotlib pt 2](slides/viz/matplotlib-extras.html)
+* figure, add_subplot, oop
+* [What is this .txt file?](notebooks/viz/files/enc.txt)
+  * clue: etaonisrhdlumcfwgpybvkxjqz
+* [Y U Grow So Fast?](https://catalog.data.gov/dataset/population-by-country-1980-2010)
+* [Pandas Pops (same as above) or Hot pandas (Global Surface Temperature Change)](https://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.txt)
+* [Matplotlib Basics Class Notes](notebooks/viz/matplotlib-basics.ipynb) (notebook)
+
+
+<!--
+Aggregation and Time Series
+
+* Group By
+* Aggregations (sum, count, etc.)
+* datetime
+* Time Zones
+* Time Series
+* Windowing
+-->
+
+","Python for Data Analysis
+
+* Ch 9: Plotting and Visualization
+
+<!--
+Python for Data Analysis
+
+* Ch 8: Data Wrangling: Join, Combine, Reshape
+* Ch 10: Data Aggregation and Group By
+* Ch 11: Time Series
+-->",
+,schedule,10,09-Oct,Tue,"
+Relational Database Overview
+
+* [Databases intro](slides/db/intro.html)
+
+
+ 
+",,
+,,11,10-Oct,Wed,"Postgres /SQL Basics
+
+* PostgreSQL administration
+* Connecting with psql client
+* [Postgres, SQL Basics, Importing Data](slides/db/postgres.html)
+
+Files
+
+* [Movies](sql/basics/movies.sql)
+* [Transcript of SQL written in class](sql/basics/basics-transcript.sql)
+
+
+","PostgreSQL: Up and Running
+
+* Ch 1: The Basics 
+  * PostgreSQL Database Objects 
+* Ch 2: Database Administration
+  * Configuration Files
+  * Database Creation
+* Ch5: Data Types
+  * Numerics
+  * Textuals
+  * Temporals
+
+Official Documentation 
+
+* [Data Types](https://www.postgresql.org/docs/10/static/datatype.html) and [creating tables](https://www.postgresql.org/docs/current/static/sql-createtable.html)
+* [INSERT](https://www.postgresql.org/docs/current/static/sql-insert.html), [SELECT](https://www.postgresql.org/docs/current/static/sql-select.html)
+* [GROUP BY](https://www.postgresql.org/docs/current/static/sql-select.html#SQL-HAVINGhttps://www.postgresql.org/docs/current/static/sql-select.html#SQL-GROUPBY) and [HAVING](https://www.postgresql.org/docs/current/static/sql-select.html#SQL-HAVING)
+* [UPDATE](https://www.postgresql.org/docs/current/static/sql-update.html) and [DELETE](https://www.postgresql.org/docs/current/static/sql-delete.html)
+* [ALTER TABLE](https://www.postgresql.org/docs/10/static/sql-altertable.html)
+* [COPY, Import](https://www.postgresql.org/docs/10/static/sql-copy.html)
+
+postgresqltutorial 
+
+* [SELECT](http://www.postgresqltutorial.com/postgresql-select/)
+* [ORDER BY](http://www.postgresqltutorial.com/postgresql-order-by/)
+* [DISTINCT](http://www.postgresqltutorial.com/postgresql-select-distinct/)
+* [WHERE](http://www.postgresqltutorial.com/postgresql-where/)
+* [LIMIT](http://www.postgresqltutorial.com/postgresql-limit/)
+* [GROUP BY](http://www.postgresqltutorial.com/postgresql-group-by/)
+* [HAVING](http://www.postgresqltutorial.com/postgresql-having/)
+* [COPY, Import](http://www.postgresqltutorial.com/import-csv-file-into-posgresql-table/)
+
+
+<!--
+
+Python for Data Analysis
+
+* Ch 8: Data Wrangling: Join, Combine, Reshape
+* Ch 10: Data Aggregation and Group By
+* Ch 11: Time Series
+-->","__Homework #04__ – due Thu 10/18 at 11pm
+
+1. [Homework #04 Instructions](assignments/04.html) 
+"
+y,,12,15-Oct,Mon,"Relational Database Design
+
+* Relations / Foreign Key Constraints
+* E-R Diagrams (in MySQL Workbench or similar)
+  * Reverse engineering
+  * Forward engineering
+* Normalization
+
+
+
+Joins and Aggregate Queries
+
+* in-depth study of SQL for data analysis and for manipulating RDBMS.
+* JOINs and all facets for standard SQL programming and development. 
+* UNION and related queries
+* Study of aggregate queries
+* In-depth look at nested queries
+* Use single tables for aggregate queries and related queries for deep dives into data sets 
+",,HW05 – in class?
+y,,13,17-Oct,Wed,Review,* Ch 9: Plotting and Visualization,
+y,exam  ,14,22-Oct,Mon,Exam 1,,
+y,,15,24-Oct,Wed,"Data Wrangling (without databases)
+
+* Joins
+* Pivots
+
+
+Performance / Indexing and Query Optimization 
+
+* Indexes
+  * Different Types of Indexes
+* Optimizing Queries
+* Query Planning
+
+Additional Administration
+
+* Backups / Replication
+* Vacuum",,HW06
+y,,16,29-Oct,Mon,"Geo-spacial Data
+
+* PostGIS
+",,
+y,,17,31-Oct,Wed,"Postgres and Python
+
+* pyscopg
+* SQLAlchemy?
+* Postgres, SQLAlchemy and pandas
+",,HW07
+y,,18,05-Nov,Mon,"Creating APIs for Consumption
+",,
+y,,19,07-Nov,Wed,"Visualization Revisited (web-based)
+
+* svg
+* d3
+* bokeh again (or for first time?)
+* plotly again (or for first time?)",,
+y,,20,12-Nov,Mon,"Data Pipeline (everything together)
+
+* ETL
+* Python, Pandas, Postgres",,HW08
+y,,21,14-Nov,Wed,"NoSQL (mongodb)
+                                                                                                                                  
+* JSON format in depth                                                                                                                 
+  1. Nested objects                                                                                                                  
+* compare/contrast MongoDB with SQL.                                                                                                   
+* Accessing MongoDB                                                                                                                    
+  1. from command line (e.g. mongo shell)                                                                                            
+  2. from Python libraries (e.g. pymongo module)                                                                                     
+* Basic CRUD                                                                                                                           
+* Geo-spatial data queries ",,
+y,,22,19-Nov,Mon,"NoSQL (continued)
+
+Python and NoSQL",,HW09
+y,holiday,,21-Nov,Wed,Thanksgiving,,
+y,,23,26-Nov,Mon,"Cloud Data Storage (Firebase, S3, RDS)
+
+* S3
+* RDS
+* Firebase ",,
+y,,24,28-Nov,Wed,"Serverless  (Firebase Again, Lambda, Chalice or Zappa)
+
+* Microservices
+* AWS lambda
+* Firebase
+* zappa or chalice",,HW10
+y,,25,03-Dec,Mon,"Processing Large Data Sets (Spark or Hadoop)
+
+* Hadoop, Parque",,
+y,,26,05-Dec,Wed,Optional Topic TBD,,
+y,,27,10-Dec,Mon,Review,,
+y,exam  ,28,12-Dec,Wed,Exam 2,,

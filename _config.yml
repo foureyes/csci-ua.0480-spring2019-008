@@ -1,0 +1,97 @@
+title: CSCI-UA.0480 Fall 2018, Section 001, 003
+
+baseurl: ""
+resource_prefix: "resources/"
+github_username: jversoza
+slides_lib: "../../resources/lib"
+
+markdown: kramdown
+kramdown:
+  entity_output: numeric
+  smart_quotes: apos,apos,quot,quot
+permalink: none
+exclude: [bower_components, README.md, bower.json, gruntfile.js, node_modules]
+
+vars:
+  book_js: "Speaking JavaScript"
+  book_js_note: "(free to read online)"
+  book_js_link: http://speakingjs.com/es5/index.html
+  book_js_author: Axel Rauschmayer
+
+  book_js_2: "Exploring ES6"
+  book_js_2_note: "(free to read online)"
+  book_js_2_link: http://exploringjs.com/es6/index.html 
+  book_js_2_author: Axel Rauschmayer
+
+  book_js_3: "You Don't Know JS"
+  book_js_3_note: "(free to read online)"
+  book_js_3_link: "https://github.com/getify/You-Dont-Know-JS/"
+  book_js_3_author: Kyle Simpson
+
+  book_js_4: "JavaScript Allongé, the \"Six\" Edition" 
+  book_js_4_note: "(free to read online)"
+  book_js_4_link: https://leanpub.com/javascriptallongesix/read 
+  book_js_4_author: "Reg \"raganwald\" Braithwaite"
+
+  book_js_5: Eloquent JavaScript, 2nd Edition
+  book_js_5_note: "(free to read online)"
+  book_js_5_link: http://eloquentjavascript.net/
+  book_js_5_author: Marijn Haverbeke
+
+  book_js_6: "Node: Up and Running"
+  book_js_6_note: "(free to read online)"
+  book_js_6_link: "http://chimera.labs.oreilly.com/books/1234000001808/index.html"
+  book_js_6_author: Tom Hughes-Croucher and Mike Wilson
+
+  book_js_7: "DOM Enlightenment"
+  book_js_7_note: "(draft version free to read online)"
+  book_js_7_link: "http://domenlightenment.com/"
+  book_js_7_author: Cody Lindley 
+
+  book_js_8: "Learning JavaScript Design Patterns"
+  book_js_8_note: "(free to read online)"
+  book_js_8_link: "https://addyosmani.com/resources/essentialjsdesignpatterns/book/"
+  book_js_8_author: Addy Osmani 
+
+  book_js_9: "Programming JavaScript Applications"
+  book_js_9_note: "(free to read online)"
+  book_js_9_link: "http://chimera.labs.oreilly.com/books/1234000000262/index.html"
+  book_js_9_author: Eric Elliott 
+
+  survey_intro: https://docs.google.com/forms/d/e/1FAIpQLSdCa-9Ua68PcRZe2ujr91--T2ry7zClrnv8R5E4MDbwDTKXIA/viewform
+  piazza: https://piazza.com/nyu/fall2018/csciua0480section001003/home
+  email: jversoza@cs.nyu.edu
+  contact_link: https://piazza.com/nyu/fall2018/csciua0480section001003/home
+  contact_label: piazza
+  contact_note: (the best way to contact me!) 
+
+  course_number: "CSCI-UA.0480"
+  course_section: "001"
+  course_section_2: "003"
+  course_name: "Applied Internet Technology"
+  course_semester: "Fall 2018"
+  course_time: "Tue and Thur, 8:00AM - 9:15AM"
+  course_time_2: "Tue and Thur, 11:00AM - 12:15PM"
+  course_room: WWH 201
+  course_room_2: Silver 411
+  course_url: http://jvers.com/csci-ua.0480-fall2018-001-003
+  course_site_alt: http://cs.nyu.edu/~jversoza
+
+  # office hours
+  office_hours: "9:25AM - 10:55AM, Monday and Tuesday"
+  office_hours_room: WWH 422 
+
+  # finals
+  # CSCI-UA.0480-002  Special Topics: Applied Internet Technology Joseph Versoza      Tuesday, December 16, 2014  8:00AM - 9:50AM 
+  final_date: Dec 13
+  final_day: Thu
+  final_time: "3:30PM - 4:45PM"
+  final_room: WWH 109
+  survey_github: https://docs.google.com/forms/d/e/1FAIpQLSdCa-9Ua68PcRZe2ujr91--T2ry7zClrnv8R5E4MDbwDTKXIA/viewform
+  
+  node_version: 9.x.x or 10.x.x
+
+  slides_img_prefix: "../../resources/img"
+  github_org: "https://github.com/nyu-csci-ua-0480-001-003-fall-2018"
+
+
