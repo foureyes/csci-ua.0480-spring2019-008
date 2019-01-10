@@ -209,7 +209,7 @@ Additionally, the tutor will hold workshops based on student demand. Some worksh
 
 * commandline
 * git
-, ' '* http
+* http
 * html
 * css
 
@@ -217,3 +217,44 @@ Additionally, the tutor will hold workshops based on student demand. Some worksh
     </div>
   </div><!-- end col -->
 </div><!-- end row -->
+
+<div class="row">
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+<a name="grading"></a>
+<div class="panel-heading">Recommendation Requests</div>
+<div class="panel-body" markdown="block">
+Recommendation letters may be provided based if:
+
+* you have taken two courses with me or if you've worked with me in some capacity (grader, tutor, etc.) 
+* you are applying to a maximum of 4 schools
+* your academic performance warrants a recommendation (typically, this means an A in the course)
+
+To request a recommendation
+
+* schedule an in-person meeting with me
+* send me an unofficial transcript and a resume
+* send me a letter explaining why you're applying to the graduate or phd program / program(s) and what makes you a good fit for the program (being more specific is better)
+</div>
+    </div>
+  </div><!-- end col -->
+
+
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+<a name="Tutoring"></a>
+<div class="panel-heading">Accommodations, Long Term Illness, Incompletes</div>
+<div class="panel-body" markdown="block">
+
+* accommodations, illness, falling behind
+	* if you have an accommodation you  must inform me by the time the midterm exam is returned
+* incompletes cannot be requested (they are determined by me when calculating grades... for students who have the majority of their work done but have missed some coursework due to circumstances outlined above in the "late homework" section)
+
+</div>
+    </div>
+  </div><!-- end col -->
+</div><!-- end row -->
+
+
