@@ -1,4 +1,4 @@
-title: CSCI-UA.0480 Fall 2018, Section 001, 003
+title: CSCI-UA.0480 Spring 2019, Section 008
 
 baseurl: ""
 resource_prefix: "resources/"
@@ -58,40 +58,40 @@ vars:
   book_js_9_link: "http://chimera.labs.oreilly.com/books/1234000000262/index.html"
   book_js_9_author: Eric Elliott 
 
-  survey_intro: https://docs.google.com/forms/d/e/1FAIpQLSdCa-9Ua68PcRZe2ujr91--T2ry7zClrnv8R5E4MDbwDTKXIA/viewform
-  piazza: https://piazza.com/nyu/fall2018/csciua0480section001003/home
+  survey_intro: https://docs.google.com/forms/d/e/1FAIpQLSfH_31bRaKCjdOcJwaKrVogbwt-HnD2LhHaca85fp90bm_xPQ/viewform
+  piazza: https://piazza.com/nyu/spring2019/csciua0480section008/home
   email: jversoza@cs.nyu.edu
-  contact_link: https://piazza.com/nyu/fall2018/csciua0480section001003/home
+  contact_link: https://piazza.com/nyu/spring2019/csciua0480section008/home
   contact_label: piazza
   contact_note: (the best way to contact me!) 
 
   course_number: "CSCI-UA.0480"
-  course_section: "001"
-  course_section_2: "003"
+  course_section: "008"
+  # course_section_2: "003"
   course_name: "Applied Internet Technology"
-  course_semester: "Fall 2018"
-  course_time: "Tue and Thur, 8:00AM - 9:15AM"
-  course_time_2: "Tue and Thur, 11:00AM - 12:15PM"
-  course_room: WWH 201
-  course_room_2: Silver 411
-  course_url: http://jvers.com/csci-ua.0480-fall2018-001-003
+  course_semester: "Spring 2019"
+  course_time: "Mon and Wed, 11:00AM - 12:15AM"
+  # course_time_2: "Tue and Thur, 11:00AM - 12:15PM"
+  course_room: WWH 109
+  # course_room_2: Silver 411
+  course_url: http://jvers.com/csci-ua.0480-spring-008
   course_site_alt: http://cs.nyu.edu/~jversoza
 
   # office hours
-  office_hours: "9:25AM - 10:55AM, Monday and Tuesday"
+  office_hours: "9:25AM - 10:55AM on Monday and Wednesday"
   office_hours_room: WWH 422 
 
   # finals
   # CSCI-UA.0480-002  Special Topics: Applied Internet Technology Joseph Versoza      Tuesday, December 16, 2014  8:00AM - 9:50AM 
-  final_date: Dec 13
-  final_day: Thu
-  final_time: "3:30PM - 4:45PM"
+  final_date: May 13
+  final_day: Mon
+  final_time: "11:00PM - 12:15PM"
   final_room: WWH 109
-  survey_github: https://docs.google.com/forms/d/e/1FAIpQLSdCa-9Ua68PcRZe2ujr91--T2ry7zClrnv8R5E4MDbwDTKXIA/viewform
+  survey_github: https://docs.google.com/forms/d/e/1FAIpQLSfH_31bRaKCjdOcJwaKrVogbwt-HnD2LhHaca85fp90bm_xPQ/viewform
   
   node_version: 9.x.x or 10.x.x
 
   slides_img_prefix: "../../resources/img"
-  github_org: "https://github.com/nyu-csci-ua-0480-001-003-fall-2018"
+  github_org: "https://github.com/nyu-csci-ua-0480-008-spring-2019"
 
 

@@ -1,5 +1,5 @@
 draft,type,num,date,day,topics,slides,readings,assignments,
-,,1,4-Sep,Tue,"* Introductions 
+,,1,28-Jan,Mon,"* Introductions 
 * JavaScript Basics
 * Variables
 * Functions","* [Intro](slides/intro/intro.html#/10)
@@ -54,7 +54,7 @@ __Due Monday 9/10, by 11pm__
 
 * Quizzes #2 and #3 
 * (Quizz #1 is Optional)",
-,,2,6-Sep,Thu,"* Objects
+y,,2,30-Jan,Wed,"* Objects
 * Node
 * Modules and Require
 * Static Analysis Tools
@@ -78,7 +78,7 @@ __Due Monday 9/10, by 11pm__
 * [Homework #1](homework/01.html) 
 
 ",
-,,3,11-Sep,Tue,* Higher Order Functions,"* Tutoring and Workshops!
+y,,3,04-Feb,Mon,* Higher Order Functions,"* Tutoring and Workshops!
 * Node and NPM (above)
      * package.json
      * package-lock.json
@@ -107,7 +107,7 @@ __Due Monday 9/10, by 11pm__
 * Quizzes #4 and #5
 -->
 ",
-,,4,13-Sep,Thu,"* Objects and Prototypes
+y,,4,06-Feb,Wed,"* Objects and Prototypes
 ","* [Objects and Prototypes, Classes](slides/05/prototypes.html)
 * [Objects in JavaScript Summary](slides/05/objects-review.html)
 * [Where Not to Use Arrow Functions](slides/05/not-arrow.html)
@@ -140,7 +140,7 @@ __Due Sunday 9/25, by 9am__
 * Quizzes #4 and #5
 
 ",
-,,5,18-Sep,Tue,"* Networking Primer
+y,,5,11-Feb,Mon,"* Networking Primer
 * Network Programming
 * Streams / Buffers / File IO
 * Web Development
@@ -165,7 +165,7 @@ MDN Documentation on HTTP
 * Chapter 13 - JavaScript and the Browser
 * Chapter 17 - HTTP (up to browsers and http)
 ",,
-,,6,20-Sep,Thu,"* A Simple Web Server Continued / Our ""Framework""
+y,,6,13-Feb,Wed,"* A Simple Web Server Continued / Our ""Framework""
 * Routing
 * Node HTTP Module","Discussion
 
@@ -188,7 +188,8 @@ Cookies
 * [MDN on Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 * nczonline articles on [Cookies](https://www.nczonline.net/blog/2009/05/05/http-cookies-explained/) and [Cookies and Security](https://www.nczonline.net/blog/2009/05/12/cookies-and-security/)
 ",,
-,,7,25-Sep,Tue,"* HTTP Module
+y,holiday,,18-Feb,Mon,,,,,
+y,,7,20-Feb,Wed,"* HTTP Module
 * Web Framework
 * Project Layout","Coding Demo
 
@@ -233,7 +234,7 @@ Example Set 2
 NO GRACE PERIOD on extended deadline (was 2/19).
 
 * [Homework #3](homework/03.html) -->",
-,,8,27-Sep,Thu,"* Web Framework Continued
+y,,8,25-Feb,Mon,"* Web Framework Continued
 * Middleware
 * Templating","Slides
 
@@ -255,7 +256,7 @@ Coding Demo
 ","__Due Wednesday 10/10 at 11pm:__
 
 * [Homework #3](homework/03.html)",
-,,9,2-Oct,Tue,"Slides
+y,,9,27-Feb,Wed,"Slides
 
 * Cookies
 * Sessions
@@ -278,7 +279,7 @@ NO GRACE PERIOD on extended deadline (was 2/26).
 
 * [Homework #4](homework/04.html) 
 -->",
-,,10,4-Oct,Thu,"* Cookies
+y,,10,04-Mar,Mon,"* Cookies
 * Sessions 
 * NoSQL Database
 ","Slides / Notes
@@ -303,8 +304,7 @@ Cookies Revisited
 ","__Due Wednesday 10/17 at 11pm:__
 
 * [Homework #4](homework/04.html)",hw4
-,holiday,,9-Oct,Tue,Monday Schedule,,,,hw3
-,,11,11-Oct,Thu,"* Object Document Mapper
+y,,11,06-Mar,Wed,"* Object Document Mapper
 * Database Design
 * Authentication","__Slides__
 
@@ -337,7 +337,7 @@ __Due Thursday 3/22 at 11pm:__
 
 * [Homework #5](homework/05.html) 
 -->",
-,,12,16-Oct,Tue,"* URL Parameters
+y,,12,11-Mar,Mon,"* URL Parameters
 * Finishing Database
 * Validation","* [Router Objects](slides/14/routers.html)
 * [URL Parameters](slides/14/params.html)
@@ -359,9 +359,11 @@ Mongoose
 * [Embedded Documents - Sub Docs](http://mongoosejs.com/docs/subdocs.html) 
 * [Document References - Mongoose Population](http://mongoosejs.com/docs/populate.html) 
 ",Quizzes To Be Posted on NYU Classes for After Midterm,
-,,13,18-Oct,Thu,"* About the Exam, Review",,,,
-,exam,14,23-Oct,Tue,EXAM #1 (Midterm Exam),,,,
-,,15,25-Oct,Thu,"* Authentication
+y,holiday,,13-Mar,Wed,,,,,
+y,holiday,,18-Mar,Mon,,,,,
+y,,13,20-Mar,Wed,"* About the Exam, Review",,,,
+y,exam,14,25-Mar,Mon,EXAM #1 (Midterm Exam),,,,
+y,,15,27-Mar,Wed,"* Authentication
  * Authentication Library
 * Deployment
 
@@ -390,7 +392,7 @@ Password Hashing
 ","__Due Monday 11/5 at 11pm:__
 
 * [Homework #5](homework/05.html)",
-,,16,30-Oct,Tue,"* HTML Primer, JavaScript and the Browser
+y,,16,01-Apr,Mon,"* HTML Primer, JavaScript and the Browser
 * The Document Object Model
 * Manipulating Elements","* [HTML Primer, JavaScript and the Browser](slides/17/javascript-browser.html)
 * [The Document Object Model](slides/17/dom.html)
@@ -405,7 +407,7 @@ Password Hashing
 * {{ site.book_js_5 }} - Chapter 13 - The Document Object Model
 * [HTML and CSS from shayhowe.com](http://learn.shayhowe.com/html-css/getting-to-know-html/)
 ",,
-,,17,1-Nov,Thu,"* CSS
+y,,17,03-Apr,Wed,"* CSS
 
 <!--
 * Flexbox
@@ -421,7 +423,7 @@ Password Hashing
 ","__Due Wednesday 11/7 at 11pm:__
 
 *  [Final Project Miletsone #01](final-project.html#milestone01)",
-,,18,6-Nov,Tue,"* CSS Continued
+y,,18,08-Apr,Mon,"* CSS Continued
 * Events / Timers Continued
 * AJAX
 * APIs","* See Previous Slides for CSS, Events
@@ -429,7 +431,7 @@ Password Hashing
 ",* {{ site.book_js_5 }} - Chapter 17 - HTML (Focus on the section on XMLHttpRequest),"__Due Tuesday 11/13 at 11pm:__
 
 * [Homework #6](homework/06.html)",
-,,19,8-Nov,Thu,"* AJAX Continued
+y,,19,10-Apr,Wed,"* AJAX Continued
 * Promises
 * Fetch API","* [Ajax Part 1](slides/20/ajax.html) (from previous class)
 * [Ajax Part 2](slides/21/ajax-express.html)
@@ -443,10 +445,10 @@ __Due <s>Wednesday 4/11</s> Thursday 4/12 at 11pm:__
 __Due Monday 11/19 at 11pm:__
 
 * [Final Project Miletsone #02](final-project.html#milestone2)",m1 due
-,,20,13-Nov,Tue,"* AJAX Review
+y,,20,15-Apr,Mon,"* AJAX Review
 * Promises Review
 * async / await",See previous slides,,,
-,,21,15-Nov,Thu,"* AJAX Review
+y,,21,17-Apr,Wed,"* AJAX Review
 * Promises Review
 * async / await","* Previous class on AJAX post
 * Previous class on Promises
@@ -459,15 +461,14 @@ __Due Monday 11/19 at 11pm:__
 <!--
 * [Final Project Miletsone #03](final-project.html#milestone03)
 -->",m2 due
-,,22,20-Nov,Tue,* SocketIO, * [Socket.io](slides/23/socketio.html),,"
+y,,22,22-Apr,Mon,* SocketIO, * [Socket.io](slides/23/socketio.html),,"
 * [Socket IO How-To](http://socket.io/docs/)
 ",
-,holiday,,22-Nov,Thu,Thanksgiving,,,,
-,,23,27-Nov,Tue,* SocketIO Continued,See previous slides,,"Due Friday, Nov 30th
+y,,23,24-Apr,Wed,* SocketIO Continued,See previous slides,,"Due Friday, Nov 30th
 
 * [Final Project Submission Form](https://docs.google.com/forms/d/e/1FAIpQLSeATOKS-mdDjIxVv5kkKiavnlabuvvqbmyGTyW8AQ0nQgo9zw/viewform)
 ",m3 due
-,,24,29-Nov,Thu,"* Socket IO Continued
+y,,24,29-Apr,Mon,"* Socket IO Continued
 * Frontend Framework  
 
 ","* Final Project
@@ -509,7 +510,7 @@ Due 4/27 at 11pm
 
 
 ",
-,,25,4-Dec,Tue,* Frontend Framework Continued,"* [React Basics](slides/26/react.html) (from previous class)
+y,,25,01-May,Wed,* Frontend Framework Continued,"* [React Basics](slides/26/react.html) (from previous class)
 * [React Revisited](slides/26/react-state-parent.html) (from previous class)
 * [React and Express / Using Webpack](slides/26/react-webpack-continued.html)
 * React review, multiple child clickers and forms
@@ -517,7 +518,7 @@ Due 4/27 at 11pm
 ",,"__Due Tuesday 12/11 at 11pm:__ 
 
 * [Homework #8](homework/08.html)",m4 due
-y,,26,6-Dec,Thu,"* TBD (everything together, wasm, webgl, electron or webaudio?)","* from previous slides...
+y,,26,06-May,Mon,"* TBD (everything together, wasm, webgl, electron or webaudio?)","* from previous slides...
   * go over webpack 
   * go over text input
   * componentDidMount
@@ -529,5 +530,5 @@ Due __today__ while you're in class:
 * [React Lab](homework/react-lab.html)
     * [Form to submit](https://docs.google.com/forms/d/e/1FAIpQLSde-vCFp3eJ9vFII9534X_FErSum5G8j3r2q4Uide7skzszaQ/viewform)
 ",
-y,,27,11-Dec,Tue,* Review,,,,
-y,exam,28,13-Dec,Thu,EXAM #2 (Final Exam),,,,
+y,,27,08-May,Wed,* Review,,,,
+y,exam,28,13-May,Mon,EXAM #2 (Final Exam),,,,
