@@ -1,2 +1,2 @@
 
-Course site for 0480 - AIT (Test)
+Course site for 0480 - AIT
