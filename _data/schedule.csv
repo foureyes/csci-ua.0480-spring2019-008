@@ -413,10 +413,9 @@ y,,16,01-Apr,Mon,"* HTML Primer, JavaScript and the Browser
 ",,
 y,,17,03-Apr,Wed,"* CSS Continued
 * Events / Timers 
-<!--
-* Flexbox
-* Grids
--->","
+* (Optional / Briefly) Flexbox
+* (Optional / Briefly) Grids
+","
 * [JavaScript Timers](slides/19/timers.html)
 * [CSS](slides/19/css.html)
 * [Selectors, JS and CSS](slides/19/js-css.html)
