@@ -1,2 +1,2 @@
 
-Course site for 0480 - AIT (Testing Webhook)
+Course site for 0480 - AIT 
