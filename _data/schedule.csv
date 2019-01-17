@@ -82,8 +82,10 @@ Slides
 * [Chapter 3. Building Robust Node Applications](http://chimera.labs.oreilly.com/books/1234000001808/ch03.html) (excluding ""Using Multiple Processors"")
 ","__Due Wednesday 2/6, by 11pm__
 
+* Homework #1 (to be posted)
+<!--
 * [Homework #1](homework/01.html) 
-
+-->
 ",
 y,,3,04-Feb,Mon,* Higher Order Functions,"* Node and NPM (above)
      * package.json
