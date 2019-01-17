@@ -425,8 +425,10 @@ y,,17,03-Apr,Wed,"* CSS Continued
 
 * [Homework #7](homework/07.html)
 * [Final Project Miletsone #02](final-project.html#milestone02)",
-y,,18,08-Apr,Mon,"* AJAX
-* APIs","* [Ajax Part 1](slides/20/ajax.html)
+y,,18,08-Apr,Mon,"* Events / Timers Review
+* AJAX
+* APIs","* Events / Timers Review
+* [Ajax Part 1](slides/20/ajax.html)
 ",* {{ site.book_js_5 }} - Chapter 17 - HTML (Focus on the section on XMLHttpRequest),,
 y,,19,10-Apr,Wed,"* AJAX Continued
 * Promises
