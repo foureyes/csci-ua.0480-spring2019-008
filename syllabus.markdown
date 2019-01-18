@@ -225,7 +225,7 @@ Additionally, the tutor will hold workshops based on student demand. Some worksh
 <a name="grading"></a>
 <div class="panel-heading">Recommendation Requests</div>
 <div class="panel-body" markdown="block">
-Recommendation letters may be provided based if:
+Recommendation letters may be provided if:
 
 * you have taken two courses with me or if you've worked with me in some capacity (grader, tutor, etc.) 
 * you are applying to a maximum of 4 schools
@@ -245,12 +245,20 @@ To request a recommendation
   <div class="col-md-6">
     <div class="panel panel-default">
 <a name="Tutoring"></a>
-<div class="panel-heading">Accommodations, Long Term Illness, Incompletes</div>
+<div class="panel-heading">Accommodations, Long Term Illness, Falling Behind</div>
 <div class="panel-body" markdown="block">
+If you are falling behind, please see me in-person as soon as possible: 
 
-* accommodations, illness, falling behind
-	* if you have an accommodation you  must inform me by the time the midterm exam is returned
-* incompletes cannot be requested (they are determined by me when calculating grades... for students who have the majority of their work done but have missed some coursework due to circumstances outlined above in the "late homework" section)
+* before or after class
+* during office hours
+* ...or by appointment
+
+Notification of accommodations
+
+* if you have an accommodation you must inform me by the time the midterm exam 
+* (note that Moses Center will inform me of official accommodations, so if you've registered with them, there's no need for additional notification)
+
+Note that an incomplete cannot be requested (they are determined by me when calculating grades... for students who have the majority of their work done but have missed some coursework due to circumstances outlined above in the "late homework" section).
 
 </div>
     </div>
