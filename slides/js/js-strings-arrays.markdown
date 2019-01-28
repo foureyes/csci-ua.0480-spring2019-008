@@ -674,6 +674,27 @@ const {a, b} = {a: 1, b:2}
 </code></pre>
 
 </section>
+
+
+<section markdown="block">
+## Destructuring Continued
+
+* {:.fragment} number of values and variables don't have to match (you'll get undefined tho!)
+* {:.fragment} can leave `[a, , c]` blank to skip a value
+* {:.fragment} can use rest operator `[a, b, ...rest]` for remainder
+* {:.fragment} swapping `[a, b] = [b, a]`
+* {:.fragment} within a loop: `for(const [x, y] of points)`
+
+</section>
+
+
+
+
+
+
+
+
+
 {% comment %}
 <section markdown="block">
 ## An Exercise
