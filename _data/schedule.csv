@@ -2,22 +2,25 @@ draft,type,num,date,day,topics,slides,readings,assignments,
 ,,1,28-Jan,Mon,"* Introductions 
 * JavaScript Basics
 * Variables
-* Functions","* [Intro](slides/intro/intro.html#/10)
-* [About JavaScript](slides/js/js-intro.html) (h)
-* [Values, Types, and Operators](slides/js/js-values-types-operators.html#/9) (s)
+* Functions","In Class
+
+* [Intro](slides/intro/intro.html#/10)
+* [Values, Types, and Operators](slides/js/js-values-types-operators.html#/9) (skim)
 * [Variables, Built-in Functions](slides/js/js-variables-functions.html)
-* [Control Structures](slides/js/js-conditionals-loops.html) (s)
+* [Control Structures](slides/js/js-conditionals-loops.html) (skim)
 * [Functions](slides/js/js-functions.html)
-* [Hoisting](slides/js/js-hoisting.html) (s)
+* [Hoisting](slides/js/js-hoisting.html) (skim)
 * [Objects](slides/js/js-objects.html)
 * [Functions Some More!](slides/js/js-functions-addendum.html)
-* [Strings, Arrays, Mutability and Variable Parameters](slides/js/js-strings-arrays.html) (s)
-* Two Sections
+* [Strings, Arrays, Mutability and Variable Parameters](slides/js/js-strings-arrays.html) (skim)
 * Arriving on Time
 * Survey / Consent to Use GitHub
 * Piazza
 * Node Installation
 
+Home
+
+* [About JavaScript](slides/js/js-intro.html)
 ","For an in-depth JavaScript introduction, __skim__ these chapters in [{{ site.book_js }}]({{ site.book_js_5_link }})
 
 * [Chapter 7 - JavaScript's Syntax (the section on ""Strict Mode"" can be skipped)](http://speakingjs.com/es5/ch07.html) 
