@@ -91,7 +91,7 @@ Slides
 * [Homework #1](homework/01.html) 
 -->
 ",
-y,,3,04-Feb,Mon,* Higher Order Functions,"* Node and NPM (above)
+,,3,04-Feb,Mon,* Higher Order Functions,"* Node and NPM (above)
      * package.json
      * package-lock.json
      * npm (init, install, list)
