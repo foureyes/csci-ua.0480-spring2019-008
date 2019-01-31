@@ -3,40 +3,16 @@ layout: homework
 title: CSCI-UA.0480 - Homework #1
 ---
 
-<style>
-pre {
-	font-family: monospace !important;
-	font-size: 1.01em !important;
-}
-</style>
-<!--
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-	const tx = document.getElementsByTagName('textarea');
-	for (let i = 0; i < tx.length; i++) {
-  		tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
-		tx[i].addEventListener("input", OnInput, false);
-	}
-
-	function OnInput() {
-  		this.style.height = 'auto';
-		this.style.height = (this.scrollHeight) + 'px';
-	}
-});
-</script>
--->
 <div class="panel panel-default">
 	<div class="panel-heading">Homework #1</div>
 	<div class="panel-body" markdown="block">
 
-<h1 style="background: yellow; font-weight: bold; color: red;">DRAFT, PLEASE WAIT UNTIL HOMEWORK IS ANNOUNCED VIA PIAZZA / REPOSITORIES ARE CREATED</h1>
+# Tic Tac Toe and Scrabble Pal
 
-# Connectmoji
-
-## Due __Feb 7th, by 11PM__
+## Due __Sep 16th, by 11PM__
 
 <div markdown="block" class="img">
-![full play](../resources/img/connectmoji/full-play.gif)
+![tic tac toe from wargames](../resources/img/hw01-t3-wargames.gif)
 </div>
 
 ## Overview
@@ -45,30 +21,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 __There are multiple parts to this homework:__
 
-__Parts 1 and 2__ - Connectmoji
+__Parts 1 and 2__ - Tic Tac Toe
 
-Create an interactive 2-player (computer vs human player) "connection" game. 
+Create an interactive 2-player (computer vs human player) Tic Tac Toe game.
 
-* the game is played on a vertical grid of cells (imagine a board stood on its side)
-* players take alternate turns dropping a piece in a column
-* the piece dropped will occupy the lowest unoccupied cell of the grid
-* when a player drops a piece that results in an uninterrupted vertical, horizontal or diagonal line of adjacent identical pieces of an agreed upon length, that player wins
-* for example, the board below shows that 😎 has won the game by creating a vertical line of four consecutive pieces in column C 
-	<pre><code data-trim contenteditable>|    |    |    |    |    |    |    |
-|    |    | 😎 |    |    |    |    |
-| 💻 |    | 😎 |    |    |    |    |
-| 💻 | 😎 | 😎 |    | 💻 |    | 💻 |
-| 😎 | 😎 | 😎 | 💻 | 💻 | 😎 | 💻 |
-|----+----+----+----+----+----+----|
-| A  | B  | C  | D  | E  | F  | G  |
-</code></pre>
-* (note that this game can be played to any length of consecutive pieces or any number of rows / columns)
-
-
+* check out [the rules on wikipedia](https://en.wikipedia.org/wiki/Tic-tac-toe)
+* xkcd has a map that describes the [optimal tic-tac-toe moves](https://xkcd.com/832/)
+* some people take tic-tac-toe [really seriously](https://www.reddit.com/r/TrueTicTacToe/)
+* the gif above comes from a [youtube clip from the 1983 movie, Wargames](http://www.imdb.com/title/tt0086567/)
 
 You'll create this game in 2 parts. The first part will guide you through creating several helper functions for your game. The second part deals with implementing the game using the helper functions you made for part 1. It'll be a bit over-engineered, but don't worry - you don't have to use all of the functions you create (and you definitely won't use every feature in each function). Of course, you're encouraged to create your own helper functions as well!
 
-See the example animated gif at the top of these instructions to see how a single game may be played.
+See the [example game](#hw01-tic-tac-toe-sample) shown at the end of these instructions.
+
+__Part 3__  - Scrabble Pal
+
+Create a scrabble solver. It will allow you to enter a string of letters... and it will output the 5 highest scoring words that can be constructed from those letters. The scores for each word are on these [rules](https://en.wikibooks.org/wiki/Scrabble/Rules#Scoring), using the following [letter values](http://www.wordfind.com/scrabble-letter-values/). 
 
 
 ### Objectives
@@ -76,6 +44,7 @@ See the example animated gif at the top of these instructions to see how a singl
 1. Write some ES6!
     * control structures
     * functions
+    * higher order functions
     * Array and string manipulation
 2. Learn how to run node programs
 3. Learn about node built-ins:
@@ -84,7 +53,7 @@ See the example animated gif at the top of these instructions to see how a singl
     * `require`
 4. Install and use modules, create your own
 5. Run unit tests to check your work
-6. Use a static analysis tool (eslint) to help prevent bugs / errors
+6. Use a static analysis tool (eshint) to help prevent bugs / errors
 
 ### Submission Process
 
@@ -174,37 +143,18 @@ __Troubleshooting errors__
 
 ### Install Required Modules
 
-You'll also need a few modules to help you ask the user for input, clear the screen and determine the space that string takes up on on screen.
+You'll also need a module to help you ask the user for input.
 
-* `readline-sync`
-	* in your repository directory, install the node module, <code>readline-sync</code>, by running this command in your project's directory:
-    	<pre><code> npm install --save readline-sync
+* in your repository directory, install the node module, <code>readline-sync</code>, by running this command in your project's directory:
+    <pre><code> npm install --save readline-sync
 </code></pre>
-	* note that the <code>readline-sync</code> module allows you to prompt for user input __synchronously__
-		* this is very different from how node.js apps usually operate
-		* however, for our purposes, using sync prompt is fine (for now), and it mimics the browser's prompt functionality well
-	* check out the example usage on [readline-sync's npm page](https://www.npmjs.com/package/readline-sync)
-    	* essentially: `const readlineSync = require('readline-sync');`
-    	* which imports the function <code>question</code> from the <code>readline-sync</code> module into your program
-	* note that installing `readline-sync` will make a modification to `package.json` as well. This modification to `package.json` should be committed and pushed as well!
-* `clear`
-	* in your repository directory, install the node module, <code>clear</code>, by running this command in your project's directory:
-    	<pre><code> npm install --save clear
-</code></pre>
-	* the <code>clear</code> module allows you to "clear" the screen for a command line program (across different platforms)
-	* check out the example usage on [clear's npm page](https://www.npmjs.com/package/clear)
-    	* essentially: `const clear = require('clear');`
-    	* which imports the function <code>clear</code> which can be used by simply calling it: `clear()`
-	* installing `clear` will make a modification to `package.json`; again, it should be committed and pushed along with your other files
-* `wcwidth`
-	* in your repository directory, install the node module, <code>wcwidth</code>, by running this command in your project's directory:
-    	<pre><code> npm install --save wcwidth
-</code></pre>
-	* the <code>wcwidth</code> module calculates the number of columns a string of characters needs to be represented onscreen (for example, in a monospace font, a single character may take up multiple cells, like a emoji smiley face 😃)
-	* check out the example usage on [wcwidth's npm page](https://www.npmjs.com/package/wcwidth)
-    	* essentially: `const wcwidth = require('wcwidth');`
-    	* which imports the function <code>wcwidth</code> which can be used by simply calling it: `wcwidth('😃')`
-	* installing `wcwidth` will make a modification to `package.json`; again, it should be committed and pushed along with your other files
+* note that the <code>readline-sync</code> module allows you to prompt for user input __synchronously__
+	* this is very different from how node.js apps usually operate
+	* however, for our purposes, using sync prompt is fine (for now), and it mimics the browser's prompt functionality well
+* check out the example usage on [readline-sync's npm page](https://www.npmjs.com/package/readline-sync)
+    * essentially: `const readlineSync = require('readline-sync');`
+    * which imports the function <code>question</code> from the <code>readline-sync</code> module into your program
+* note that installing `readline-sync` will make a modification to `package.json` as well. This modification to `package.json` should be committed and pushed as well!
 
 ###  Minimum Number of Commits
 
@@ -235,17 +185,17 @@ node myfile.js
 node src/myfile.js
 </code></pre>
 
-## Part 1 - Connectmoji
+## Part 1 - Tic Tac Toe Functions and Running Unit Tests
 
 ### Background 
 
-For your implementation, you'll break down the game into several functions. These helper functions will be written in a _module_ (a file separate from the file that actually runs your game), which you'll use in part 3: `src/connectmoji.js`
+For your implementation of Tic Tac Toe, you'll break down the game into several functions. These helper functions will be written in a _module_ (a file separate from the file that actually runs your game), which you'll use in part 3: `src/tic-tac-toe.js`
 
 The helper functions you'll be implementing are described below. Unit tests have been included in your repository in the file, `test/tic-tac-toe-test.js`. 
 
 ### Creating a Module / Exporting Functions 
 
-You'll be creating a module that contains a bunch of helper functions. The file that you'll be writing your module in is already included in your repository in `src/connectmoji.js`. Both your _actual_ interactive game (in Part 2) and the supplied unit tests will use this module. Note that we are __not using ES6 modules__ (they are only available in the latest version of node, and they are not enabled by default... and the node docs still use `require` rather than ES6 `import`).
+You'll be creating a module that contains a bunch of helper functions. The file that you'll be writing your module in is already included in your repository in `src/tic-tac-toe.js`. Both your _actual_ interactive Tic Tac Toe game (in Part 2) and the supplied unit tests will use this module. Note that we are __not using ES6 modules__ (it only available in the latest version of node, it is not enabled by default, and node docs still use `require` rather than ES6 `import`).
 
 To make the functions you write available when your module is brought into another program (that is, required or _imported_), you'll have to _export_ your functions. See [this sitepoint tutorial](https://www.sitepoint.com/understanding-module-exports-exports-node-js/) or this [article](http://openmymind.net/2012/2/3/Node-Require-and-Exports/) to get a primer on modules, `exports` and using `require`. There are a few ways to do export your functions (all of the examples use `module.exports`, but they should work with just `exports` as well):
 
@@ -326,8 +276,8 @@ To clear out the noise of dealing with many failing tests due to unimplemented f
 
 Any time that you see the functions `describe()` or `it()` in `tests/tic-tac-toe-test.js`, you can follow it with `.only()` to limit the tests being run to those contained in the call to `describe` or `it`. For example:
 ```
-# describe('generateBoard', function() { });
-describe.only(('generateBoard', function() { });
+# describe('board', function() { });
+describe.only(('board', function() { });
 # or
 # it('generates a board with specified number of rows and columns', function() { });
 it.only('generates a board with specified number of rows and columns', function() { });
@@ -338,9 +288,8 @@ Alternatively, you can simply comment out unused tests until you're ready to imp
 
 ### Assumptions
 
-The functions make some assumptions about how you'll be representing a Connectmoji grid:
+The functions make some assumptions about how you'll be representing a Tic Tac Toe board.
 
-{% comment %}
 1. although some functions allow for arbitrary rows and columns...
     * you can assume that a board will always have at least 1 square, but no more than 26 squares
     * you can also assume that a board's rows and columns will always be equal
@@ -1358,7 +1307,242 @@ if(move === undefined) {
 	* prompt the player for their move as if it were not scripted
 6. Again - skip invalid moves (moves that are not on the board or that attempt to move into an already occupied cell), and remove them from their respective scripted moves `Array`
 
-{% endcomment %}
+## Part 3 - Scrabble Pal
+
+
+Create a program that asks the user for a series of letters. It will output the 5 highest scoring words in Scrabble that can be formed from the letters entered (not all of the letters have to be used to form a word). Here's an example interaction:
+
+<pre><code data-trim contenteditable>Please enter some letters:
+>axdvree
+
+The top scoring words are:
+16 - vexed
+15 - vexer
+14 - exedra
+13 - raxed
+13 - vex
+</code></pre>
+
+### Preparation
+
+1. Find `enable1.txt` in your `data` folder - this is your word list
+2. Find `scrabble.js` in your `src` folder - this is where you'll write your program
+3. In `scrabble.js`, require the built-in `readline` and `fs` modules:
+    <pre><code data-trim contenteditable>const readline = require('readline');
+const fs = require('fs');
+</code></pre>	
+
+### Background Material and Callbacks
+
+To write this program, you'll use a word list called `enable1.txt`. Your program will read in this file to determine if the letters entered can construct any of those words.
+
+In your implementation, you'll be using a lot of functions that required callback functions to be passed in as arguments! So it'll be good to read up on functions as objects in the readings and slides.
+
+Instead of using `readline-sync` to ask for user for input, use the built-in `readline` module. The regular `readline` module will allow you to read input from the user.
+
+`readline` does the same thing as `readline-sync`, but it's asynchronous. That is, it's non-blocking, so it may not finish before your next line of code is executed. Try the sample programs below (you'll need a file called test.txt with a few lines in it to try the second example) to get a feel for programming with callbacks. Pay close attention to when `last line of program` is printed out.
+
+Lastly, use `fs.readFile` to read in your word list.
+
+__Input from the user__ 
+
+When `question` is called, a callback function, `handleUserInput` is passed in. This callback function isn't called immediately! Instead, it's called after the program receives input from the user. Consequently, the line printing `last line of program` is called before `'Hi ' + response` could be printed out.
+
+<pre><code data-trim contenteditable>const readline = require('readline');
+
+// set up a readline object that can be used for gathering user input
+const userPrompt = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+// ask a question
+userPrompt.question('What\'s your name?', handleUserInput);
+
+// the callback function that's run when the readline object receives input
+function handleUserInput(response) {
+    console.log('Hi ' + response);
+    userPrompt.close();
+}
+
+console.log('last line of program!');
+</code></pre>
+
+__Reading from a file__ 
+
+* the [`fs` module has a  readFile function](https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback) to do this
+* example usage of the `fs` module:
+	<pre><code data-trim contenteditable>
+fs.readFile('path/to/myFile.txt', 'utf8', function(err, data) {
+    if (err) {
+        console.log('uh oh', err); 
+    } else {
+        console.log(data);
+    }
+});
+
+__Please use a relative path to read the file!__
+
+* that is... read `data/enable1.txt` rather than `/full/path/to/enable1.txt`
+* assume that the program will be run from the project's root directory
+
+### Handle Scores
+
+The score for a word is calculated by summing the point values of each letter in the word. You can use the following object to associate letters with point values:
+
+<pre><code data-trim contenteditable>const letterValues = { 
+        "E": 1, "A": 1, "I": 1, "O": 1, "N": 1, "R": 1, "T": 1, "L": 1, "S": 1, "U": 1, 
+        "D": 2, "G": 2, "B": 3, "C": 3, "M": 3, "P": 3, "F": 4, "H": 4, "V": 4, "W": 4, 
+        "Y": 4, "K": 5, "J": 8, "X": 8, "Q": 10, "Z": 10 
+};
+</code></pre>
+
+You'll likely want to represent each word as an object... with the actual word as one property and the word's score as a second property. You can then sort an `Array` of these "word/score" objects using the [sort method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) on your `Array`.
+
+The `sort` method also requires a callback function... which is used to compare the values in the `Array`. Check out the following example where the `Array`, `numbers` is sorted from highest to lowest:
+
+<pre><code data-trim contenteditable>const numbers = [1, 3, 2, 7, 5, 4, 6];
+
+// sort numbers from highest to lowest
+numbers.sort(function(a, b) {
+    // if a is less than b, then a should be after b 
+    if(a < b) {
+        return 1;
+    } else if(a > b) {
+        return -1;
+    } else {
+        return 0;
+    }
+});
+console.log(numbers);
+
+// for ascending, swap the 1 and -1 (or really, just omit the callback / compare function)!
+</code></pre>
+
+Note that the compare / callback function is an anonymous function that returns a positive, negative or zero value. If a positive value is returned, it means that the first argument passed in is greater, and should occur after the second element in the sorted `Array`.
+
+### Implementation
+
+So... this is a pretty short program, and may seem easy on the surface. However, there are some really tricky parts! You'll have to put together the examples from the background material above along with a novel algorithm for determining all of the valid words that a set of letters can create. You should approach this program incrementally, testing as you go along. Unlike the previous 2 parts, it's up to you to determine how to break up your program into functions.
+
+__A potential algorithm for finding all words that can be formed from a series of letters__
+
+* go through every word in the word list
+    * make a copy of the user input
+    * go through every letter in the word from the word list
+    * if the letter exists in the copy of the user input, remove it from the copy of the user input 
+    * if the letter doesn't exist, then you know the word from the word list cannot be formed by the letters in the user input
+    * if all of the letters in the word from the word list have been iterated over, then you know the word can be formed by the letters in the user input!
+* some methods that may be useful for doing this are:
+    * a String's [split](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split) method - to break up a string into an `Array` of characters
+    * an Array's [indexOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf) method - to determine if an element exists in an `Array`
+    * an Array's [splice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice) method - to remove an element or elements from an `Array`
+
+__Dealing with scope and callbacks__
+
+Because you'll be writing a lot of callback functions, you may find that you don't have access to certain variables because they're within the local scope of another function. Here's an example:
+
+<pre><code data-trim contenteditable>const readline = require('readline');
+
+function main() {
+    const greeting = "Hello ";
+
+    const userPrompt = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    userPrompt.question('What\'s your name?', handleUserInput);
+
+}
+
+function handleUserInput(response) {
+    console.log(greeting + ' ' + response);
+    userPrompt.close();
+}
+
+main();
+</code></pre>
+
+If you run the above code, you'll get the following error:
+
+`ReferenceError: greeting is not defined`
+
+Because greeting is within the local scope of `main`. Assuming you want to keep the `main` function around, you can get around this by employing one the following strategies (I recommend using the arrow function version!):
+
+* (easy, but sloppy) using a lot of global variables - just move the declaration of `greeting` outside of `main`
+* (easy, slightly less sloppy) nest functions within other functions if you need inner function to access variables in the outer function 
+    <pre><code data-trim contenteditable>const readline = require('readline');
+    
+    function main() {
+    const greeting = "Hello ";
+
+    const userPrompt = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    userPrompt.question('What\'s your name?', handleUserInput);
+
+    function handleUserInput(response) {
+        console.log(greeting + ' ' + response);
+        userPrompt.close();
+    }
+}
+main();
+</code></pre>
+* (difficult) pass the necessary variables to the function as arguments, and then fix the arity by using an anonymous function (that is, fix the values of a function's parameters) when using the function as a callback (an arrow function or _regular_ function expression will work):
+    <pre><code data-trim contenteditable>const readline = require('readline');
+    
+    function main() {
+    const greeting = "Hello ";
+
+    const userPrompt = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+	// using arrow function
+	// (arrow function takes one argument and passes that as third argument to handleUserInput)
+    userPrompt.question('What\'s your name?', (response) => { handleUserInput(userPrompt, greeting, response); } );
+
+	// or with a function expression
+    // userPrompt.question('What\'s your name?', function(response) {
+    //     handleUserInput(userPrompt, greeting, response);
+    // });
+}
+function handleUserInput(userPrompt, greeting, response) {
+    console.log(greeting + ' ' + response);
+    userPrompt.close();
+}
+main();
+</code></pre>
+* (difficult) pass the necessary variables to the function as arguments, and then fix the arity of the callback by using an arrow function or [bind](https://www.google.com/search?q=js+bind&oq=js+bind&aqs=chrome..69i57j0l5.1794j0j4&sourceid=chrome&ie=UTF-8)
+    <pre><code data-trim contenteditable>const readline = require('readline');
+
+    function main() {
+    const greeting = "Hello ";
+
+    const userPrompt = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+	// using bind...
+    userPrompt.question('What\'s your name?', handleUserInput.bind(null, userPrompt, greeting));
+}
+function handleUserInput(userPrompt, greeting, response) {
+    console.log(greeting + ' ' + response);
+    userPrompt.close();
+}
+main();
+</code></pre>
+
+__Issues Reading a File__
+
+You should be running your program from your project root directory. The path given to `fs.readFile` should be:
+
+`data/enable1.txt`
 
 </div>
 
