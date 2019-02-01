@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 # Connectmoji
 
-## Due __Feb 7th, by 11PM__
+## Due __Feb 8th, by 11PM__
 
 <div markdown="block" class="img">
 ![full play](../resources/img/connectmoji/full-play.gif)
@@ -340,10 +340,9 @@ Alternatively, you can simply comment out unused tests until you're ready to imp
 
 The functions make some assumptions about how you'll be representing a Connectmoji grid:
 
-{% comment %}
-1. although some functions allow for arbitrary rows and columns...
-    * you can assume that a board will always have at least 1 square, but no more than 26 squares
-    * you can also assume that a board's rows and columns will always be equal
+1. the width of the grid is based on the number of columns (of course, the number of rows, specifies height)
+2. each column can be identified by using an uppercase letter (for example, `A` for the first column)
+3. although some functions allow for an arbitrary number of columns, you can assume that the board will always have at least 1 column, but no more than 26 columns
 2. we can name a cell / square based on its row number and column number 
     * rows start from the top with row number 0
     * cols start from the left with column number 0
@@ -360,108 +359,114 @@ The functions make some assumptions about how you'll be representing a Connectmo
 </code></pre>
     * in this example, the middle cell (containing 4) is at row 1, column 1
     * the cell containing 2 (the last column of the first row) is at row 0, column 2
-3. Alternatively, we can reference a cell using a format borrowed from [chess algebraic notation](https://en.wikipedia.org/wiki/Algebraic_notation_(chess))
-    * the rows are uppercase letters starting with A from the top
-    * ... while the columns are numbers __starting at 1 from the left__
-	* (__this is an abomination of chess notation, where letters and rows are represented by numbers and letters respectively (sry!)__)
-    * using this notation, the board with labels would like like this:
-        <pre><code data-trim contenteditable>          columns
-               1   2   3
-             +---+---+---+
-  r  A | 0 | 1 | 2 |
-  o    +---+---+---+
-  w  B | 3 | 4 | 5 |
-  s    +---+---+---+
-           C | 6 | 7 | 8 |
-             +---+---+---+
-</code></pre>
-    * the middle cell (containing 4) is at B2
-    * the cell containing 2 (the last column of the first row) is at A3
-4. Although a 2-dimensional Array is a natural fit for representing a Tic Tac Toe board, __your implementation of Tic Tac Toe will use a one dimensional `Array` to represent the board__
-    * in this representation, imagine all of the rows of the board placed adjacent to each other 
+4. Although a 2-dimensional Array is a natural fit for representing a board with cells, __your implementation will use an object that contains:
+	* a property called `data`: a one dimensional `Array` used to represent the board
+    * two additional properties, `rows` and `cols` that specify how many rows and columns the board containsin this representation, imagine all of the rows of the board placed adjacent to each other 
+	* wait a second! how can we represent a grid with a one-dimensional `Array`?
+	* see the diagram below for a board with 3 columns and 3 rows:
         <pre><code data-trim contenteditable>           +-----+-----+-----+-----+-----+-----+-----+-----+-----+
 row, col   | 0,0 | 0,1 | 0,2 | 1,0 | 1,1 | 1,2 | 2,0 | 2,1 | 2,2 |
-                 +-----+-----+-----+-----+-----+-----+-----+-----+-----+
-algebraic  | A1  | A2  | A3  | B1  | B2  | B3  | C1  | C2  | C3  |
                  +-----+-----+-----+-----+-----+-----+-----+-----+-----+
 index      |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
                  +-----+-----+-----+-----+-----+-----+-----+-----+-----+
 </code></pre>
-    * the upper left corner would be at index 0 (or row 0, column 0)
-    * the upper left corner would be at index 2 (or row 0, column 2)
-    * the center square would be at index 4 (or row 1, column 1)
-5. The empty string, `""`, will be used to mark an empty square
-6. You can assume that all of the code examples below use `tic` as the name of the imported module of your Tic Tac Toe functions
-
+	    * the upper left corner would be at index 0 (or row 0, column 0)
+    	* the upper left corner would be at index 2 (or row 0, column 2)
+    	* the center square would be at index 4 (or row 1, column 1)
+5. `null` will be used to mark an empty cell
+6. Using the examples above, a full board object that has 2 rows and 3 columns with all empty cells may look like this 
+	<pre><code data-trim contenteditable>{ 
+  data: [null, null, null, null, null, null],
+  rows: 2,
+  cols: 3
+}
+</code></pre>
+7. you can assume that all of the code examples below use `c` as the name of the imported module of your Connectmoji functions
 
 <br>
 
 ### Functions to Implement
 
 
-### `board(rows, columns, initialCellValue) // modify parameters to allow for default values` 
+### `generateBoard(rows, cols, fill) // modify parameters to allow for default values` 
 
 __Parameters:__
 
 * `rows` - the number of rows in the board
-* `columns` - the number of columns in the board
-* `initialCellValue` (optional) - the initial value contained in each square
-    * default value should be empty string (`""`)
+* `cols` - the number of columns in the board
+* `fill` (optional) - the initial value contained in each cell
+    * default value should be empty string (`null`)
 
 __Returns:__
 
-* a single dimensional `Array` containing the number of elements that would be in a rows x columns board... with each cell containing the initial value, `initialCellValue`
+An object containing 3 properties:
+
+* `data`: single dimensional `Array` containing the number of elements that would be in a rows x columns board... with each cell containing the initial value, `initialCellValue`
+* `rows`: the number of rows in the board (its height)
+* `cols`: the number of columns in the board (its width)
 
 __Description:__
 
-Creates a single dimensional `Array` representation of a Tic Tac Toe board. The number of elements in the `Array` is the same as the number of squares in the board based on the supplied number of `rows` and `columns`. The initial value in each cell is the `initialCellValue` passed in. If `initialCellValue` is not passed in, default to  (`""`).
+Creates and returns an object with the three properties specified above. Note that `data` will be a single dimensional `Array` representation of the board. The number of elements in the `Array` is the same as the number of cells in the board based on the supplied number of `rows` and `columns`. The initial value in each cell is the `fill` passed in. If `fill` is not passed in, default to  (`null`).
 
-A `for` loop and generous use of `push` works here, but an alternative would be to use an [`Array` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Syntax) (not typical, but worth doing in this case) with the [`fill` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)
+A `for` loop and generous use of `push` works here, but an alternative would be to use an [`Array` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Syntax) (not typical, but worth doing in this case) with the [`fill` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill) for creating the `data` property.
+
+The `rows` and `cols` property can be set directly from the arguments passed in!
 
 
 
 __Example:__
 
-    // creates a board with 9 squares (default value not specified)
-    const board = tic.board(3, 3);
-    // board = ["", "", "", "", "", "", "", "", "", ];
-    // (each empty cell is an empty string)
+	const board1 = c.generateBoard(2, 3);
+	// board1 is
+	// { 
+	//   data: [null, null, null, null, null, null],
+	//   rows: 2,
+	//   cols: 3
+	// }
 
-    // creates a board with 9 squares, with "-" as initial value
-    const board = tic.board(3, 3, "-");
-    // board = ["-", "-", "-", "-", "-", "-", "-", "-", "-", ];
+	const board2 = c.generateBoard(2, 3, false);
+	// board2 is
+	// { 
+	//   data: [false, false, false, false, false, false],
+	//   rows: 2,
+	//   cols: 3
+	// };
+
 <hr>
 
-### `toIndex(board, row, col)` 
+### `rowColToIndex(board, row, col)` 
 
 __Parameters:__
 
-* `board` - the board where the `row` and `col` come from
-* `row` - the row number to be converted to an index in a one dimensional a`Array` representation
+* `board` - the board object where the `row` and `col` come from
+* `row` - the row number to be converted to an index in a one dimensional `Array` representation
 * `col` - the column number to be converted to an index in a one dimensional a`Array` representation
 
 __Returns:__
 
-* a `Number`, the index that's mapped to by the given `row` and `col`
+* a `Number`, the index that's mapped to by the given `row` and `col` based on the board's data and internal `rows` and `cols` properties
 
 __Description:__
 
-A cell in a Tic Tac Toe board can be specified by a row number and a column number. However, our board implementation uses a one dimensional `Array`, so a cell must be specified by a single index. This function translates a row and a column into an index in the one dimensional `Array` representation of a Tic Tac Toe board. 
+A cell in the board object's `data` `Array` can be specified by a row number and a column number. Again, `data` is a one dimensional `Array`, so to retrieve a value from data only a single index can be used. This function translates a row and a column into an index in the one dimensional `Array` stored in the `board` object's data property
 
-Hint: [Math.sqrt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sqrt) can be used to help determine the original width and height of the board even though `board` comes in as a one dimensional `Array`.
+Hint: Use the `board` object's `rows` and `cols` properties to calculate the appropriate index, `i`, from the `board` object's `data` property
 
 __Example:__
 
-    // translates a row and col to a single index
-    const board = tic.board(3, 3, "");
-    const i = tic.toIndex(board, 1, 1);
-    const j = tic.toIndex(board, 0, 2);
-    // i is 4 (column 1, row 1 is the same as the element at index 4)
-    // j is 2
+	// translates a row and col to an index
+	const board = c.generateBoard(3, 3);
+
+	const i = c.rowColToIndex(board, 1, 1);
+	// 4
+
+	const j = c.rowColToIndex(board, 0, 2);
+	// 2
 
 <hr>
 
-### `toRowCol(board, i)`
+### `indexToRowCol(board, i)`
 
 __Parameters:__
 
@@ -480,12 +485,14 @@ Hint: Again, [Math.sqrt](https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
 __Example:__
 
-    // translates an index into a row and column...
-    const board = tic.board(3, 3, "");
-    const rowCol1 = tic.toRowCol(board, 4);
-    const rowCol2 = tic.toRowCol(board, 2);
-    // rowCol1 is: {"row": 1, "col": 1};
-    // rowCol2 is {"row": 0, "col": 2};
+	// translates an index to a row and col (as an object)
+	const board = c.generateBoard(3, 3);
+
+	const rowCol1 = c.indexToRowCol(board, 4);
+	// {"row": 1, "col": 1}
+
+	const rowCol2 = c.indexToRowCol(board, 2);
+	// {"row": 0, "col": 2}
 
 <hr>
 
@@ -1358,7 +1365,6 @@ if(move === undefined) {
 	* prompt the player for their move as if it were not scripted
 6. Again - skip invalid moves (moves that are not on the board or that attempt to move into an already occupied cell), and remove them from their respective scripted moves `Array`
 
-{% endcomment %}
 
 </div>
 
