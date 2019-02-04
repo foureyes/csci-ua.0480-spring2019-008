@@ -654,111 +654,179 @@ A few rules for displaying
 * if the value in the `board` object's `data` `Array` is null, treat it as a blank cell; display _some number of spaces_ in the string
 * pad each value of an occupied cell with a space, before and after
 * some emoji take up more than one "character width", even though they're one character... so you'll have to dynamically size the grid by using the `wcwidth` function
-	* for example `wcwidth('😃')` gives back 2
-	* this means that the number of "normal" characters between the pipes (`|`), must be 4 (the smiling emoji is one character, but its display takes up two characters 
-	so 4 spaces for empty cell or a smiling emoji with a space before and after)
+	* for example `wcwidth('😃')` gives back 2, meaning the emoji character, while counted as 1 for string length purposes, actually takes up the width of two characters in the display
+	* this means that the width (not the string length) between the pipes (`|`), must be 4:
+	* 4 spaces for empty cell 
+	* a smiling emoji with a space before and after)
+* if a character padded with single spaces causes a misalignment (is narrower than other cells), __add additional padding on the right__ (that is, add spaces to the end to match width of widest cell)
+	<pre class="board"><code data-trim contenteditable>| 😄 |    |    |    |    |    |    |
+| X  |    |    |    |    |    |    |
+</code></pre>
 * the column labels should be shown as letters underneath the grid
-	* they should also be padded with
-
+	* they should also be padded with a space
+	* add additional padding at the end to match width of widest cell
+		<pre class="board"><code data-trim contenteditable>|----+----+----+----+----+----+----|
+| A  | B  | C  | D  | E  | F  | G  |`
+</code></pre>
+* note that there are no leading or trailing newlines or spaces before and after the board
 
 This one is actually quite challenging (and tedious) to get exactly right, so if you're not getting the test passing, but it _looks like_ the expected output, there won't be any penalties ... and if there are other issues (for example, not adding labels), there will only be small point penalties.
 
-Again, you can __assume that the numbers of rows and columns will not be greater than 26__.
+Again, you can __assume that the numbers of columns will not be greater than 26__.
 
-Hint: One way of dealing with the row label is to use [String.fromCodePoint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint), which gives you the unicode code point of the character supplied.
+Hint: One way of dealing with the row label is to use one of the following functions that returns the unicode code point of the character given:
+
+* [String.fromCodePoint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint)
+* [String.fromCharCode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCharCode)
+* ...and a little bit about [how they're different](https://stackoverflow.com/questions/34680898/can-you-use-string-fromcodepoint-just-like-string-fromcharcode) (tl;dr... `fromCodePoint` can deal with all legal unicode values, but may not be as widely supported as `fromCharCode`)
 
 __Example:__
 
     // a string representation of a board with two moves
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "B2");
-    board = tic.placeLetters(board, 'O', "A3");
-    // board will be equal to the following string:
-    // "     1   2   3  \n   +---+---+---+\n A |   |   | O |\n   +---+---+---+\n B |   | X |   |\n   +---+---+---+\n C |   |   |   |\n   +---+---+---+\n"
+    let board = c.generateBoard(6, 7);
+    board = c.setCells(
+      board, 
+      {row: 6, col: 0, val: 'X'},
+      {row: 5, col: 0, val: '😄'}
+    );
 
+	// board is exactly the string below
+	`|    |    |    |    |    |    |    |
+	|    |    |    |    |    |    |    |
+	|    |    |    |    |    |    |    |
+	|    |    |    |    |    |    |    |
+	| 😄 |    |    |    |    |    |    |
+	| X  |    |    |    |    |    |    |
+	|----+----+----+----+----+----+----|
+	| A  | B  | C  | D  | E  | F  | G  |`
+           
 <hr>
 
-### `getWinnerRows(board)`
+
+
+
+### `letterToCol(board)`
 
 __Parameters:__
 
-* `board` - the board to examine for a winner
+* `letter` - the uppercase letter to be translated to a numeric value
 
 __Returns:__
 
-* the letter of the winning player or `undefined` if there is no winner yet (based on rows)
+* the column number associated with the `letter`
+* `null` (if `letter` is not a valid column)
 
 __Description:__
 
-Examines the `board` passed in to see if any row is completely filled by a single letter (and consequently is "won" by that player). You can assume that there is exactly one winner or neither player has won (you do not have to deal with the case where both letters fill different rows).
-
-Hint: There are many possible implementations. One space inefficient way is to extract each row into its own `Array` and check if all of the `Array` elements are the same (or if you want to get fancy / sophisticated, you can use an Array's [every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) method). Alternatively, you can check the value of the first element in a row and make sure any subsequent elements don't deviate from that first element.
-
-Additionally... your previous implementation of `toIndex` may be helpful here if you end up using nested loops to iterate through rows and columns.
+Translates a column letter to a column number. The possible letters are uppercase A through Z, and their corresponding numeric column values are 0 - 25. An invalid _letter_ will result in `null`.
 
 __Example:__
 
-    // row B is filled with X, X wins
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "B1");
-    board = tic.placeLetters(board, 'X', "B2");
-    board = tic.placeLetters(board, 'X', "B3");
-    console.log(tic.getWinnerRows(board)); // --> 'X'
+	// translates a letter to a column value (A = 0, B = 1)
 
-    // row B is partially filled, no winner
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "B1");
-    board = tic.placeLetters(board, 'X', "B2");
-    console.log(tic.getWinnerRows(board)); // --> undefined
+    c.letterToCol("A");
+	// 0
+	
+    c.letterToCol("Z");
+	// 25
 
-    // row B is partially filled, no winner
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "B2");
-    board = tic.placeLetters(board, 'X', "B3");
-    console.log(tic.getWinnerRows(board)); // --> undefined
+	// all of the following will return null
+    c.letterToCol("1");
+    c.letterToCol("a");
+    c.letterToCol("😄");
+    c.letterToCol("AB");
+
 
 <hr>
 
-### `getWinnerCols(board)`
+### `getEmptyRowCol(board, letter, empty) `
+
+`default empty to null`
 
 __Parameters:__
 
-* `board` - the board to examine for a winner
+* `board` - the board to examine for an empty cell
+* `letter` - the name of the column to check for an empty cell
+* `empty` - the value contained in the `data` `Array` of `board` that represents an empty cell in that board
 
 __Returns:__
 
-* the letter of the winning player or `undefined` if there is no winner yet (based on columns)
+* an object with two properties: `row` and `col`... specifying the row and column numbers of an empty cell in the column identified by `letter`
+* `null` (if `letter` is not a valid column or if there are no empty cells in the specified column)
 
 __Description:__
 
-Examines the `board` passed in to see if any column is completely filled by a single letter (and consequently is "won" by that player). You can assume that there is exactly one winner or neither player has won (you do not have to deal with the case where both letters fill different rows).
-
-See the hints for `getWinnerRows`.
+Finds the next empty cell in the column identified by `letter` in the board object. 
 
 __Example:__
 
-    // Column 2 is filled with X, X wins
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "A2");
-    board = tic.placeLetters(board, 'X', "B2");
-    board = tic.placeLetters(board, 'X', "C2");
-    console.log(tic.getWinnerCols(board)); // --> 'X'
+	// gives back an empty row col with row number less than lowest occupied row number in column
+	let board = c.generateBoard(3, 2);
+	board = c.setCells(
+  	  board, 
+  	  {row: 2, col: 0, val: '😄'},
+  	  {row: 2, col: 1, val: '😄'},
+  	  {row: 1, col: 1, val: '😄'}
+	);
+	c.getEmptyRowCol(board, "A");
+	// {row: 1, col: 0}
+	c.getEmptyRowCol(board, "B");
+	// {row: 0, col: 1}
 
-    // Column 2 is partially filled, no winner
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "A2");
-    board = tic.placeLetters(board, 'X', "B2");
-    console.log(tic.getWinnerCols(board)); // --> undefined
 
-    // Column 2 is partially filled, no winner
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "B2");
-    board = tic.placeLetters(board, 'X', "C2");
-    console.log(tic.getWinnerCols(board)); // --> undefined
+	// gives row col with row being highest row number if column is completely empty
+    let board = c.generateBoard(3, 2);
+    c.getEmptyRowCol(board, "A");
+	// {row: 2, col: 0}
+
+    // gives back null if column is full
+    let board = c.generateBoard(2, 2);
+    board = c.setCells(
+      board, 
+      {row: 1, col: 0, val: '😄'},
+      {row: 1, col: 1, val: '😄'},
+      {row: 0, col: 0, val: '😄'},
+      {row: 0, col: 1, val: '😄'}
+    );
+    c.getEmptyRowCol(board, "A");
+	// null
+    
+    // does not fill holes in columns
+    let board = c.generateBoard(4, 3);
+    board = c.setCells(
+      board, 
+      {row: 3, col: 0, val: '😄'},
+      {row: 1, col: 0, val: '😄'},
+    );
+    c.getEmptyRowCol(board, "A");
+	// {row: 0, col: 0}
+    
+
+    // does not fill holes in columns even if min row num is filled
+    let board = c.generateBoard(4, 3);
+    board = c.setCells(
+      board, 
+      {row: 0, col: 0, val: '😄'},
+    );
+    c.getEmptyRowCol(board, "A");
+	// null
+    
+
+    // gives back null if column does not exist
+    let board = c.generateBoard(2, 2);
+    c.getEmptyRowCol(board, "C");
+	// null
+    
+    // gives back null if column is invalid - not a letter or more than 1 character
+    let board = c.generateBoard(2, 2);
+    c.getEmptyRowCol(board, "1");
+	// null
+    c.getEmptyRowCol(board, "AA");
+	// null
 
 <hr>
 
-### `getWinnerDiagonals(board)`
+### `getAvailableColumns(board)`
 
 __Parameters:__
 
@@ -800,174 +868,6 @@ __Example:__
 
 <hr>
 
-### `isBoardFull(board)`
-
-__Parameters:__
-
-* `board` - the board to examine
-
-__Returns:__
-
-* `true` if there are no empty cells left in the board, `false` otherwise
-
-__Description:__
-
-Examines the `board` passed in to determine whether or not it's full. It returns `true` if there are no empty squares, `false` if there are still squares available. __Assume that the board uses the empty string , `""`, to mark a square as empty__.
-
-Hint: The solution to this is pretty straightforward with a simple for loop, but if you want to ditch the for loop entirely, you can get fancy and use the `Array` method, [some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some).
-
-__Example:__
-
-    // board is empty
-    const board = tic.board(3, 3, "");
-    console.log(tic.isBoardFull(board)); // --> false
-
-    // board is completely full
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "A1");
-    board = tic.placeLetters(board, 'X', "A2");
-    board = tic.placeLetters(board, 'X', "A3");
-    board = tic.placeLetters(board, 'X', "B1");
-    board = tic.placeLetters(board, 'X', "B2");
-    board = tic.placeLetters(board, 'X', "B3");
-    board = tic.placeLetters(board, 'X', "C1");
-    board = tic.placeLetters(board, 'X', "C2");
-    board = tic.placeLetters(board, 'X', "C3");
-    console.log(tic.isBoardFull(board)); // --> true
-
-    // board has one square empty...
-    board = tic.placeLetters(board, 'X', "A2");
-    board = tic.placeLetters(board, 'X', "A3");
-    board = tic.placeLetters(board, 'X', "B1");
-    board = tic.placeLetters(board, 'X', "B2");
-    board = tic.placeLetters(board, 'X', "B3");
-    board = tic.placeLetters(board, 'X', "C1");
-    board = tic.placeLetters(board, 'X', "C2");
-    board = tic.placeLetters(board, 'X', "C3");
-    console.log(tic.isBoardFull(board)); // --> false
-
-<hr>
-
-### `isValidMove(board, row, col)`
-
-__Parameters:__
-
-* `board` - the board the move is performed on
-* `row` - the row number of the move
-* `col` - the column number of the move
-
-__Returns:__
-
-* `true` if the move is valid, `false` otherwise
-
-__Description:__
-
-Using the `board` passed in, determines whether or not a move to `row` and `col` is valid. A valid move:
-
-* targets an empty square
-* is within the boundaries of the board
-
-Use a previous function that you created, `toIndex` in the implementation of this function. Again, you can __assume that the empty string, `""`, represents empty__.
-
-__Example:__
-
-	// a valid move
-    const board = tic.board(3, 3, "");
-    console.log(tic.isValidMove(board, 1, 1)); // --> true
-
-	// move is out of bounds, not valid
-    const board = tic.board(3, 3, "");
-    console.log(tic.isValidMove(board, 3, 3)); // --> false
-
-	// move into square that's already occupied, not valid
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'O', "B2");
-    console.log(tic.isValidMove(board, 1, 1)); // --> false
-
-<hr>
-
-### `isValidMoveAlgebraicNotation(board, algebraicNotation)`
-
-__Parameters:__
-
-* `board` - the board the move is performed on
-* `algebraicNotation` - algebraic notation representing a move on the `board`
-
-__Returns:__
-
-* `true` if the move is valid, `false` otherwise
-
-__Description:__
-
-Using the `board` passed in, determines whether or not a move to `algebraicNotation` is valid. Use the functions your previously created, `isValidMove` and `algebraicToRowCol` to implement this function.
-
-__Example:__
-
-    const board = tic.board(3, 3, "");
-    // a valid move
-    console.log(tic.isValidMoveAlgebraicNotation(board, 'B2')) // --> true
-    // row is out of bounds
-    console.log(tic.isValidMoveAlgebraicNotation(board, 'D2')) // --> false
-
-    // target square is not empty, not a valid move
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "A3");
-    console.log(tic.isValidMoveAlgebraicNotation(board, 'A3')) // --> false
-
-<hr>
-
-### `getRandomEmptyCellIndex(board)`
-
-__Parameters:__
-
-* `board` - the board to get an empty cell from
-
-__Returns:__
-
-* index of an empty square on the board, `undefined` if the board is full
-
-__Description:__
-
-Finds the index of an empty square on the board. If there are many empty squares, return the index of a randomly selected empty square.
-
-__Example:__
-
-    // there's only one empty cell... the middle square (index 4)
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "A1");
-    board = tic.placeLetters(board, 'X', "A2");
-    board = tic.placeLetters(board, 'X', "A3");
-    board = tic.placeLetters(board, 'X', "B1");
-    board = tic.placeLetters(board, 'X', "B3");
-    board = tic.placeLetters(board, 'X', "C1");
-    board = tic.placeLetters(board, 'X', "C2");
-    board = tic.placeLetters(board, 'X', "C3");
-    const i = tic.getRandomEmptyCellIndex(board);
-    // i is 4
-
-    // the entire second row is empty (index 3, 4, or 5)
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "A1");
-    board = tic.placeLetters(board, 'X', "A2");
-    board = tic.placeLetters(board, 'X', "A3");
-    board = tic.placeLetters(board, 'X', "C1");
-    board = tic.placeLetters(board, 'X', "C2");
-    board = tic.placeLetters(board, 'X', "C3");
-    const i = tic.getRandomEmptyCellIndex(board);
-    // i is 3, 4, or 5
-
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "A1");
-    board = tic.placeLetters(board, 'X', "A2");
-    board = tic.placeLetters(board, 'X', "A3");
-    board = tic.placeLetters(board, 'X', "B1");
-    board = tic.placeLetters(board, 'X', "B2");
-    board = tic.placeLetters(board, 'X', "B3");
-    board = tic.placeLetters(board, 'X', "C1");
-    board = tic.placeLetters(board, 'X', "C2");
-    board = tic.placeLetters(board, 'X', "C3");
-    const i = tic.getRandomEmptyCellIndex(board);
-    // i is undefined
 
 ### Checking Your Code, Pushing Your Changes
 
@@ -1001,7 +901,9 @@ __Example:__
     * push your changes so that they're available on the remote repository (github)
 
 
-## Part 2 - Tic Tac Toe Game
+## Part 2 - Connectmoji
+
+{% comment %}
 
 Whew. That was a lot of work. But, ummmm... there's no Tic Tac Toe game yet. What?
 __Let's use the module / helper functions you created in part 1 to implement an interactive Tic Tac Toe game that supports the following features:__
@@ -1357,6 +1259,7 @@ if(move === undefined) {
 	* prompt the player for their move as if it were not scripted
 6. Again - skip invalid moves (moves that are not on the board or that attempt to move into an already occupied cell), and remove them from their respective scripted moves `Array`
 
+{% endcomment %}
 
 </div>
 
