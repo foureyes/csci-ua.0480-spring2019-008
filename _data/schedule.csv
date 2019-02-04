@@ -82,7 +82,7 @@ Slides
 
 [{{ site.book_js_6 }}]({{ site.book_js_6_link }})
 
-* [Chapter 3. Building Robust Node Applications](http://chimera.labs.oreilly.com/books/1234000001808/ch03.html) (excluding ""Using Multiple Processors"")
+* Chapter 3. Building Robust Node Applications (excluding ""Using Multiple Processors"")
 ",,
 ,,3,04-Feb,Mon,* Higher Order Functions,"* Node and NPM (above)
      * package.json
