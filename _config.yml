@@ -39,8 +39,8 @@ vars:
   book_js_5_author: Marijn Haverbeke
 
   book_js_6: "Node: Up and Running"
-  book_js_6_note: "(free to read online)"
-  book_js_6_link: "http://chimera.labs.oreilly.com/books/1234000001808/index.html"
+  book_js_6_note: "(free to read online through NYU Library)"
+  book_js_6_link: "http://bobcat.library.nyu.edu/primo-explore/fulldisplay?docid=nyu_aleph005835929&context=L&vid=NYU&search_scope=all&tab=all&lang=en_US"
   book_js_6_author: Tom Hughes-Croucher and Mike Wilson
 
   book_js_7: "DOM Enlightenment"

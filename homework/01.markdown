@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 # Connectmoji
 
-## Due __Feb 8th, by 11PM__
+## Due __Feb 11th, by 11PM__
 
 <div markdown="block" class="img">
 ![full play](../resources/img/connectmoji/full-play.gif)
@@ -346,9 +346,10 @@ The functions make some assumptions about how you'll be representing a Connectmo
 3. although some functions allow for an arbitrary number of columns, you can assume that the board will always have at least 1 column, but no more than 26 columns
 2. we can name a cell / square based on its row number and column number 
     * rows start from the top with row number 0
-    * cols start from the left with column number 0
+    * cols start from the left with column number 0... or alternatively, the letter `A`
     * the diagram below shows a board with row and column labels
-        <pre><code data-trim contenteditable>             +---+---+---+
+        <pre><code data-trim contenteditable>
+		     +---+---+---+
   r  0 | 0 | 1 | 2 |
   o    +---+---+---+
   w  1 | 3 | 4 | 5 |
@@ -391,7 +392,9 @@ index      |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
 ### Functions to Implement
 
 
-### `generateBoard(rows, cols, fill) // modify parameters to allow for default values` 
+### `generateBoard(rows, cols, fill)`
+
+// modify parameters to allow for a default value for fill (specified below)` 
 
 __Parameters:__
 
@@ -421,20 +424,20 @@ The `rows` and `cols` property can be set directly from the arguments passed in!
 __Example:__
 
 	const board1 = c.generateBoard(2, 3);
-	// board1 is
-	// { 
-	//   data: [null, null, null, null, null, null],
-	//   rows: 2,
-	//   cols: 3
-	// }
+	// board1 is filled with default value, null
+	{ 
+	  data: [null, null, null, null, null, null],
+	  rows: 2,
+	  cols: 3
+	}
 
 	const board2 = c.generateBoard(2, 3, false);
-	// board2 is
-	// { 
-	//   data: [false, false, false, false, false, false],
-	//   rows: 2,
-	//   cols: 3
-	// };
+	// board2 is filled with false
+	{ 
+	  data: [false, false, false, false, false, false],
+	  rows: 2,
+	  cols: 3
+	}
 
 <hr>
 
@@ -482,9 +485,9 @@ __Returns:__
 
 __Description:__
 
-Translates a single index in a one dimensional `Array` representation of a board to that cell's row and column. The `board` supplied can be used to determine the max column and row numbers. __You can assume that the board is always square__. Row and column numbers start at 0.
+Using the `rows`, `cols` and `data` property of the `board` object passed in, translates a single index in the `data` `Array` of the board to the cell's row and column number. 
 
-Hint: Again, [Math.sqrt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sqrt) can be used to determine the original width and height of the board. If you need integer division or if you need to always round down, you can just call [Math.floor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor) after dividing (which will give you the largest integer less than or equal to a given number).
+Hint: If you need integer division or if you need to always round down, you can just call [Math.floor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor) after dividing (which will give you the largest integer less than or equal to a given number).
 
 __Example:__
 
@@ -499,125 +502,112 @@ __Example:__
 
 <hr>
 
-{% comment %}
-### `setBoardCell(board, letter, row, col)`
+### `setCell(board, row, col, value)`
 
 __Parameters:__
 
 * `board` - the board where a cell will be set to `letter`
-* `letter` - the string to set the cell to
 * `row` - the row number of the cell to be set
 * `col` - the column number of the cell to be set
+* `value`` - the value to set the cell to
 
 __Returns:__
 
-* a single dimensional `Array` representing the board where the cell at `row` and `col` is set to the value of `letter`
+* a __new__ `board` that contains a __new__ `data` `Array` representing the board where the cell at `row` and `col` is set to the value of `value`
 
 __Description:__
 
-Sets the value of the cell at the specified row and column numbers on the board, `board`, to the value, `letter`.
+Sets the value of the cell at the specified row and column numbers on the board (`board`) object's `data` `Array` to the value, `letter`.
 
-Instead of modifying the `board` argument passed in, create a shallow copy of the `board`, mutate it (place the letter), and return the copy. To shallow copy an `Array`, use the [slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) method.
+Instead of modifying the `board` object passed in, create a copy of the `board`, mutate the copy (place the values), and return the copy. 
+
+To create a new object, you can manually recreate keys and assign values. Note that if a value is a reference type, like the `data` `Array`, you'll have to take care to copy the values rather than the reference. One way to do this is to use the [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#Copy_an_array) or the [slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) method. Note that both of these methods produce a shallow copy.
 
 __Example:__
 
-    // sets two squares, one X and one O
-    const board = tic.board(3, 3, "");
-    const b1 = tic.setBoardCell(board, "X", 1, 1);
-    const b2 = tic.setBoardCell(b1, "O", 0, 2);
-    // b1 is [" ", " ", " ", " ", "X", " ", " ", " ", " "];
-    // b2 is [" ", " ", "O", " ", "X", " ", " ", " ", " "];
+	// sets the cell to the value specified by row and col
+	let board = c.generateBoard(2, 3);
+	board = c.setCell(board, 1, 1, 'X');
+	board = c.setCell(board, 0, 2, 'O');
+	
+	// after setting cells, board should now look like this:
+	{
+		data: [null, null, 'O', null, 'X', null],
+		rows: 2,
+		cols: 3
+	}
+        
+	// note that this does not mutate the original board passed in
+    const board = c.generateBoard(2, 3, ' ');
+    const updatedBoard = c.setCell(board, 1, 1, 'X');
 
+	// setCell returns a new board, updatedBoard
+    {
+      data: [' ', ' ', ' ', ' ', 'X', ' '],
+      rows: 2,
+      cols: 3
+    }
+
+	// but the original variable, board, does not change
+    {
+      data: [' ', ' ', ' ', ' ', ' ', ' '],
+      rows: 2,
+      cols: 3
+    }
+    
 <hr> 
 
-### `algebraicToRowCol(algebraicNotation)`
+### `setCells(board, <any number of move objects>)` 
+
+`// modify the parameters to allow for an arbitrary number of arguments after board`
+
 
 __Parameters:__
 
-* `algebraicNotation` - a `String` that specifies the position of a cell using algebraic notation 
+* `board` - an object with a `data` `Array`, `rows`, and `cols` as properties
+* an arbitrary number of objects, each containing `row`, `col`, and `val` properties specifiying where to place a value on the board... for example: `{row: 2, col: 3, val: '😎'}, {row: 3, col: 3, val: '💻'}`
 
 __Returns:__
 
-* an object containing two properties, `row` and `col`, representing the row and column numbers that the `algebraicNotation` maps to (for example, `{"row": 1, "col": 1}`)
-
-* `undefined` if the algebraic notation passed in is not valid.
+* a new `board` object with the elements in its `data` `Array` set to the values specified by the objects in `moves`
 
 __Description:__
 
-Translates algebraic notation specifying a cell into a row and column specifying the same cell. If the notation passed in is not valid, then return `undefined`. 
 
-The algebraic notation format we'll use will be a single string with the row letter first, immediately followed by the column number (with nothing separating the row and column). The __column number starts at index 1!__ (which is different from row and column notation above where numbers start at 0). You can __assume that there are no more than 26 rows and columns__. Some examples of valid formats: `A1` and `C20`. Some invalid formats include: `1A`, `1`, `A`, `A:1`, `***`.
+Using the row, column and value properties of every object in the `moves` `Array`, sets the value of the cells at the specified row and column numbers on the board (`board`) object's `data` `Array`.
 
-Hint: There are many ways you can implement this. If you want to loop through every character, you can use a simple for loop, the string's [length](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/length), and the string's [charAt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charAt) method. Note that there's no actual character type, you just get a `String` composed of a single character. 
-
-Alternatively, you can create an `Array` containing every character of the original `String` by using [split](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split) with an empty string as an argument.
-
-Once you can look at each individual character (or group of characters), you can examine each character by using [isNaN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN) to determine if a `String` is not numeric.
-
-Finally if you feel like wrangling regular expressions, you can try using the [match](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match) method.
+Instead of modifying the `board` object passed in, create a copy of the `board`, mutate the copy (set the values), and return the copy. 
 
 __Example:__
 
-    // valid 
-    tic.algebraicToRowCol("B2") // {"row": 1, "col": 1}
-    tic.algebraicToRowCol("A3") // {"row": 0, "col": 2}
+	// places multiple values on board
+    const board = c.generateBoard(3, 3, ' ');
 
-    // not valid
-    tic.algebraicToRowCol("A")) // undefined
-    tic.algebraicToRowCol("2")) // undefined
-    tic.algebraicToRowCol("2A")) // undefined
-    tic.algebraicToRowCol(" ")) // undefined
-    tic.algebraicToRowCol("A 2")) // undefined
-    tic.algebraicToRowCol("A:2")) // undefined
-    tic.algebraicToRowCol("**")) // undefined
+	// setCells is called with 3 objects... but there can be an arbitrary number 
+	// of moves passed in 
+    const updatedBoard = c.setCells(
+      board, 
+      {row:0, col:1, val: 'X'},
+      {row:1, col:2, val: 'X'}, 
+      {row:2, col:2, val: 'O'}, 
+    );
+
+	// updatedBoard should have values set based on moves
+    {
+      data: [' ', 'X', ' ', ' ', ' ', 'X', ' ', ' ', 'O'],
+      rows: 3,
+      cols: 3
+    }
+
+	// original board should remain unchanged
+    {
+      data: [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      rows: 3,
+      cols: 3
+    }
+
 
 <hr> 
-
-### `placeLetters(board, letter, algebraicNotation) // see specifications for addtional arguments`
-
-__Parameters:__
-
-* `board` - the board where a cell will be set to `letter`
-* `letter` - the string to set the cell to
-* `algebraicNotation` - a `String` that specifies the position of a cell using algebraic notation 
-	* followed by any number of `letter` and `string` pairs
-
-__Returns:__
-
-* a single dimensional `Array` representing the board where the cell at `row` and `col` is set to the value of `letter`
-
-__Description:__
-
-Places the every a letter at every algebraic notation for every pair of arguments specifying letter and algebraic notation. Letters and position combinations are placed in the order that they appear in the arguments. It does not have to be "smart" about detecting whether or not a value is a letter vs algebraic notation; using position to determine letter versus position is adequate. In general, this function can be naive in its implementation, and it should do its best to skip erroneous arguments without raising exceptions (failing silently is not usually good practice, but it's appropriate for our toy implementation of this game):
-
-* If the algebraic notation is invalid, skip the move. 
-* If there are an uneven number of arguments after `board`, assume that every odd is the letter and every even is the algebraic notation, and skip the last argument 
-* If a letter already exists in the position specified after the letter, do not overwrite the existing letter... and skip the new move instead
-
-Use the `setBoardCell` function you created above to implement this. Use the [rest operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters) to implement an arbitrary number of arguments.
-
-__Example:__
-
-    // X and O are placed on the board
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "B2");
-    board = tic.placeLetters(board, 'O', "A3");
-    // board is [" ", " ", "O", " ", "X", " ", " ", " ", " "]
-
-
-    // X and O are placed on the board in a single call
-    let board = tic.board(3, 3, "");
-	board = tic.placeLetters(board, 'X', 'B2', 'O', 'A3');
-	// board is ["", "", "O", "", "X", "", "", "", ""]
-   
-    // Invalid moves, uneven moves, and existing letter in position
-	// should result in skipping the current move
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', 'Z7', 'O', 'B2', 'X', 'B2', 'O');
-    // board is ["", "", "", "", "O", "", "", "", ""]
-	// (O is not overwritten, and invalid rows/cols are skipped)
-
-<hr>
 
 ### `boardToString(board)`
 
@@ -639,41 +629,39 @@ Creates a _text drawing_ representation of the Connectmoji `board` passed in. Th
 
 Printing out an example result would yield:
 
-<pre><code data-trim contenteditable>
-     1   2   3
-   +---+---+---+
- A | X |   |   |
-   +---+---+---+
- B |   | O |   |
-   +---+---+---+
- C |   |   |   |
-   +---+---+---+
+<pre class="board"><code data-trim contenteditable>|    |    |    |    |    |    |    |
+|    |    |    |    |    |    |    |
+|    |    |    |    |    |    |    |
+|    |    |    |    |    |    |    |
+|    |    |    |    |    |    |    |
+| 😄 | ❤️ |    |    |    |    |    |
+|----+----+----+----+----+----+----|
+| A  | B  | C  | D  | E  | F  | G  |
 </code></pre>
 
-It should work for boards of any size! Here's an example of a 7 x 7 board!
+It should work for boards of any size! Here's an example of a board with 4 rows and 5 columns (A through E)
 
-<pre><code data-trim contenteditable>
-     1   2   3   4   5   6   7
-   +---+---+---+---+---+---+---+
- A | X |   |   |   |   |   |   |
-   +---+---+---+---+---+---+---+
- B |   |   |   |   |   |   |   |
-   +---+---+---+---+---+---+---+
- C |   |   |   |   |   |   |   |
-   +---+---+---+---+---+---+---+
- D |   |   | O |   |   |   |   |
-   +---+---+---+---+---+---+---+
- E |   |   |   |   |   |   |   |
-   +---+---+---+---+---+---+---+
- F |   |   |   |   |   |   |   |
-   +---+---+---+---+---+---+---+
- G |   |   |   |   |   |   |   |
-   +---+---+---+---+---+---+---+
+<pre class="board"><code data-trim contenteditable>|    |    |    |    |    |
+|    |    |    |    |    |
+|    |    |    |    |    |
+| 😄 | ❤️ |    |    |    |
+|----+----+----+----+----+
+| A  | B  | C  | D  | E  |
 </code></pre>
 
-If the "letter" is empty (an empty string), use a space character to space out the cell. If the "letter" is more than one character, truncate it to fit in the space.
+A few rules for displaying
 
-This one is actually quite challenging (and tedious) to get exactly right, so there won't be any penalties for minor spacing inconsistencies... and if there are other issues (for example, not adding labels), there will only be small point penalties.
+* if the value in the `board` object's `data` `Array` is null, treat it as a blank cell; display _some number of spaces_ in the string
+* pad each value of an occupied cell with a space, before and after
+* some emoji take up more than one "character width", even though they're one character... so you'll have to dynamically size the grid by using the `wcwidth` function
+	* for example `wcwidth('😃')` gives back 2
+	* this means that the number of "normal" characters between the pipes (`|`), must be 4 (the smiling emoji is one character, but its display takes up two characters 
+	so 4 spaces for empty cell or a smiling emoji with a space before and after)
+* the column labels should be shown as letters underneath the grid
+	* they should also be padded with
+
+
+This one is actually quite challenging (and tedious) to get exactly right, so if you're not getting the test passing, but it _looks like_ the expected output, there won't be any penalties ... and if there are other issues (for example, not adding labels), there will only be small point penalties.
 
 Again, you can __assume that the numbers of rows and columns will not be greater than 26__.
 
@@ -1369,7 +1357,6 @@ if(move === undefined) {
 	* prompt the player for their move as if it were not scripted
 6. Again - skip invalid moves (moves that are not on the board or that attempt to move into an already occupied cell), and remove them from their respective scripted moves `Array`
 
-{% endcomment %}
 
 </div>
 
