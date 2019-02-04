@@ -103,7 +103,7 @@ Ensure that node and npm are installed (this should have been done for _homework
 1. use git / clone the repository
 2. install development modules
     * mocha and chai for running the supplied unit tests
-    * eshint for cleaning up your JavaScript / spotting common sources of bugs and errors in your code
+    * eslint for cleaning up your JavaScript / spotting common sources of bugs and errors in your code
 3. install modules required by your game
 
 ###  Use Git / Clone the repository
@@ -314,7 +314,7 @@ The given unit tests use Mocha as a testing framework and Chai for assertions. W
 
 You can __run the included unit tests by using this command__ in your project directory:
 
-`mocha test/connectmoji.js`
+`npx mocha test/connectmoji.js`
 
 If you run these tests before starting, you'll get a bunch of reference errors. This is because you have no functions implemented yet. Additionally, you'll have to export the functions you create so that the tests have access to them.
 
@@ -747,7 +747,7 @@ __Parameters:__
 
 * `board` - the board to examine for an empty cell
 * `letter` - the name of the column to check for an empty cell
-* `empty` - the value contained in the `data` `Array` of `board` that represents an empty cell in that board
+* `empty` - the value contained in the `data` `Array` of `board` that represents an empty cell in that board; the default is `null` (that is, treat `null` values as empty)
 
 __Returns:__
 
@@ -756,11 +756,27 @@ __Returns:__
 
 __Description:__
 
-Finds the next empty cell in the column identified by `letter` in the board object. 
+Finds the next empty cell in the column identified by `letter` in the board object: 
+
+* this empty cell must be the nearest empty cell to the _bottom_ of the board (the _lowest_ unoccupied cell)
+* in terms of actual row numbers, it's the highest row number that doesn't have a piece in it
+* if there are no occupied cells in the column, is the highest row number / lowest location on the board
+* do not count a cell as empty if it's between two occupied cells vertically (this situation should not be possible anyway!)
+	* for example, in the board below, row 1 would not be counted as empty
+	<pre code="board"><code data-trim contenteditable>
+0 | 😄 |
+1 |    |
+2 | 😄 |
+  |----+
+  | A  |
+</code></pre>
+* if the entire column is occupied, then no empty cells are in that column; return null
 
 __Example:__
 
-	// gives back an empty row col with row number less than lowest occupied row number in column
+	// gives back an empty cell's row and column with row number less 
+	// than lowest occupied row number in column (think of this as the
+	// highest unoccupied cell)
 	let board = c.generateBoard(3, 2);
 	board = c.setCells(
   	  board, 
@@ -774,7 +790,9 @@ __Example:__
 	// {row: 0, col: 1}
 
 
-	// gives row col with row being highest row number if column is completely empty
+	// gives back row and column with row being highest row number 
+	// if column is completely empty (essentially, bottom-most cell
+	// in column)
     let board = c.generateBoard(3, 2);
     c.getEmptyRowCol(board, "A");
 	// {row: 2, col: 0}
@@ -791,7 +809,7 @@ __Example:__
     c.getEmptyRowCol(board, "A");
 	// null
     
-    // does not fill holes in columns
+    // does not count holes in columns
     let board = c.generateBoard(4, 3);
     board = c.setCells(
       board, 
@@ -817,7 +835,8 @@ __Example:__
     c.getEmptyRowCol(board, "C");
 	// null
     
-    // gives back null if column is invalid - not a letter or more than 1 character
+    // gives back null if column is invalid - not a letter or more 
+	// than 1 character
     let board = c.generateBoard(2, 2);
     c.getEmptyRowCol(board, "1");
 	// null
@@ -834,63 +853,252 @@ __Parameters:__
 
 __Returns:__
 
-* the letter of the winning player or `undefined` if there is no winner yet (based on diagonals)
+* gives back all columns that have an empty cell as an `Array` of uppercase letters
 
 __Description:__
 
-Examines the `board` passed in to see if either diagonal (major or minor .... or upper left to lower right and upper right to lower left)  is completely filled by a single letter (and consequently is "won" by that player). You can assume that there is exactly one winner or neither player has won (you do not have to deal with the case where both letters fill different rows).
+Examines the `board` passed in to see if any valid empty cells exist (see `getEmptyRowCol` above for rules regarding what counts as a valid empty cell).
 
-See the hints for `getWinnerRows`.
+It returns an `Array` of letters representing the columns where the empty cells are. 
+
+If there are no valid empty cells, an empty `Array` is returned.
+
 
 __Example:__
 
-    // a diagonal is filled with X, X wins
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "A1");
-    board = tic.placeLetters(board, 'X', "B2");
-    board = tic.placeLetters(board, 'X', "C3");
-    console.log(tic.getWinnerDiagonals(board)); // --> 'X'
+Given the following board as `board` in the code below:
 
-    // a diagonal is filled with X, X wins
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "A3");
-    board = tic.placeLetters(board, 'X', "B2");
-    board = tic.placeLetters(board, 'X', "C1");
-    console.log(tic.getWinnerDiagonals(board)); // --> 'X'
+<pre code="board"><code data-trim contenteditable>| 😄 |    |    |    |
+| 🤮 | 😄 |    |    |
+| 😄 | 🤮 | 🤮 |    |
+|----+----+----+----+
+| A  | B  | C  | D  |
+</code></pre>
 
-    // a diagonal is partially filled with X, no winner
-    let board = tic.board(3, 3, "");
-    board = tic.placeLetters(board, 'X', "A3");
-    board = tic.placeLetters(board, 'O', "B2");
-    board = tic.placeLetters(board, 'X', "C1");
-    console.log(tic.getWinnerDiagonals(board)); // --> undefined
+    // gives back all column letters that can be used as a valid move (for dropPiece, for example)
+    c.getAvailableColumns(board)
+	// returns an Array that contains the following letters: 'B', 'C', and 'D'
+
+    
+<pre code="board"><code data-trim contenteditable>| 😄 | 🤮 | 🤮 | 😄 |
+| 🤮 | 😄 | 😄 | 🤮 |
+| 😄 | 🤮 | 🤮 | 😄 |
+|----+----+----+----+
+| A  | B  | C  | D  |
+</code></pre>
+
+    // gives back an empty list of no valid empty columns are in board
+	// (essentially, no legal moves can be played)
+    c.getAvailableColumns(board)
+	// []
+
+<hr>
+
+### `hasConsecutiveValues(board, row, col, n)`
+
+__Parameters:__
+
+* `board` - the board to examine for a winner
+* `row` - the row number of the cell to examine for consecutive values
+* `col` - the column number of the cell to examine for consecutive values
+* `n` - the number of consecutive values for a win
+
+__Returns:__
+
+* `true` if there are `n` consecutive values horizontally, vertically or diagonally; otherwise, returns `false`
+
+__Description:__
+
+Given a `row` and `col` number, determine if the value in that cell is repeated consecutively horizontally, vertically or diagonally for `n` number of times: `true` if the number of consecutive values is greater than or equal to `n`, `false` otherwise. 
+
+Note that when looking for consecutive repeated values, the `row` and `col` can be anywhere in the series of consecutive values. If you're looking for a vertical line, look above and below the specified `row` and `col`.
 
 
+__Example:__
+
+    // determines if value at location is repeated x times vertically
+    const board = c.generateBoard(3, 4);
+    const updatedBoard = c.setCells(
+      board, 
+      {row:2, col:1, val: '😄'},
+      {row:1, col:1, val: '😄'}, 
+      {row:0, col:1, val: '😄'}, 
+    );
+    c.hasConsecutiveValues(updatedBoard, 2, 1, 3);
+	// true
+    c.hasConsecutiveValues(updatedBoard, 1, 1, 3);
+	// true
+    c.hasConsecutiveValues(updatedBoard, 0, 1, 3);
+	// true
+    
+    
+    // determines if value at location is repeated x times horizontally
+    const board = c.generateBoard(3, 4, ' ');
+    const updatedBoard = c.setCells(
+      board, 
+      {row:2, col:2, val: '😄'},
+      {row:2, col:1, val: '😄'}, 
+      {row:2, col:0, val: '😄'}, 
+    );
+    c.hasConsecutiveValues(updatedBoard, 2, 2, 3);
+	// true
+    c.hasConsecutiveValues(updatedBoard, 2, 1, 3);
+	// true
+    c.hasConsecutiveValues(updatedBoard, 2, 0, 3);
+	// true
+    
+
+    // determines if value at location is repeated x times diagonally
+    const board = c.generateBoard(3, 4, ' ');
+    const updatedBoard = c.setCells(
+      board, 
+      {row:2, col:2, val: '😄'},
+      {row:2, col:1, val: '🤮'},
+      {row:1, col:1, val: '😄'}, 
+      {row:2, col:0, val: '🤮'},
+      {row:1, col:0, val: '🤮'}, 
+      {row:0, col:0, val: '😄'}, 
+    );
+    c.hasConsecutiveValues(updatedBoard, 2, 2, 3);
+	// true
+    c.hasConsecutiveValues(updatedBoard, 1, 1, 3);
+	// true
+    c.hasConsecutiveValues(updatedBoard, 0, 0, 3);
+	// true
+    
+
+    // gives back false if value at location is not repeated x times
+    const board = c.generateBoard(3, 4, ' ');
+    const updatedBoard = c.setCells(
+      board, 
+      {row:2, col:2, val: '😄'},
+      {row:2, col:1, val: '🤮'},
+      {row:1, col:1, val: '🤮'}, 
+      {row:2, col:0, val: '🤮'},
+      {row:1, col:0, val: '🤮'}, 
+      {row:0, col:0, val: '😄'},
+    );
+    c.hasConsecutiveValues(updatedBoard, 2, 2, 3);
+	// false
+    c.hasConsecutiveValues(updatedBoard, 2, 1, 3);
+	// false
+    c.hasConsecutiveValues(updatedBoard, 1, 1, 3);
+	// false
+    c.hasConsecutiveValues(updatedBoard, 2, 0, 3);
+	// false
+    c.hasConsecutiveValues(updatedBoard, 1, 0, 3);
+	// false
+    c.hasConsecutiveValues(updatedBoard, 0, 0, 3);
+	// false
+
+<hr>
+
+### `autoplay(board, s, numConsecutive)`
+
+__Parameters:__
+
+* `board` - 
+* `s` - 
+* `numConseuctive` - 
+
+__Returns:__
+
+* a result object that contains board data and metadata about the game played on the board (see description below)
+
+__Description:__
+
+Using the board object, `board`, and a string of moves, `s` to play out a series of moves automatically. The returned `result` object will have the following properties:
+
+* `board` - 
+* `lastPieceMoved` - 
+* `error` - potentially `undefined` / not created
+* `winnder` - potentially `undefined` / not created
+
+__Example:__
+
+    // autoplays a series of moves based on string
+    const s = '😄🤮ABAACD';
+    let board = c.generateBoard(3, 4, null);
+    const result = c.autoplay(board, s, 4);
+	// result is
+    {
+      board: {
+        data: ['🤮', null, null, null, '😄', null, null, null, '😄', '🤮', '😄', '🤮'],
+        rows: 3,
+        cols: 4,
+      },
+      pieces: ['😄', '🤮'],
+      lastPieceMoved: '🤮',
+      // no winner key!
+      // no error key!
+    }
+    
+    // autoplays a series of moves based on string and shows winner if last move wins game
+    const s = '😄🤮AABBCCD';
+    let board = c.generateBoard(3, 4);
+    const result = c.autoplay(board, s, 4);
+	// result is
+    {
+      board: {
+        data: [null, null, null, null, '🤮', '🤮', '🤮', null, '😄', '😄', '😄', '😄'],
+        rows: 3,
+        cols: 4,
+      },
+      pieces: ['😄', '🤮'],
+      lastPieceMoved: '😄',
+      winner: '😄',
+      // no error key!
+    }
+    
+    // gives back null board property if autoplayed moves result in a win, but there are more moves after win
+    const s = '😄🤮AABBCCDD';
+    let board = c.generateBoard(3, 4);
+    const result = c.autoplay(board, s, 4);
+	// result is
+    {
+      board: null,
+      pieces: ['😄', '🤮'],
+      lastPieceMoved: '🤮',
+      error: {num: 8, val: '🤮', col: 'D'},
+    }
+    
+    // gives back null board property if autoplayed moves result in an invalid move
+    const s = '😄🤮D';
+    let board = c.generateBoard(3, 3);
+    const result = c.autoplay(board, s, 4);
+	// result is
+    {
+      board: null,
+      pieces: ['😄', '🤮'],
+      lastPieceMoved: '😄',
+      error: {num: 1, val: '😄', col: 'D'},
+    }
+    
 <hr>
 
 
 ### Checking Your Code, Pushing Your Changes
 
-1. JavaScript (ES5) is kind of crazy (read: has some really _bad_, but valid parts), so it's useful to use a static analysis tool, like `eshint` to check your code
+1. JavaScript (ES5) is kind of crazy (read: has some really _bad_, but valid parts), so it's useful to use a static analysis tool, like `eslint` to check your code
     * ideally, you'd be doing this periodically while you develop
-    * the commandline usage is described here, but there are eshint integrations for some editors (see the plugins section in the [eshint installation guide](https://eslint.org/docs/user-guide/integrations))
-    * from your project directory run: `eshint src/*` to check all of the code in the `src` directory
-    * (you _did install_ `eshint` globally in the preparation section, right?)
+    * the commandline usage is described here, but there are eslint integrations for some editors (see the plugins section in the [eslint installation guide](https://eslint.org/docs/user-guide/integrations))
+    * from your project directory run: `npx eslint src/*` to check all of the code in the `src` directory
+    * (you _did install_ `eslint`, right?)
     * check the output; __make sure you fix all warnings / errors__
 2. Run your tests one last time to make sure that they're all (or... _mostly_) passing.
-    * `mocha test.tic-tac-toe-test.js`
+    * `npx mocha test/connectmoji-test.js`
 3. Fix unit test errors 
     * if you have test failure, examine the output of each failure...
     * it'll describe what was expected vs what was actually given back by your function... 
     * in the example below, +/green shows expected, while -/red shows the incorrect output
         <br>
-        ![observed / expected](../resources/img/hw01-tests-01.png)
+        <!--![observed / expected](../resources/img/hw01-tests-01.png)-->
     * in the following example, the diff of expected and observed shows a very subtle difference in spacing!
         <br>
-        ![spaces!](../resources/img/hw01-tests-02.png)
+        <!--![spaces!](../resources/img/hw01-tests-02.png)-->
     * if you get `TypeError ... is not a function`
         <br>
-        ![reference error](../resources/img/hw01-tests-03.png)
+        <!--![reference error](../resources/img/hw01-tests-03.png)-->
         <br>
         ...you may have:
         * not implemented the function (!)
@@ -903,18 +1111,17 @@ __Example:__
 
 ## Part 2 - Connectmoji
 
-{% comment %}
 
-Whew. That was a lot of work. But, ummmm... there's no Tic Tac Toe game yet. What?
-__Let's use the module / helper functions you created in part 1 to implement an interactive Tic Tac Toe game that supports the following features:__
+Whew. That was a lot of work. But, ummmm... there's no Connectmoji game yet. What?
+__Let's use the module / helper functions you created in part 1 to implement an interactive game that supports the following features:__
 
-1. User controlled game settings
+1. Scripted moves for both players
+2. User controlled game settings
 2. An interactive game
-3. Scripted moves for both players
 
-You don't have to use _all_ of the function you created in your `tic-tac-toe.js` module (and you definitely won't need to use all of the features of each function). However, you'll likely end up doing a lot of redundant work. Of course, you are encouraged to create your own additional functions as well!
+You don't have to use _all_ of the function you created in your `connectmoji.js` module (and you definitely won't need to use all of the features of each function). However, you'll likely end up doing a lot of redundant work. Of course, you are encouraged to create your own additional functions as well!
 
-## You MUST IMPLEMENT #3, Scripted Moves
+## You MUST IMPLEMENT #1, Scripted Moves
 
 * in order for this game to be tested properly, scripted moves must be implemented for both the computer and the human player
 * consequently, this feature will be worth a  __significant__ number of points
@@ -922,16 +1129,91 @@ You don't have to use _all_ of the function you created in your `tic-tac-toe.js`
 
 ### Prep
 
-You'll write your Tic Tac Toe game in the file called `src/game.js`. Your first step is to bring in some required modules. Open up `src/game.js` and...
+You'll write your Connectmoji game in the file called `src/game.js`. Your first step is to bring in some required modules. Open up `src/game.js` and...
 
 1. bring in the module you created by using `require`
     <pre><code data-trim contenteditable>// you can name the object whatever you like
 // "tic" is used below...
-const tic = require('./tic-tac-toe.js');
+const tic = require('./connectmoji.js');
 </code></pre>
 2. bring in the module, `readline-sync`, which you installed in the preparation portion of the homework
     <pre><code data-trim contenteditable>const readlineSync = require('readline-sync');
 </code></pre>
+
+### Scripted Moves 
+
+Testing your game against a computer player that makes random moves can be pretty annoying because you can't reliably repeat tests!
+
+To deal with this, add a feature to your game that allows you to pass in the computer's moves (and, if present, the player's moves) once you start your game. That is, when you run your game on the commandline, you can add an extra option to control the computer and player moves.
+
+To pick up commandline arguments, use the built-in variable `process.argv`. `process.argv` is an array that contains parts of the command used to run your program. For example, if you run your program with `node my-program.js`, `process.argv[0]` will be `node` and `process.argv[1]` will be `my-prgoram.js`.
+
+{% comment %}
+
+We can use this feature to supply an `Array` of moves. The entire `Array` consists of two inner `Arrays` - one for the computer and one for the player. The player and computer `Array`s contain moves, which themselves are 2-element `Array`s. So... if we want the computer and player to move according to s commandline argument that we pass in, we can start the program by running:
+
+<pre><code data-trim contenteditable>node game.js "[[[0,0],[0,1],[0,2]], [[1,0],[1,1]]]"
+// the computer's first three moves are the first 3 columns of the first row, and the player's moves are 
+// the first 2 columns of the 2nd row
+</code></pre>
+
+To capture the commandline argument, you can use this line:
+
+<pre><code data-trim contenteditable>const arr = process.argv[2]
+</code></pre>
+
+Now... instead of just randomly choosing the computer's move, and instead of prompting the user for a move, you can consume the moves from the Array passed in.
+
+__To implement this feature...__
+
+1. At the beginning of your file, use `process.argv` to access the passed in argument... and use `JSON.parse` to turn it into an actual nested `Array`
+    <pre><code data-trim contenteditable>const arr = process.argv[2] ? JSON.parse(process.argv[2]) : undefined;
+</code></pre>
+	* assign the first element to `computerMoves`
+	* assign the first element to `playerMoves``
+2. Notify the user that the computer (and possibly the player) is using scripted moves: 
+	<pre><code data-trim contenteditable> Computer will make the following moves: [ [ 0, 0 ], [ 0, 1 ], [ 0, 2 ] ]
+Player will make the following moves: [ [ 1, 0 ], [ 2, 1 ] ]
+</code></pre>
+3. When the computer moves
+    * check out the 1st element of the `computerMoves` `Array`... 
+    * if it's valid use it as the computer's move, otherwise just move randomly
+    * remove the 1st element of `computerMoves` (the first scripted move has been consumed)... you can use [splice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice) to do this
+    * if the `computerMoves` array is empty or undefined, just use a random move
+    * check out the example code below:  
+<pre><code data-trim contenteditable>// assume that a computerMoves global variable 
+// and it is an Array of 2-element Arrays like [[0, 0], [0, 1], ...]
+        
+// the move the computer will make
+let move; 
+
+// do we have an Array of scripted moves and are there moves left?
+if(computerMoves && computerMoves.length > 0) {
+    const arr = computerMoves.splice(0, 1)[0];
+    // make sure it's a valid move!
+    if(tic.isValidMove(board, arr[0], arr[1])) {
+        move = {'row':arr[0], 'col':arr[1]};
+    }
+	// if it's not valid, move remains undefined
+}
+
+// if we still don't have a valid move, just get a random empty square
+if(move === undefined) {
+    move = tic.toRowCol(board, tic.getRandomEmptyCellIndex(board));
+}
+
+</code></pre>
+4. Do the same for player moves
+	* instead of prompting the player for user input, just show the move that they are about to make
+	* ...and ask the player to press enter
+    * (simply ask for any input again using something like `readlineSync.question('Press <ENTER> to confirm player\'s scripted move...');`... without storing the input in a variable)
+5. Once the `playerMoves` or `computerMoves` `Array` is exhausted, allow the moves to proceed normally 
+	* use _whatever_ mechanism you want to generate a computer move
+	* prompt the player for their move as if it were not scripted
+6. Again - skip invalid moves (moves that are not on the board or that attempt to move into an already occupied cell), and remove them from their respective scripted moves `Array`
+
+
+
 
 ### User Controlled Game Settings
 
@@ -1188,76 +1470,6 @@ Press &lt;ENTER&gt; to show computer's move...
 What's your move?
 >
 </code></pre>
-
-### Scripted Moves 
-
-Testing your game against a computer player that makes random moves can be pretty annoying because you can't reliably repeat tests!
-
-To deal with this, add a feature to your game that allows you to pass in the computer's moves (and, if present, the player's moves) once you start your game. That is, when you run your game on the commandline, you can add an extra option to control the computer and player moves.
-
-To pick up commandline arguments, use the built-in variable `process.argv`. `process.argv` is an array that contains parts of the command used to run your program. For example, if you run your program with `node my-program.js`, `process.argv[0]` will be `node` and `process.argv[1]` will be `my-prgoram.js`.
-
-We can use this feature to supply an `Array` of moves. The entire `Array` consists of two inner `Arrays` - one for the computer and one for the player. The player and computer `Array`s contain moves, which themselves are 2-element `Array`s. So... if we want the computer and player to move according to s commandline argument that we pass in, we can start the program by running:
-
-<pre><code data-trim contenteditable>node game.js "[[[0,0],[0,1],[0,2]], [[1,0],[1,1]]]"
-// the computer's first three moves are the first 3 columns of the first row, and the player's moves are 
-// the first 2 columns of the 2nd row
-</code></pre>
-
-To capture the commandline argument, you can use this line:
-
-<pre><code data-trim contenteditable>const arr = process.argv[2]
-</code></pre>
-
-Now... instead of just randomly choosing the computer's move, and instead of prompting the user for a move, you can consume the moves from the Array passed in.
-
-__To implement this feature...__
-
-1. At the beginning of your file, use `process.argv` to access the passed in argument... and use `JSON.parse` to turn it into an actual nested `Array`
-    <pre><code data-trim contenteditable>const arr = process.argv[2] ? JSON.parse(process.argv[2]) : undefined;
-</code></pre>
-	* assign the first element to `computerMoves`
-	* assign the first element to `playerMoves``
-2. Notify the user that the computer (and possibly the player) is using scripted moves: 
-	<pre><code data-trim contenteditable> Computer will make the following moves: [ [ 0, 0 ], [ 0, 1 ], [ 0, 2 ] ]
-Player will make the following moves: [ [ 1, 0 ], [ 2, 1 ] ]
-</code></pre>
-3. When the computer moves
-    * check out the 1st element of the `computerMoves` `Array`... 
-    * if it's valid use it as the computer's move, otherwise just move randomly
-    * remove the 1st element of `computerMoves` (the first scripted move has been consumed)... you can use [splice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice) to do this
-    * if the `computerMoves` array is empty or undefined, just use a random move
-    * check out the example code below:  
-<pre><code data-trim contenteditable>// assume that a computerMoves global variable 
-// and it is an Array of 2-element Arrays like [[0, 0], [0, 1], ...]
-        
-// the move the computer will make
-let move; 
-
-// do we have an Array of scripted moves and are there moves left?
-if(computerMoves && computerMoves.length > 0) {
-    const arr = computerMoves.splice(0, 1)[0];
-    // make sure it's a valid move!
-    if(tic.isValidMove(board, arr[0], arr[1])) {
-        move = {'row':arr[0], 'col':arr[1]};
-    }
-	// if it's not valid, move remains undefined
-}
-
-// if we still don't have a valid move, just get a random empty square
-if(move === undefined) {
-    move = tic.toRowCol(board, tic.getRandomEmptyCellIndex(board));
-}
-
-</code></pre>
-4. Do the same for player moves
-	* instead of prompting the player for user input, just show the move that they are about to make
-	* ...and ask the player to press enter
-    * (simply ask for any input again using something like `readlineSync.question('Press <ENTER> to confirm player\'s scripted move...');`... without storing the input in a variable)
-5. Once the `playerMoves` or `computerMoves` `Array` is exhausted, allow the moves to proceed normally 
-	* use _whatever_ mechanism you want to generate a computer move
-	* prompt the player for their move as if it were not scripted
-6. Again - skip invalid moves (moves that are not on the board or that attempt to move into an already occupied cell), and remove them from their respective scripted moves `Array`
 
 {% endcomment %}
 

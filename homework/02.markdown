@@ -7,7 +7,7 @@ title: CSCI-UA.0480 - Homework #2
   <div class="panel-heading">Homework #2</div>
   <div class="panel-body" markdown="block">
 
-# Higher Order Functions: Exercises and Processing Data - __Due Mon, Sep 24th (extended from Sun, Sep 23rd), by 11PM__
+# Higher Order Functions: Exercises and Processing Data - __Due Feb 18 at 11pm__
 
 <div markdown="block" class="img">
 ![dog](../resources/img/dog.gif)
