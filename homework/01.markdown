@@ -674,16 +674,24 @@ A few rules for displaying
 	* 4 spaces for empty cell 
 	* a smiling emoji with a space before and after)
 * if a character padded with single spaces causes a misalignment (is narrower than other cells), __add additional padding on the right__ (that is, add spaces to the end to match width of widest cell)
+	* in the example below, notice how the emoji is centered, where as the X has extra padding
 	<pre class="board"><code data-trim contenteditable>| 😄 |    |    |    |    |    |    |
 | X  |    |    |    |    |    |    |
 </code></pre>
 * the column labels should be shown as letters underneath the grid
 	* they should also be padded with a space
 	* add additional padding at the end to match width of widest cell
-		<pre class="board"><code data-trim contenteditable>|----+----+----+----+----+----+----|
+		* in the example below, again, the emoji is centered because it takes up two character widths, whereas the labels have extra padding on the right to account for the added column width
+		<pre class="board"><code data-trim contenteditable>| 😄 |    |    |    |    |    |    |
+|----+----+----+----+----+----+----|
 | A  | B  | C  | D  | E  | F  | G  |
 </code></pre>
-* note that there are no leading or trailing newlines or spaces before and after the board
+* there are no leading or trailing newlines or spaces before and after the board
+* __not all terminals and editors will show emoji width for monospace fonts correctly!__ 
+	* ... for example, terminal.app on MacOS and MinTTY on Windows displays the alignment properly
+	* ... while iTerm2 on MacOS and cmder on Windows, emoji will not align! (but that's ok) 
+	* if you have the padding correct in the code, you can assume that the implementation is correct even if your application makes it seem like it isn't aligned
+	* a passing test is greater guarantee of correct implementation
 
 This one is actually quite challenging (and tedious) to get exactly right, so if you're not getting the test passing, but it _looks like_ the expected output, there won't be any penalties ... and if there are other issues (for example, not adding labels), there will only be small point penalties.
 
@@ -1038,7 +1046,23 @@ Using the board object, `board`, and a string of moves, `s`, play out a series o
 * if a win occurs, but there are more moves specified, then the move immediately after a win should produce an error
 * if there's an error or invalid move, the function can return immediately with the appropriate fields filled (for example, a `null` `board` property, a filled `error` property, etc.)
 
+Again, the second parameter, `s`, will supply the pieces and moves (that is, which columns to drop the piece in). 
+
+* the first two characters in `s` are the pieces, and every character after should be an uppercase letter indicating which column to place the piece in (for example `XOAABB`)
+* the piece is then set by _dropping_ it to the lowest unoccupied cell in that column.
+* so, `😎OAABB` would result in a board that looks like this (since the emoji is first dropped into column A, and then the letter O is dropped on top of that):
+	<pre class="board"><code data-trim contenteditable>|    |    |    |    |    |    |    |
+|    |    |    |    |    |    |    |
+|    |    |    |    |    |    |    |
+|    |    |    |    |    |    |    |
+| O  | O  |    |    |    |    |    |
+| 😎 | 😎 |    |    |    |    |    |
+|----+----+----+----+----+----+----|
+| A  | B  | C  | D  | E  | F  | G  |
+</code></pre>
+
 __Example:__
+
 
     // autoplays a series of moves based on string
     const s = '😄🤮ABAACD';
@@ -1160,7 +1184,7 @@ You'll write your Connectmoji game in the file called `src/game.js`. Your first 
 1. bring in the module you created by using `require`
     <pre><code data-trim contenteditable>// you can name the object whatever you like
 // "tic" is used below...
-const tic = require('./connectmoji.js');
+const c = require('./connectmoji.js');
 </code></pre>
 2. bring in the module, `readline-sync`, which you installed in the preparation portion of the homework
     <pre><code data-trim contenteditable>const readlineSync = require('readline-sync');
@@ -1285,7 +1309,7 @@ Press &lt;ENTER&gt; to start game
 
 ### An Interactive Game
 
-Now... for the actual game. The player will be playing against the computer
+Now... for the actual game. The player and the computer will take turns dropping pieces until the board is full or the player and computer have reached the number set for consecutive values.
 
 1. Regardless of whether or not options were created via the commandline or supplied interactively by the player, the player and computer will alternate turns
 2. If it's the player's turn, ask the player for a letter:
@@ -1296,6 +1320,7 @@ Now... for the actual game. The player will be playing against the computer
 	<pre><code data-trim contenteditable>Press &lt;ENTER&gt; to see computer move
 </code></pre>
 4. In either case:
+	* __the piece is placed in the lowest unoccupied column on the board__ (think of it as being dropped down the column)
 	* display the column that the piece was just dropped in
 		<pre><code data-trim contenteditable>...dropping in column A
 </code></pre>
@@ -1323,6 +1348,7 @@ Now... for the actual game. The player will be playing against the computer
 Choose a column letter to drop your piece in
 &gt;
 </code></pre>
+5. After the player moves or the computer presses ENTER, use the `clear` function (mentioned above in the setup; it must be `require`d) to clear the previous image of the board and show the next image
 
 <br>
 
