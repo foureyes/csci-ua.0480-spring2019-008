@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	<div class="panel-heading">Homework #1</div>
 	<div class="panel-body" markdown="block">
 
-<h1 style="background: yellow; font-weight: bold; color: red;">DRAFT, PLEASE WAIT UNTIL HOMEWORK IS ANNOUNCED VIA PIAZZA / REPOSITORIES ARE CREATED</h1>
 
 # Connectmoji
 
