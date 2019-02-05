@@ -153,7 +153,7 @@ You'll also install the following modules locally in your project directory:
 
 Go into the directory of your cloned repository (`cd username-homework01`), and run the following commands:
 
-<pre><code data-trim contenteditable>npm install -g mocha
+<pre><code data-trim contenteditable>npm install --save-dev mocha
 npm install --save-dev eslint
 npm install --save-dev chai
 npm install --save-dev eslint-plugin-mocha
