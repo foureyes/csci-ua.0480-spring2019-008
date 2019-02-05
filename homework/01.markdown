@@ -157,9 +157,11 @@ Go into the directory of your cloned repository (`cd username-homework01`), and 
 npm install --save-dev eslint
 npm install --save-dev chai
 npm install --save-dev eslint-plugin-mocha
+# can also be installed in a single line
+npm install --save-dev eslint mocha chai eslint-plugin-mocha
 </code></pre>
 
-Note that the last command installs a module _locally_ to your project directory:
+Note that these will all be installed locally to your project directory:
 
 * It will create a `package-lock.json` file that stores exact versions
 * It will make a modification to an existing file, `package.json`, within your project folder
