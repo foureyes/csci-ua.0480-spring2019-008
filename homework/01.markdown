@@ -741,7 +741,7 @@ __Example:__
 
 
 
-### `letterToCol(board)`
+### `letterToCol(letter)`
 
 __Parameters:__
 
