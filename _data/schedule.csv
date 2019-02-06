@@ -117,7 +117,7 @@ __Due Monday 2/11, by 11pm__
 * [Homework #1](homework/01.html) 
 
 ",
-y,,4,06-Feb,Wed,"* Objects and Prototypes
+,,4,06-Feb,Wed,"* Objects and Prototypes
 ","* [Objects and Prototypes, Classes](slides/05/prototypes.html)
 * [Objects in JavaScript Summary](slides/05/objects-review.html)
 * [Where Not to Use Arrow Functions](slides/05/not-arrow.html)
@@ -140,7 +140,8 @@ y,,4,06-Feb,Wed,"* Objects and Prototypes
 
 * Chapter 6 - The Secret Life of Objects
 * Chapter 8 - Bugs and Error Handling 
-","__Due Wed 2/13 at 11pm:__
+","<!--
+__Due Wed 2/13 at 11pm:__
 
 
 * [Homework #2](homework/02.html) 
@@ -149,7 +150,7 @@ __Due Sunday 9/25, by 9am__
 
 * Quizzes #4 and #5
 
-",
+-->",
 y,,5,11-Feb,Mon,"* Networking Primer
 * Network Programming
 * Streams / Buffers / File IO
