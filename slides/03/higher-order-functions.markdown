@@ -85,11 +85,11 @@ __Are you familiar with these functions?__ &rarr;
 
 __Write a quick loop. For every element in the following array, print it out.__ &rarr;
 
-<code>var numbers = [1, 2, 3];</code>
+<code>const numbers = [1, 2, 3];</code>
 
 <pre><code data-trim contenteditable>
-for (var i = 0; i < numbers.length; i++) {
-	var current = numbers[i];
+for (let i = 0; i < numbers.length; i++) {
+	const current = numbers[i];
 	console.log(current); 
 }
 
@@ -125,9 +125,9 @@ __One simple abstraction is to hide the details of the iteration by creating a f
 * ... and just print out every element
 
 <pre><code data-trim contenteditable>
-var numbers = [1, 2, 3];
+const numbers = [1, 2, 3];
 function logEach(arr) {
-	for (var i = 0; i < arr.length; i++) {
+	for (let i = 0; i < arr.length; i++) {
 		console.log(arr[i]); 
 	}
 }
@@ -153,9 +153,9 @@ __Create a function called <code>forEach</code>.__ &rarr;
 * it will run the function for every element in the array
 
 <pre><code data-trim contenteditable>
-var numbers = [1, 2, 3];
+const numbers = [1, 2, 3];
 function forEach(arr, action) {
-	for (var i = 0; i < arr.length; i++) {
+	for (let i = 0; i < arr.length; i++) {
 		action(arr[i]); 
 	}
 }
@@ -198,18 +198,18 @@ __Write a function that creates a deck of cards. The function will__ &rarr;
 * each card object has a suit (♠, ♥, ♦, ♣) and a face (the strings '2' .. '10', 'J', 'Q', 'K', 'A')
 * the 52 resulting objects should represent every combination of suit and face
 * example list with two card objects: <code>[{ suit: '♣', face: '2' }, { suit: '♦', face: '6' } ]</code>
-* example usage: <code>var cards = generateCards()</code>
+* example usage: <code>const cards = generateCards()</code>
 </section>
 <section markdown="block">
 ## generateCards with Standard For Loop
 
 <pre><code data-trim contenteditable>
-var generateCards = function() {
-	var suits = ['♠','♥','♦','♣'],
-        faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'],
-        cards = [];
-	for(var i = 0; i < suits.length; i++) {
-		for(var j = 0; j < faces.length; j++) {
+const generateCards = function() {
+	const suits = ['♠','♥','♦','♣'];
+    const faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    const cards = [];
+	for(let i = 0; i < suits.length; i++) {
+		for(let j = 0; j < faces.length; j++) {
 			cards.push({'suit':suits[i], 'face':faces[j]}); 
 		}
 	}
@@ -226,10 +226,10 @@ console.log(generateCards());
 __Perhaps slightly more expressive: only dealing with suit and face in the forEach loops__... &rarr;
 
 <pre><code data-trim contenteditable>
-var generateCards = function() {
-	var suits = ['♠','♥','♦','♣'],
-        faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'],
-        cards = [];
+const generateCards = function() {
+	const suits = ['♠','♥','♦','♣'];
+    const faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    const cards = [];
 	suits.forEach(function(suit) {
 		faces.forEach(function(face) {
 			cards.push({'suit':suit, 'face':face}); 
@@ -242,14 +242,35 @@ console.log(generateCards());
 </section>
 
 <section markdown="block">
-## A Few Other Notes on Both Implementations
+## generateCards with for of
 
-* all variables are declared at the top of the function (__why?__ &rarr;) <span class="fragment">...to avoid ambiguities when a variable declaration is hoisted</span>
-* the formatting of the variable declarations is one per line, indented... in a single statement
-* __indentation__ for both nested <code>for</code> loops and nested <code>forEach</code> calls greatly helps readability
-* either function works fine!
-	* forEach - more expressive / reads more naturally, less complexity
-	* for - slightly faster
+__Ah, that's it!__... &rarr;
+
+<pre><code data-trim contenteditable>
+const generateCards = function() {
+	const suits = ['♠','♥','♦','♣'];
+    const faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    const cards = [];
+	for(const suit of suits) {
+		for(const face of faces) {
+			cards.push({'suit':suit, 'face':face}); 
+		});
+	});
+	return cards;
+};
+console.log(generateCards());
+</code></pre>
+</section>
+
+<section markdown="block">
+## A Few Other Notes on the Implementations
+
+* no `break` in `forEach`
+* but `break` works in regular `for` and `for of`
+* ok to `const` declare loop variable in `for of`
+* `for of` works on anything that implements the iterator protocol, not just arrays
+	* for example, strings!
+* for this particular task, perhaps `reduce` could be used instead of `forEach` (see later)
 </section>
 
 
@@ -264,7 +285,7 @@ __Create a function called filter that filters an array by:__ &rarr;
 
 <pre><code data-trim contenteditable>
 function filter(arr, test) {
-	var filtered = [];
+	const filtered = [];
 	arr.forEach(function(element) {
 		if(test(element)) {
 			filtered.push(element)
@@ -272,7 +293,7 @@ function filter(arr, test) {
 	});
 	return filtered;
 }
-result = filter([1, 2, 3, 4], function(x) { 
+const result = filter([1, 2, 3, 4], function(x) { 
 	return x % 2 == 1;
 });
 console.log(result);
@@ -293,8 +314,8 @@ Again, JavaScript arrays already have a [filter method](https://developer.mozill
 __Try using it to filter our deck of cards so that we only have cards that have a numeric value that's less than or equal to 3__ &rarr;
 
 <pre><code data-trim contenteditable>
-var deck = generateCards();
-var filtered = deck.filter(function(card) {
+const deck = generateCards();
+const filtered = deck.filter(function(card) {
 	return parseInt(card.face, 10) <= 3;
 });
 console.log(filtered);
