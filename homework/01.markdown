@@ -720,8 +720,8 @@ __Example:__
     let board = c.generateBoard(6, 7);
     board = c.setCells(
       board, 
-      {row: 6, col: 0, val: 'X'},
-      {row: 5, col: 0, val: '😄'}
+      {row: 5, col: 0, val: 'X'},
+      {row: 4, col: 0, val: '😄'}
     );
 
 	// board is exactly the string below
