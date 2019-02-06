@@ -151,7 +151,16 @@ You'll also install the following modules locally in your project directory:
 * `eslint` - for catching potential errors in your code
 * `eslint-plugin-mocha` - to support linting test code
 
-Go into the directory of your cloned repository (`cd username-homework01`), and run the following commands:
+Go into the directory of your cloned repository (`cd username-homework01`), and create `package.json`
+
+<pre><code data-trim contenteditable>
+npm init
+# follow the prompts to create a package.json... you can 
+# just use the default answers to the questions that are asked
+# (for our purposes, the answers don't really matter)
+</code></pre>
+
+You can add dependencies to `package.json` using the following commands:
 
 <pre><code data-trim contenteditable>npm install --save-dev mocha
 npm install --save-dev eslint
