@@ -9,9 +9,11 @@ title: CSCI-UA.0480 - Homework #2
 
 # Higher Order Functions: Exercises and Processing Data - __Due Feb 18 at 11pm__
 
+<!-->
 <div markdown="block" class="img">
 ![dog](../resources/img/dog.gif)
 </div>
+-->
 
 ## Overview
 
@@ -19,7 +21,7 @@ title: CSCI-UA.0480 - Homework #2
 
 __hoffy.js__ - Write a series of functions that demonstrate the use of the rest operator (or call/apply), and higher order functions
 
-__bitefunc.js__ and __report.js__ - Print out a report analyzing dog bite data. There are two parts to this:
+__analytic.js__, __tempAnalytic.js__, __readWeatherFs.js__, and __readWeatherUrl.js__ - Print out a report analyzing dog bite data. There are two parts to this:
 
 * An initial version that works off of a local csv file
 * A second version that works off of remote urls containing json (you can overwrite the previous part with this code)
@@ -467,27 +469,23 @@ The data is a Kaggle Challenge which you can access via [https://www.kaggle.com/
 You'll be using two files for this:
 1. `tempAnalytic.js` to create a function called `analyzeTemperature`
     * the function will take an `Array` of objects with each object representing the temperature of 36 cities
-2. `readWeather.js` to read in a JSON data representing a list of hourly temperature and use the `analyzeTemperature` function above to create a report (Note: you can assume there are no missing values, NaN or null in the data. In other words, the data is cleaned.)
+2. `readWeatherFs.js` to read in a file containing JSON data representing a list of hourly temperature and use the `analyzeTemperature` function above to create a report (Note: you can assume there are no missing values, NaN or null in the data. In other words, the data is cleaned.)
 
 ### Importing Data
 
 * Download the data by going to [https://data.cityofnewyork.us/Health/DOHMH-Dog-Bite-Data/rsgh-akpg](https://data.cityofnewyork.us/Health/DOHMH-Dog-Bite-Data/rsgh-akpg) and name the folder `historical-hourly-weather-data-json`
     * place the folder in the root folder of your repository
     * `historical-hourly-weather-data-json` should contain a `temperature.json` file
-
-* Start by reading in the file using `fs.readFile` (you can use the absolute path)
-    * make sure that `fs` the module is brought in using `require`, then call the function)
+* Start by reading in the file using `fs.readFile`
+    * ⚠️⚠️⚠️ __use a relative path so that grader's can grade on their computer__
+    * make sure that the `fs` module is brought in using `require`, then call the function)
     * __do not use readFileSync__
-
 * See the docs on `fs.readFile` (hint: make sure you specify `utf8` as the second argument)
-
 * Also remember that the data read in the memory is a `JSON string`
-
 * The file that you read in contains an array of hourly temperature data:
     * each object in the array is an hourly temperature of 36 cities.
     * the first property in the object is `datetime` formatted as `YYYY-MM-dd HH:mm:ss`
     * following properties are `city name` with value of `temperature` in *Kevlin Scale*
-
 * Find a way to read in and convert the Kevlin scale to Fahrenheit which is more commonly used:
     * The formula is `T(F) = T(K) * 1.8 - 459.67` [https://www.rapidtables.com/convert/temperature/how-kelvin-to-fahrenheit.html](https://www.rapidtables.com/convert/temperature/how-kelvin-to-fahrenheit.html)
     * note that the goal of this assignment is to work with higher order functions, so memory efficiency does not need to be taken into consideration
@@ -506,7 +504,7 @@ At 2012-10-01 13:00:00, the temperature in NY is 59.13 (F)
 
 ### Folder Structure
 
-For this part, your homework folder structure looks like:
+For this part, your homework folder structure looks like (excluding `hoffy.js`):
 
 ```
 ├── historical-hourly-weather-data-json
@@ -553,7 +551,7 @@ __Parameters:__
 
 __Returns:__
 
-* void. the analysis strings are output to `stdout`. (Use `console.log()` properly)
+* void. the analysis strings are output to `stdout`. (simply use `console.log`)
 
 __Description:__
 
@@ -562,6 +560,7 @@ This function will generate a report based on the `Array` of objects passed in. 
 ### Implementation Requirements
 
 When creating your report in `analyzeTemperature`, for each required data analytic, you must use all of the following Array methods at least once each in your program:
+
 1. `forEach`
 2. `filter`
 3. `map`
@@ -826,7 +825,6 @@ The `temperature-resource.json` you fetched using request from given url looks l
     
     ```
     The reason behind this is to create a generalized method that can report different weather variables (not only temperature).
-
 11. Note: you can imagine that there will be a sequence of callbacks and you need to deal with different variable scopes. Trying not to make your code **callback hell** by designing your functions properly.
 
 ### Folder Structure
