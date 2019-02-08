@@ -766,6 +766,34 @@ After completed the previous part, you now have better understanding of `tempera
 3. The next dataset to the wind speed is `pressure-resource.json`.
 4. As long as all these datasets are well prepared, perfrom similar analytics using the function you created in the previous part (you only need logics of problem 4 and 5 in the previous part).
 
+### Data
+
+The `temperature-resource.json` you fetched using request from given url looks like below. **Note that the request url you are using is `ROOT_URL + /temperature-resource.json` **. After the dataset return from remote, you can use the `next` property to construct next url then fetch the following dataset. The description of properties in this data is listed below.
+
+1. `next`: contains the next resource name (not the exact url)
+2. `response`: JSON array and each object contains weather data of each of 36 cities (same as the `temperature.json` in Part 2)
+```
+{
+    "next": "wind_speed-resource",
+    "response": [{"datetime": "2012-10-01 13:00:00",
+                  "Vancouver": 284.63,
+                  "Portland":  282.08,
+                  "San Francisco": 289.48,
+                  "Seattle": 281.8,
+                  "Los Angeles": 291.87,
+                  "San Diego": 291.53,
+                  "Las Vegas": 293.41,
+                  "Phoenix": 296.6,
+                  "Albuquerque": 285.12,
+                  ...
+                 }, {
+                     ...
+                 },
+                 ...
+                ]
+}
+```
+
 ### Implementation Detail
 
 1. Install the requests library in your project's root folder: `npm install --save request` (similar to installing `readline-sync` in the previous assignment)
