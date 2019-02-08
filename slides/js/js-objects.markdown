@@ -243,6 +243,43 @@ console.log("here's one!")
 </section>
 
 <section markdown="block">
+## Property Names
+
+__All property names are turned into a string prior to be using as a key__
+
+This poses a bit of a problem:
+
+* any object can be used as a key
+* but the string version of two different objects may be the same!
+* by default objects that we create are converted to the string `[object Object]` when cast to a `String`. 
+* for example: `String({})` returns `[object Object]`
+
+</section>
+
+<section markdown="block">
+## Objects as Property Names!? Don't
+
+Here's an example of the issue:
+
+
+
+<pre><code data-trim contenteditable>
+const k1 = {foo:'bar'};
+const k2 = {baz:'qux'};
+const obj = {};
+obj[k1] = 1;
+obj[k2] = 2;
+console.log(obj);
+// { '[object Object]': 2 }
+// uh oh! ... you can see that there's only one prop
+
+</code></pre>
+
+
+
+</section>
+
+<section markdown="block">
 ## Methods (Again)
 
 It's worthwhile to repeat that __an object property can be a function__. 
@@ -439,6 +476,7 @@ However, as soon as you perform an _object-like_ operation on them, such as a me
 
 [See this article on the _secret_ life of JavaScript primitives!](http://javascriptweblog.wordpress.com/2010/09/27/the-secret-life-of-javascript-primitives/)
 </section>
+
 
 <section markdown="block">
 ## And Finally... JSON
