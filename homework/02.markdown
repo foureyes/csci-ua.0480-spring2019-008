@@ -662,11 +662,11 @@ Hint: what is the simplest way to rank a sequence of data?
 
 ### The average temperature over spring 2013 in New York
 
-This is to help you get a sense of how to use `date` in Javascript. Please refer to (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date]
+This is to help you get a sense of how to use `date` in Javascript. Please refer to [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
  and look at how to instantiate a date object. More detail steps are listed.
 
 1. Let's define the spring in NY is from *Feburary* to *April*.
-2. The date string in the dataset is represented as `YYYY-MM-dd HH:mm:ss`. This is compared based on string instead of date. So **parsing** this date string to date object and fetch `year`, `month`, `day`, `hour`, `minute`, and `second`
+2. The date string in the dataset is represented as `YYYY-MM-dd HH:mm:ss`. This is compared based on string instead of date. So **parse** this date string to date object and fetch `year`, `month`, `day`, `hour`, `minute`, and `second` (write your own parser for date string and instantiate a [date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date))
 3. Until now, you can set up a range to retrieve records during spring 2013. Hint: by using `getFullYear()`, `getMonth()` of the date object. (Again, try to use higher order functions)
 4. Then compute the mean temperature of NY in spring 2013
 
