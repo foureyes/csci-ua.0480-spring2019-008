@@ -665,7 +665,7 @@ This is to help you get a sense of how to use `date` in Javascript. Please refer
  and look at how to instantiate a date object. More detail steps are listed.
 
 1. Let's define the spring in NY is from *Feburary* to *April*.
-2. The date string in the dataset is represented as `YYYY-MM-dd HH:mm:ss`. This is compared based on string instead of date. So **parsing** this date string to fetch `year`, `month`, `day`, `hour`, `minute`, and `second` to instantiate an date object
+2. The date string in the dataset is represented as `YYYY-MM-dd HH:mm:ss`. This is compared based on string instead of date. So **parsing** this date string to date object and fetch `year`, `month`, `day`, `hour`, `minute`, and `second`
 3. Until now, you can set up a range to retrieve records during spring 2013. Hint: by using `getFullYear()`, `getMonth()` of the date object. (Again, try to use higher order functions)
 4. Then compute the mean temperature of NY in spring 2013
 
@@ -736,7 +736,7 @@ Pittsburgh: 51.80 (F)
 Seattle: 52.39 (F)
 Indianapolis: 53.11 (F)
 
-The average temperature over spring 2013 in New York is: 50.12 (F)
+The average temperature over spring 2013 in New York is: 41.10 (F)
 
 ```
 
@@ -841,7 +841,7 @@ Pittsburgh: 51.18 (F)
 Seattle: 51.80 (F)
 Portland: 52.84 (F)
 
-The average temperature over spring 2013 in New York is: 41.13 (F)
+The average temperature over spring 2013 in New York is: 35.22 (F)
 
 Top 10 Cities with highest mean wind speed
 Eilat: 3.68 (m/s)
@@ -868,7 +868,7 @@ Charlotte: 2.03 (m/s)
 Denver: 2.11 (m/s)
 Beersheba: 2.21 (m/s)
 
-The average wind speed over spring 2013 in New York is: 4.39 (m/s)
+The average wind speed over spring 2013 in New York is: 4.45 (m/s)
 
 Top 10 Cities with highest mean pressure
 Seattle: 1023.78 (hpa)
@@ -895,8 +895,7 @@ New York: 1013.11 (hpa)
 Tel Aviv District: 1013.51 (hpa)
 Los Angeles: 1014.68 (hpa)
 
-The average pressure over spring 2013 in New York is: 1018.24 (hpa)
-
+The average pressure over spring 2013 in New York is: 1019.81 (hpa)
 
 ```
 </div>
