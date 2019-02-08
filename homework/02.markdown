@@ -511,8 +511,9 @@ For this part, your homework folder structure looks like:
 ```
 ├── historical-hourly-weather-data-json
 │   └── temperature.json
-├── readWeatherFs.js
-└── tempAnalytic.js
+└── src
+    ├── tempAnalytic.js
+    └── readWeatherFs.js 
 ```
 Note: this is the basic strcuture, you may create extra `.js` for modularity of the folder.
 
@@ -806,10 +807,11 @@ Until this part, your homework folder structure looks like:
 ```
 ├── historical-hourly-weather-data-json
 │   └── temperature.json
-├── readWeatherFs.js
-├── readWeatherUrl.js.js
-├── analytic.js
-└── tempAnalytic.js
+└── src
+    ├── readWeatherFs.js
+    ├── readWeatherUrl.js.js
+    ├── analytic.js
+    └── tempAnalytic.js
 ```
 Note: this is the basic strcuture, you may create extra `.js` for modularity of the folder.
 
