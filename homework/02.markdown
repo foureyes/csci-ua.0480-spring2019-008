@@ -566,8 +566,9 @@ When creating your report in `analyzeTemperature`, for each required data analyt
 2. `filter`
 3. `map`
 4. `reduce`
-5. There will be a small penalty for each one not used (-2).
-6. Note: try not to modify the input data during executing your function. Usually the input should be read-only and if you would like to overwrite it, creating an copy would be fine. (In this assignment, the size of data is relatively small)
+5. Other functions that may help you apply higher order functions
+6. There will be a small penalty for each one not used (-2).
+7. Note: try not to modify the input data during executing your function. Usually the input should be read-only and if you would like to overwrite it, creating an copy would be fine. (In this assignment, the size of data is relatively small)
 	
 ### Problem Overview
 
@@ -666,7 +667,7 @@ This is to help you get a sense of how to use `date` in Javascript. Please refer
  and look at how to instantiate a date object. More detail steps are listed.
 
 1. Let's define the spring in NY is from *Feburary* to *April*.
-2. The date string in the dataset is represented as `YYYY-MM-dd HH:mm:ss`. This is compared based on string instead of date. So **parse** this date string to date object and fetch `year`, `month`, `day`, `hour`, `minute`, and `second` (write your own parser for date string and instantiate a [date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date))
+2. The date string in the dataset is represented as `'YYYY-MM-dd HH:mm:ss'`. This is compared based on string instead of date. So **parse** this date string to date object and fetch `year`, `month`, `day`, `hour`, `minute`, and `second` (write your own parser for date string and instantiate a [date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)), you may create a function `stringToDate(dateStr)` that returns a date object
 3. Until now, you can set up a range to retrieve records during spring 2013. Hint: by using `getFullYear()`, `getMonth()` of the date object. (Again, try to use higher order functions)
 4. Then compute the mean temperature of NY in spring 2013
 
@@ -685,7 +686,7 @@ Your function can return void (i.e., you don't need to return any value, just ma
 
 Now that you've finished your function, you can try to call it on your data from `tempAnalytic.js`
 
-1. In report.js: require the module that you created (`tempAnalytic.js`).
+1. In `readWeatherFs.js`: require the module that you created (`tempAnalytic.js`).
 2. Use readFile to read `temperature.json` in the folder `historical-hourly-weather-data-json`
 3. Call `analyzeTemperature()` in the callback of `fs.readFile`
 4. Print out the report.
@@ -769,7 +770,7 @@ After completed the previous part, you now have better understanding of `tempera
 
 1. Install the requests library in your project's root folder: `npm install --save request` (similar to installing `readline-sync` in the previous assignment)
 2. Create a new file `readWeatherUrl.js`
-3. Add the module to the beginning of `readWeatherUrl.js` using `require`
+3. Add the `request` module to the beginning of `readWeatherUrl.js` using `require`
 4. [Read the documentation](https://github.com/mikeal/request) to see how to use the requests module (or see the [slides](../slides/js/js-node-npm-debug-git.html#/6))
 	* Notice that the data is only available within the callback that you pass in to calling `request` (much like using readFile)
 	* Again, a __callback__ is a function passed as an argument to another function... the callback will be invoked / executed at a later time, when some event is triggered
