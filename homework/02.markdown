@@ -466,7 +466,7 @@ In this part, you'll work with a dataset of Hourly weather data for 30 US & Cana
 
 The data is a Kaggle Challenge which you can access via [https://www.kaggle.com/selfishgene/historical-hourly-weather-data](https://www.kaggle.com/selfishgene/historical-hourly-weather-data).
 
-You'll be using two files for this:
+You'll be using two files for this part of homework:
 1. `tempAnalytic.js` to create a function called `analyzeTemperature`
     * the function will take an `Array` of objects with each object representing the temperature of 36 cities
 2. `readWeatherFs.js` to read in a file containing JSON data representing a list of hourly temperature and use the `analyzeTemperature` function above to create a report (Note: you can assume there are no missing values, NaN or null in the data. In other words, the data is cleaned.)
@@ -480,7 +480,7 @@ You'll be using two files for this:
     * ⚠️⚠️⚠️ __use a relative path so that grader's can grade on their computer__
     * make sure that the `fs` module is brought in using `require`, then call the function)
     * __do not use readFileSync__
-* See the docs on `fs.readFile` (hint: make sure you specify `utf8` as the second argument)
+* See the docs on `fs.readFile` (HINT: make sure you specify `utf8` as the second argument)
 * Also remember that the data read in the memory is a `JSON string`
 * The file that you read in contains an array of hourly temperature data:
     * each object in the array is an hourly temperature of 36 cities.
@@ -489,12 +489,12 @@ You'll be using two files for this:
 * Find a way to read in and convert the Kevlin scale to Fahrenheit which is more commonly used:
     * The formula is `T(F) = T(K) * 1.8 - 459.67` [https://www.rapidtables.com/convert/temperature/how-kelvin-to-fahrenheit.html](https://www.rapidtables.com/convert/temperature/how-kelvin-to-fahrenheit.html)
     * note that the goal of this assignment is to work with higher order functions, so memory efficiency does not need to be taken into consideration
-* All of your parsing can only be done from within the callback function (or the function to be called once data is read from the file) that you supply to `fs.readFile`
+* All of your parsing can only be done within the callback function (or the function to be called once data is read from the file) that you supply to `fs.readFile`
 * **Print the first ten lines of temperature in New York with the format using template literals**
 
 ```javascript=
 // Format
-At ${time}, the temperature in NY is ${degree in Fahrenheit}
+At ${time}, the temperature in NY is ${degree in Fahrenheit} (F)
 
 // Example
 At 2012-10-01 13:00:00, the temperature in NY is 59.13 (F)
@@ -504,7 +504,7 @@ At 2012-10-01 13:00:00, the temperature in NY is 59.13 (F)
 
 ### Folder Structure
 
-For this part, your homework folder structure looks like (excluding `hoffy.js`):
+For this part, your homework folder structure looks like:
 
 ```
 ├── historical-hourly-weather-data-json
@@ -576,7 +576,7 @@ Your report will use the data passed in to determine:
 1. First 10 lines of Temperature in NY
 2. The mean temperature in San Diego
 3. The coldest, warmest time and temperature in New York
-4. Top 10 Cities with coldest and warmest mean temperature
+4. Top 10 cities with coldest and warmest mean temperature
 5. The average temperature over spring 2013 in New York
 
 See the following details...
@@ -606,25 +606,25 @@ This is to test if you convert the temperature scale in the callback correctly a
 
 The output format and example are listed below:
 
-Format (All floating point numbers are required to be rounded to two digits after decimal point)
+Format: Print all decimal numbers with 2 digits after decimal point
 ```
 At `YYYY-MM-dd HH:mm:ss`, the temperature in NY is `xx.xx` (F)
 ```
-Hint: use `toFixed(n)` or `toPrecision(n)`. what's the difference between them?
+HINT: use `toFixed(n)` or `toPrecision(n)`. what's the difference between them?
 
-Example
+Example:
 ```
-Head 10 lines of Temperature in NY:
+First 10 lines of Temperature in NY:
 At 2012-10-01 13:00:00, the temperature in NY is 59.13 (F)
 ...
 ```
-Note: the regular for loop is fine, but try to use higher order functions
+Note: regular for loop is fine, but try to use higher order functions
 
 ### The mean temperature in San Diego
 
 This is to test if you can composite more than one higher order functions.
 
-Format (All floating point numbers are required to be rounded to two digits after decimal point)
+Format: Print all decimal numbers with 2 digits after decimal point
 ```
 The mean temperature in San Diego is: xx.xx (F)
 ```
@@ -633,7 +633,7 @@ The mean temperature in San Diego is: xx.xx (F)
 
 Find the top ten coldest, warmest date and temperature and output in the following format
 
-Format (All floating point numbers are required to be rounded to two digits after decimal point)
+Format: Print all decimal numbers with 2 digits after decimal point
 ```
 The coldest time in New York is: `YYYY-MM-dd HH:mm:ss`
 The lowest temperature is: xx.xx (F)
@@ -643,7 +643,7 @@ The highest temperature is: xx.xx (F)
 
 ### Top 10 Cities with coldest and warmest mean temperature
 
-Format (All floating point numbers are required to be rounded to two digits after decimal point)
+Format: Print all decimal numbers with 2 digits after decimal point
 
 ```
 Top 10 Cities with highest mean temperature
@@ -656,9 +656,9 @@ Denver: 49.54 (F)
 ```
 Note: use as much higher order functions as you can.
 
-Hint: to get the mean of a sequence of values, you will convert an array to a single number. you should also consider weatherData is an array of objects (conceptually a 2 dimensional array), how can you do achieve this applying a higher order function?
+HINT: to get the mean of a sequence of values, you will convert an array to a single number. you should also consider `weatherData` is an array of objects (conceptually a 2 dimensional array), how can you do achieve this applying a higher order function?
 
-Hint: what is the simplest way to rank a sequence of data?
+HINT: what is the simplest way to rank a sequence of data?
 
 ### The average temperature over spring 2013 in New York
 
@@ -670,12 +670,12 @@ This is to help you get a sense of how to use `date` in Javascript. Please refer
 3. Until now, you can set up a range to retrieve records during spring 2013. Hint: by using `getFullYear()`, `getMonth()` of the date object. (Again, try to use higher order functions)
 4. Then compute the mean temperature of NY in spring 2013
 
-Format (All floating point numbers are required to be rounded to two digits after decimal point)
+Format: Print all decimal numbers with 2 digits after decimal point
 
 ```
 The average temperature over spring 2013 in New York is: **.** (F)
 ```
-Hint: be careful to the numeric representation of month returned from `getMonth()`.
+HINT: be careful to the numeric representation of month returned from `getMonth()`.
 
 ### Return Value
 
@@ -683,13 +683,13 @@ Your function can return void (i.e., you don't need to return any value, just ma
 
 ### Calling analyzeTemperature
 
-Now that you've finished your function, you can try to call it on your data from `tempAnalytic.js`
+Now that you've finished your function, you can try to call it on your data from `readWeatherFs.js`
 
 1. In `readWeatherFs.js`: require the module that you created (`tempAnalytic.js`).
 2. Use readFile to read `temperature.json` in the folder `historical-hourly-weather-data-json`
 3. Call `analyzeTemperature()` in the callback of `fs.readFile`
 4. Print out the report.
-5. You can compare your output with the example output below
+5. You can compare your output with the example output below (See bottom how to compare your output with the below example)
 
 ```
 The first 10 lines of Temperature in NY:
@@ -747,7 +747,7 @@ Lint, commit and push your code; the next part will make modifications to this e
 
 ### Setup for Retrieving JSON
 
-In this part, you'll be setting up your project to work with JSON data from a url with a sequence of asynchrnous calls.
+In this part, you'll be setting up your project to work with JSON data from a url and issue request in a particular order.
 
 ### Context (Optional)
 Below is to provide you a context, you can skip this which doesn't affect the implementation of this problem.
@@ -767,7 +767,7 @@ After completed the previous part, you now have better understanding of `tempera
 
 ### Data
 
-The `temperature-resource.json` you fetched using request from given url looks like below. **Note that the request url you are using is `ROOT_URL + /temperature-resource.json` **. After the dataset return from remote, you can use the `next` property to construct next url then fetch the following dataset. The description of properties in this data is listed below.
+The `temperature-resource.json` you fetched using request from given url looks like below. **Note that the request url you are using is `ROOT_URL + /temperature-resource.json`. The ROOT_URL will be given.** After the dataset return from remote, you can use the `next` property to construct next url then fetch the following dataset. The descriptions of properties in this data are listed below.
 
 1. `next`: contains the next resource name (not the exact url)
 2. `response`: JSON array and each object contains weather data of each of 36 cities (same as the `temperature.json` in Part 2)
@@ -825,7 +825,7 @@ The `temperature-resource.json` you fetched using request from given url looks l
     
     ```
     The reason behind this is to create a generalized method that can report different weather variables (not only temperature).
-11. Note: you can imagine that there will be a sequence of callbacks and you need to deal with different variable scopes. Trying not to make your code **callback hell** by designing your functions properly.
+11. Note: you can imagine that there will be a sequence of callbacks and you need to deal with different variable scopes. Try to avoid making your code **callback hell** by designing your functions properly.
 
 ### Folder Structure
 
@@ -926,6 +926,15 @@ Los Angeles: 1014.68 (hpa)
 
 The average pressure over spring 2013 in New York is: 1019.81 (hpa)
 
+```
+
+### Testing for Part 2 and Part 3
+
+You can copy and paste the provided result to a text file. Then redirect the output from node to another file, and use a Linux command `diff`. For example:
+
+```
+node part3.js > file2.txt
+diff file1.txt file2.txt
 ```
 </div>
 
