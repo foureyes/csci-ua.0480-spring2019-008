@@ -9,9 +9,11 @@ title: CSCI-UA.0480 - Homework #2
 
 # Higher Order Functions: Exercises and Processing Data - __Due Feb 18 at 11pm__
 
+<!-->
 <div markdown="block" class="img">
 ![dog](../resources/img/dog.gif)
 </div>
+-->
 
 ## Overview
 
