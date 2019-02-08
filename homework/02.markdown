@@ -458,241 +458,288 @@ Once you're finished with your functions, remember to:
 3. commit and push your code!
 
 
-## Part 2 - Processing NYC Dog Bite data
+## Part 2 - Weather Analyst
 
-In this part, you'll work with a dataset of reported cases of dogs of New York biting humans of New York
+In this part, you'll work with a dataset of Hourly weather data for 30 US & Canadian Cities + 6 Israeli Cities.
 
-The data free to use as part of NYC's open data initiative.
+The data is a Kaggle Challenge which you can access via [https://www.kaggle.com/selfishgene/historical-hourly-weather-data](https://www.kaggle.com/selfishgene/historical-hourly-weather-data).
 
 You'll be using two files for this:
-1. `bitefunc.js` to create a function called `processBiteData`
-    * the function will take an `Array` of objects with each object representing a listing
-2. `report.js` to read in and parse JSON data (first a local file, then download from a url) and use the `processBiteData` function above to create a report
+1. `tempAnalytic.js` to create a function called `analyzeTemperature`
+    * the function will take an `Array` of objects with each object representing the temperature of 36 cities
+2. `readWeather.js` to read in a JSON data representing a list of hourly temperature and use the `analyzeTemperature` function above to create a report (Note: you can assume there are no missing values, NaN or null in the data. In other words, the data is cleaned.)
 
 ### Importing Data
 
-* Download the data by going to [https://data.cityofnewyork.us/Health/DOHMH-Dog-Bite-Data/rsgh-akpg](https://data.cityofnewyork.us/Health/DOHMH-Dog-Bite-Data/rsgh-akpg) and clicking the "Export" button on the top right, then the "CSV" button.
-    * place it in a folder outside of your repository
-* Create `src/report.js`...
-* Start by reading in the file (which should have a filename something like `DOHMH_Dog_Bite_Data.csv`) (remember uncompress the .gz file from above first) using `fs.readFile` (you can use the absolute path)
+* Download the data by going to [https://data.cityofnewyork.us/Health/DOHMH-Dog-Bite-Data/rsgh-akpg](https://data.cityofnewyork.us/Health/DOHMH-Dog-Bite-Data/rsgh-akpg) and name the folder `historical-hourly-weather-data-json`
+    * place the folder in the root folder of your repository
+    * `historical-hourly-weather-data-json` should contain a `temperature.json` file
+
+* Start by reading in the file using `fs.readFile` (you can use the absolute path)
     * make sure that `fs` the module is brought in using `require`, then call the function)
     * __do not use readFileSync__
+
 * See the docs on `fs.readFile` (hint: make sure you specify `utf8` as the second argument)
-* The file that you read in contains reports of dog bites
-    * there's one bite per line
-    * each bite is represented by a comma-delimited string
-* Find a way to read in and parse the contents of the file so that:
-    * leading and trailing white space is removed from the initial contents (use the [string method, `trim`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim))
-    * each line into an actual JavaScript object, where the properties correspond with the first row of the file (the headers)
-    * each resulting object is placed into an `Array` for later processing
-    * you can check out some [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) and  [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) 
+
+* Also remember that the data read in the memory is a `JSON string`
+
+* The file that you read in contains an array of hourly temperature data:
+    * each object in the array is an hourly temperature of 36 cities.
+    * the first property in the object is `datetime` formatted as `YYYY-MM-dd HH:mm:ss`
+    * following properties are `city name` with value of `temperature` in *Kevlin Scale*
+
+* Find a way to read in and convert the Kevlin scale to Fahrenheit which is more commonly used:
+    * The formula is `T(F) = T(K) * 1.8 - 459.67` [https://www.rapidtables.com/convert/temperature/how-kelvin-to-fahrenheit.html](https://www.rapidtables.com/convert/temperature/how-kelvin-to-fahrenheit.html)
     * note that the goal of this assignment is to work with higher order functions, so memory efficiency does not need to be taken into consideration
 * All of your parsing can only be done from within the callback function (or the function to be called once data is read from the file) that you supply to `fs.readFile`
-* Examine the resulting `Array` ... (for example, try printing it out!)
-* Later, you will be supplying this `Array` to the `processBiteData` function that you create in `bitefunc.js` to generate a report.
-* To verify your file reading and parsing, you can try:
-    * printing the "breed", "borough", "dateOfBite" of the 3rd (remember the array index starts from 0) listing in the file in the format: 'Bite no. ${biteIndex} was from a dog of breed: "${bizz.breed}" located in ${bizz.borough} on ${bizz.dateOfBite}'
+* **Print the first ten lines of temperature in New York with the format using template literals**
+
+```javascript=
+// Format
+At ${time}, the temperature in NY is ${degree in Fahrenheit}
+
+// Example
+At 2012-10-01 13:00:00, the temperature in NY is 59.13 (F)
+```
+
+* Later, you will be supplying this `Array` to the `analyzeTemperature` function that you create in `tempAnalytic.js` to generate a report.
+
+### Folder Structure
+
+For this part, your homework folder structure looks like:
 
 ```
-Bite no. 2 was from a dog of breed: "Mastiff, Bull" located in Brooklyn on January 25 2015
+├── historical-hourly-weather-data-json
+│   └── temperature.json
+└── src
+    ├── tempAnalytic.js
+    └── readWeatherFs.js 
 ```
+Note: this is the basic strcuture, you may create extra `.js` for modularity of the folder.
 
 ### Examining the Data
-* Assuming that your parsed data is in a variable called `data` ...
-* `data` will be an `Array` of JSON objects (each line should have been parsed from JSON before pushing into the `data` array)
-* Each object in `data` contains location data, attributes, and categories.
+Assuming that your parsed data is in a variable called `weatherData` and `weatherData` will be an `Array` of JSON objects.
 
-Below is a sample listing from the dataset with a description of properties you'd need for your assignment
+Below is one object of the JSON array in your assignment. All temperatures are in degree of Kelvin scale.
 
 ```
 {
-  // nyc's integer id for this bite
-  "UniqueID": 1,
-
-  // when it all happened
-  "DateOfBite": "January 27 2015",
-
-  // animal species
-  "Species": "DOG",
-
-  // string.
-  "Breed": "Jack Russ",
-
-  // integer
-  "Age": 11,
-
-  // "M","F", or "U"
-  "Gender": "M",
-
-  // boolean
-  "spayNeuter": false,
-
-  // one of the five
-  "borough": "Brooklyn",
-
-  // integer
-  "zipCode": 11217
+    "datetime":"2012-10-01 13:00:00",
+    "Vancouver":284.63,
+    "Portland":282.08,
+    "San Francisco":289.48,
+    "Denver":284.61,
+    "San Antonio":289.29,
+    ...
+    "Tel Aviv District":305.47,
+    "Eilat":310.58,
+    "Haifa":304.4,
+    "Nahariyya":304.4,
+    "Jerusalem":303.5
 }
 ```
 
-
 ### Analytics
 
-#### The `processBiteData` Function
+#### The `analyzeTemperature` Function
 
-You'll create a function to generate a report (as a string) based on NYC dog bite data. You'll write this function in `bitefunc.js`.
+This is the function that you will create in `tempAnalytic.js` where it performs basic data analytic and output the analysis string to `stdout`. You are expected to use as much higher order function as you can to build this function.
 
-### `processBiteData(bites)`
+### `analyzeTemperature (weatherData)`
 
 __Parameters:__
 
-* `bites` - an `Array` of objects, with each object representing a report of a dog bite
+* `weatherData` - an `Array` of objects, with each object representing an hourly temperature for each of 36 cities.
 
 __Returns:__
 
-* a string containing a report based on the data passed in
+* void. the analysis strings are output to `stdout`. (Use `console.log()` properly)
 
 __Description:__
 
-This function will generate a report based on the `Array` of objects passed in. The report will contain the average ratings for all bites in the file, the most reviewed bites etc. (see full description of report requirements below)
-
-__Important note about parsing numerical values:__
-
-One of the most common peculiarities you'll come across while working with datasets is that the values read in from a file is that they might not be in the format you expect them to be (they may not be the _right_ type).
-
- eg. you might see
-
- ```
- "age": "5"
- ```
-
-It's actually a string whereas we'd like to use it as a float value.
-
-In situations like these, you'll need to parse the numerical value from the string. Here, we'll [use the `parseInt(strval)` function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
-
+This function will generate a report based on the `Array` of objects passed in. The report will contain the average temperature of different cities over the entire time series, or a specific year, or a particular season. It also includes reporting the coldest (warmest) date and figuring out the top ten coldest (warmest) cities in the dataset.
 
 ### Implementation Requirements
 
-1. When creating your report in `processBiteData`, you must use all of the following Array methods at least once each in your program:
-    * `forEach`
-    * `filter`
-    * `map`
-    * `reduce`
-    * There will be a small penalty for each one not used (-2).
-    * HINT: A typical pattern is to always use map 99% of the time, so you never accidentally get rid of or mess up the data, except when you're doing your first pass through the data to clean it up. 
+When creating your report in `analyzeTemperature`, for each required data analytic, you must use all of the following Array methods at least once each in your program:
+1. `forEach`
+2. `filter`
+3. `map`
+4. `reduce`
+5. Other functions that may help you apply higher order functions
+6. There will be a small penalty for each one not used (-2).
+7. Note: try not to modify the input data during executing your function. Usually the input should be read-only and if you would like to overwrite it, creating an copy would be fine. (In this assignment, the size of data is relatively small)
 	
-### Report Overview
+### Problem Overview
 
 Your report will use the data passed in to determine:
 
-1. The average age of all reported biting dogs
-2. What percentage of dogs are spayed or neutered vs not
-3. Top ten dog breeds ranked by number of reported bites
-4. Ranking of each borough by number of reported dog bites.
-5. Top three months the majority of dog bites happen?
+1. First 10 lines of Temperature in NY
+2. The mean temperature in San Diego
+3. The coldest, warmest time and temperature in New York
+4. Top 10 Cities with coldest and warmest mean temperature
+5. The average temperature over spring 2013 in New York
 
 See the following details...
 
-### Average Age
+You are going to create a function. Note that after the output of each problem, print an empty line to separate each section.
 
-* Include the average age of all the dogs in the file; format to have at least two decimal places. Example output below:
+```javascript=
+// tempAnalytic.js
 
-```
-Average age of these chompy friends is: 5.10
-```
+function analyzeTemperature (weatherData) {
+    // Implement Head 10 lines of Temperature in NY
 
-* Be careful of weird things popping up in the age column ! You're going to have to decide what is noise and what to throw away. Don't worry if your number is slightly different. *
-* yes, assume no repeat offenders
+    console.log('');
+    // Implement The mean temperature in San Diego
 
+    ...
 
-### Percentage Spayed/Neutered
-
-* Include what percentage of the dogs were spayed/neutered
-
-```
-The percentage of biting dogs that are spayed/neutered: 34.13%
-```
-
-### Top Ten Most Reported Dog Breeds
-
-* Find the top ten dog breeds by number of reported bites
-
-```
-Top Ten Most Chompy Breeds:
-1. Pit Bull with 1919 reported bites
-2. Shih Tzu with 358 reported bites
-3. American Pit Bull Mix / Pit Bull Mix with 347 reported bites
-4. American Pit Bull Terrier/Pit Bull with 343 reported bites
-5. Chihuahua with 340 reported bites
-6. German Shepherd with 274 reported bites
-7. Mixed/Other with 267 reported bites
-8. Yorkshire Terrier with 230 reported bites
-9. Maltese with 187 reported bites
-10. Rottweiler with 162 reported bites
+    // Implement The average temperature over spring 2013 in New York
+    
+    console.log('');
+}
 ```
 
-### Ranking of Boroughs by Number of Dog Bites
+### First 10 lines of Temperature in NY
+
+This is to test if you convert the temperature scale in the callback correctly and display floating point numbers in a certain format (when you are creating a dashboard, this matters). Also when doing data analytic, the first step is to peek a small portion of data. (like head function in pandas dataframe)
+
+The output format and example are listed below:
+
+Format (All floating point numbers are required to be rounded to two digits after decimal point)
+```
+At `YYYY-MM-dd HH:mm:ss`, the temperature in NY is `xx.xx` (F)
+```
+Hint: use `toFixed(n)` or `toPrecision(n)`. what's the difference between them?
+
+Example
+```
+Head 10 lines of Temperature in NY:
+At 2012-10-01 13:00:00, the temperature in NY is 59.13 (F)
+...
+```
+Note: the regular for loop is fine, but try to use higher order functions
+
+### The mean temperature in San Diego
+
+This is to test if you can composite more than one higher order functions.
+
+Format (All floating point numbers are required to be rounded to two digits after decimal point)
+```
+The mean temperature in San Diego is: xx.xx (F)
+```
+
+### The coldest, warmest time and temperature in New York
+
+Find the top ten coldest, warmest date and temperature and output in the following format
+
+Format (All floating point numbers are required to be rounded to two digits after decimal point)
+```
+The coldest time in New York is: `YYYY-MM-dd HH:mm:ss`
+The lowest temperature is: xx.xx (F)
+The warmest time in New York is: `YYYY-MM-dd HH:mm:ss`
+The highest temperature is: xx.xx (F)
+```
+
+### Top 10 Cities with coldest and warmest mean temperature
+
+Format (All floating point numbers are required to be rounded to two digits after decimal point)
 
 ```
-Dog Bite Leaderboard
-1. Queens with 2202 bites
-2. Brooklyn with 1946 bites
-3. Manhattan with 1878 bites
-4. Bronx with 1508 bites
-5. Staten with 845 bites
-```
+Top 10 Cities with highest mean temperature
+Tel Aviv District: 70.45 (F)
+Jacksonville: 70.24 (F)
 
-### Top three months the majority of dog bites happen?
+Top 10 Cities with lowest mean temperature
+Toronto: 47.96 (F)
+Denver: 49.54 (F)
+```
+Note: use as much higher order functions as you can.
 
-There are multiple years of data in the dataset. You need to:
-1. Count up the number of bites per month/year (e.g. how many dog bites happened in July of 2015, how many happened in July of 2016?)
-2. For every month, get the average number of bites (number of bites in July of 2015 + number of bites in July of 2016) / 2 = guesstimate of how many dog bites happen in a typical July
-3. Get the top three months
+Hint: to get the mean of a sequence of values, you will convert an array to a single number. you should also consider weatherData is an array of objects (conceptually a 2 dimensional array), how can you do achieve this applying a higher order function?
+
+Hint: what is the simplest way to rank a sequence of data?
+
+### The average temperature over spring 2013 in New York
+
+This is to help you get a sense of how to use `date` in Javascript. Please refer to [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+ and look at how to instantiate a date object. More detail steps are listed.
+
+1. Let's define the spring in NY is from *Feburary* to *April*.
+2. The date string in the dataset is represented as `'YYYY-MM-dd HH:mm:ss'`. This is compared based on string instead of date. So **parse** this date string to date object and fetch `year`, `month`, `day`, `hour`, `minute`, and `second` (write your own parser for date string and instantiate a [date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)), you may create a function `stringToDate(dateStr)` that returns a date object
+3. Until now, you can set up a range to retrieve records during spring 2013. Hint: by using `getFullYear()`, `getMonth()` of the date object. (Again, try to use higher order functions)
+4. Then compute the mean temperature of NY in spring 2013
+
+Format (All floating point numbers are required to be rounded to two digits after decimal point)
 
 ```
-The top three months for dog biting are July, August, and June.
+The average temperature over spring 2013 in New York is: **.** (F)
 ```
+Hint: be careful to the numeric representation of month returned from `getMonth()`.
 
 ### Return Value
 
-All of the analytics should be coalesced into a single large string representing the analytic report.
+Your function can return void (i.e., you don't need to return any value, just make sure you output the result strings in `stdout` using `console.log`)
 
-This string should be returned by your `processBiteData` function in your module, `bitefunc.js`
+### Calling analyzeTemperature
 
-### Calling processBiteData
+Now that you've finished your function, you can try to call it on your data from `tempAnalytic.js`
 
-Now that you've finished your function, you can try calling it on your data from `report.js`
-
-1. In report.js: require the module that you created (`bitefunc.js`).
-2. Use your function on the data that you parsed from reading in the `DOHMH_Dog_Bite_Data.csv` file that you opened earlier.
-3. Print out the resulting string.
-4. You can compare your output with the example output below
+1. In `readWeatherFs.js`: require the module that you created (`tempAnalytic.js`).
+2. Use readFile to read `temperature.json` in the folder `historical-hourly-weather-data-json`
+3. Call `analyzeTemperature()` in the callback of `fs.readFile`
+4. Print out the report.
+5. You can compare your output with the example output below
 
 ```
-Average age of these chompy friends is: 5.10
+The first 10 lines of Temperature in NY:
+At 2012-10-01 13:00:00, the temperature in NY is 59.13 (F)
+At 2012-10-01 14:00:00, the temperature in NY is 59.18 (F)
+At 2012-10-01 15:00:00, the temperature in NY is 59.32 (F)
+At 2012-10-01 16:00:00, the temperature in NY is 59.46 (F)
+At 2012-10-01 17:00:00, the temperature in NY is 59.60 (F)
+At 2012-10-01 18:00:00, the temperature in NY is 59.75 (F)
+At 2012-10-01 19:00:00, the temperature in NY is 59.89 (F)
+At 2012-10-01 20:00:00, the temperature in NY is 60.03 (F)
+At 2012-10-01 21:00:00, the temperature in NY is 60.17 (F)
+At 2012-10-01 22:00:00, the temperature in NY is 60.32 (F)
+At 2012-10-01 23:00:00, the temperature in NY is 60.46 (F)
 
-The percentage of biting dogs that are spayed/neutered: 34.13%
+The mean temperature in San Diego is: 62.72 (F)
 
-Top Ten Most Chompy Breeds:
-1. Pit Bull with 1919 reported bites
-2. Shih Tzu with 358 reported bites
-3. American Pit Bull Mix / Pit Bull Mix with 347 reported bites
-4. American Pit Bull Terrier/Pit Bull with 343 reported bites
-5. Chihuahua with 340 reported bites
-6. German Shepherd with 274 reported bites
-7. Mixed/Other with 267 reported bites
-8. Yorkshire Terrier with 230 reported bites
-9. Maltese with 187 reported bites
-10. Rottweiler with 162 reported bites
+The coldest time in New York is: 2015-02-21 08:00:00
+The lowest temperature is: -8.28 (F)
+The warmest time in New York is: 2013-07-19 17:00:00
+The highest temperature is: 98.76 (F)
 
-Dog Bite Leaderboard
-1. Queens with 2202 bites
-2. Brooklyn with 1946 bites
-3. Manhattan with 1878 bites
-4. Bronx with 1508 bites
-5. Staten with 845 bites
+Top 10 Cities with highest mean temperature
+Miami: 77.06 (F)
+Eilat: 74.03 (F)
+Phoenix: 72.29 (F)
+Haifa: 71.81 (F)
+Tel Aviv District: 70.45 (F)
+Jacksonville: 70.24 (F)
+Houston: 69.97 (F)
+Nahariyya: 69.70 (F)
+San Antonio: 69.23 (F)
+Jerusalem: 68.06 (F)
+Las Vegas: 66.79 (F)
+Top 10 Cities with lowest mean temperature
+Montreal: 45.11 (F)
+Minneapolis: 45.81 (F)
+Toronto: 47.96 (F)
+Denver: 49.54 (F)
+Detroit: 49.84 (F)
+Chicago: 50.55 (F)
+Boston: 51.25 (F)
+Vancouver: 51.28 (F)
+Pittsburgh: 51.80 (F)
+Seattle: 52.39 (F)
+Indianapolis: 53.11 (F)
 
-The top three months for dog biting are July, August, and June.
+The average temperature over spring 2013 in New York is: 41.10 (F)
+
 ```
 
 Lint, commit and push your code; the next part will make modifications to this existing code (you can overwrite your work in this file directly for the next part).
@@ -701,61 +748,158 @@ Lint, commit and push your code; the next part will make modifications to this e
 
 ### Setup for Retrieving JSON
 
-In this part, you'll be setting up your project to work with JSON / csv data from a url (this is a bit unusual, as usually your data is just in one format or another):
+In this part, you'll be setting up your project to work with JSON data from a url with a sequence of asynchrnous calls.
 
-1. Install the requests library in your project's root folder: `npm install --save request` (similar to installing `readline-sync` in the previous assignment)
-2. Add the module to the beginning of `report.js` using `require`
-3. __Comment out or delete reading from a local file__
+### Context (Optional)
+Below is to provide you a context, you can skip this which doesn't affect the implementation of this problem.
 
+In the previous part, you only work with one dataset (resource). But in reality, you may need to work with multiple datasets from different resources. Sometimes you need one information in one dataset you just retrieved to help you identify target document you need to retrieve from other resources. For example, you may have initial access to a resource called `user`. Now you want to retrieve an information `price` of a user's order in a different resource called `order`. In order to retrieve the correct price for specific user's order, you must have `user_id` (which resides in `user`) in hand, then request `price` (which resides in `order`) by matching `user_id` with records in `order`. Now, the **order of retrieval** here matters, where you must receive the response from `user`, then request `order` and send `user_id` along with the request. 
+
+In this part of homework, we are trying to simulate this to help you get a better understanding of this process using Node.
 
 ### Retrieve and Process JSON 
 
-Instead of reading a local file, __modify your program__ so that it pieces together all of the data by retrieving partial data sets in json files. The output should be similar, but you'll have to write the part that requests the json files, parses the data out of each file data, and only runs the report when all of the files have been downloaded and parsed.
+After completed the previous part, you now have better understanding of `temperature.json`. But a weather analyst, also wants to analyze hourly wind speed and air pressure as well. The url of these datasets are inside the previous resources you retrieved. In order to retrieve all datasets and perform analysis on them, you have to follow below steps.
 
-1. [Read the documentation](https://github.com/mikeal/request) to see how to use the requests module (or see the [slides](../slides/js/js-node-npm-debug-git.html#/6))
+1. You are given an initial url which identifies the `temperature-resource.json`.
+2. In the `temperature-resource.json`, there is an additional property called `next`, which helps you identify the next dataset `wind_speed-resource.json`.
+3. The next dataset to the wind speed is `pressure-resource.json`.
+4. As long as all these datasets are well prepared, perfrom similar analytics using the function you created in the previous part (you only need logics of problem 4 and 5 in the previous part).
+
+### Implementation Detail
+
+1. Install the requests library in your project's root folder: `npm install --save request` (similar to installing `readline-sync` in the previous assignment)
+2. Create a new file `readWeatherUrl.js`
+3. Add the `request` module to the beginning of `readWeatherUrl.js` using `require`
+4. [Read the documentation](https://github.com/mikeal/request) to see how to use the requests module (or see the [slides](../slides/js/js-node-npm-debug-git.html#/6))
 	* Notice that the data is only available within the callback that you pass in to calling `request` (much like using readFile)
 	* Again, a __callback__ is a function passed as an argument to another function... the callback will be invoked / executed at a later time, when some event is triggered
 	* In the case of `request`, it's the function that you pass in as the 2nd argument
-2. Remove the part of your program that reads a local file
-3. Instead, use request to download the first json file (url given through piazza)
-4. Notice that the json file has two fields `data` and `next`
-	* `data` is a list of objects, with each object representing a dog bite
+5. Instead, use request to download the first json file (url given through piazza)
+6. Notice that the json file has two fields `response` and `next`
+	* `response` is a list of objects, with each object containing temperatures of each of 36 cities
 	* `next` is the name (without extension) of the next file to retrieve
-5. First try downloading just one file and running your report (the numbers should differ from what you previously had)
-6. Once you have that working...
-	1. Instead of running your report immediately...
-	2. Store the parsed dog bite data (in memory, in a global Array or as an argument that gets continually passed)
-	3. Retrieve the next url to get more data (that is, use the `next` field to get the name of the next json file to retrieve)
-	4. Again, parse the file... and add the data to the dog-bite data you've already saved
-	5. Continue doing this until there is no more `next` field
-	6. Once you've retrieved all of the data, run your report... it should the same as it did before!
+7. Create a file `analytic.js` and export a function called `analytic`
+8. Copy and paste the analytic code for `Top 10 Cities with coldest and warmest mean temperature` and `The average temperature over spring 2013 in New York` on `analytic.js`
+9. Now this code is going to accept not only a list of objects containing `temperature`, but also `wind speed` and `pressure`.
+10. The function signature should be `analytic(weatherData, variable, unit)` as shown below:
+    ```javascript=
+    // analytic.js
 
+    function analytic(weatherData, variable, unit) {
+        /* params:
+         *   weatherData: an array of objects (temperature, wind speed, pressure)
+         *   variable: exactly 'temperature', 'wind speed', 'pressure'
+         *   unit: 'F' for temperature, 'm/s' for wind speed, 'hpa' for pressure
+         */
+
+         // COPY AND PASTE YOUR CODE IN PART 2 BELOW AND DO SOME GENERALIZATIONS
+    }
+    
+    ```
+    The reason behind this is to create a generalized method that can report different weather variables (not only temperature).
+
+11. Note: you can imagine that there will be a sequence of callbacks and you need to deal with different variable scopes. Trying not to make your code **callback hell** by designing your functions properly.
+
+### Folder Structure
+
+Until this part, your homework folder structure looks like:
 
 ```
-Average age of these chompy friends is: 5.10
+├── historical-hourly-weather-data-json
+│   └── temperature.json
+└── src
+    ├── readWeatherFs.js
+    ├── readWeatherUrl.js.js
+    ├── analytic.js
+    └── tempAnalytic.js
+```
+Note: this is the basic strcuture, you may create extra `.js` for modularity of the folder.
 
-The percentage of biting dogs that are spayed/neutered: 34.13%
+### Result
 
-Top Ten Most Chompy Breeds:
-1. Pit Bull with 1919 reported bites
-2. Shih Tzu with 358 reported bites
-3. American Pit Bull Mix / Pit Bull Mix with 347 reported bites
-4. American Pit Bull Terrier/Pit Bull with 343 reported bites
-5. Chihuahua with 340 reported bites
-6. German Shepherd with 274 reported bites
-7. Mixed/Other with 267 reported bites
-8. Yorkshire Terrier with 230 reported bites
-9. Maltese with 187 reported bites
-10. Rottweiler with 162 reported bites
+```
+Top 10 Cities with highest mean temperature
+Miami: 75.73 (F)
+Eilat: 74.73 (F)
+Phoenix: 73.03 (F)
+Tel Aviv District: 70.67 (F)
+Houston: 70.10 (F)
+Haifa: 70.01 (F)
+Nahariyya: 69.39 (F)
+Beersheba: 69.12 (F)
+San Antonio: 69.04 (F)
+Jacksonville: 68.88 (F)
+Las Vegas: 68.48 (F)
+Top 10 Cities with lowest mean temperature
+Minneapolis: 44.82 (F)
+Montreal: 45.29 (F)
+Toronto: 48.10 (F)
+Denver: 49.79 (F)
+Detroit: 50.16 (F)
+Chicago: 50.63 (F)
+Boston: 51.07 (F)
+Vancouver: 51.08 (F)
+Pittsburgh: 51.18 (F)
+Seattle: 51.80 (F)
+Portland: 52.84 (F)
 
-Dog Bite Leaderboard
-1. Queens with 2202 bites
-2. Brooklyn with 1946 bites
-3. Manhattan with 1878 bites
-4. Bronx with 1508 bites
-5. Staten with 845 bites
+The average temperature over spring 2013 in New York is: 35.22 (F)
 
-The top three months for dog biting are July, August, and June.
+Top 10 Cities with highest mean wind speed
+Eilat: 3.68 (m/s)
+New York: 3.42 (m/s)
+Haifa: 3.31 (m/s)
+Indianapolis: 3.29 (m/s)
+Chicago: 3.28 (m/s)
+Toronto: 3.28 (m/s)
+Montreal: 3.27 (m/s)
+Minneapolis: 3.17 (m/s)
+Dallas: 3.14 (m/s)
+Kansas City: 3.02 (m/s)
+Nahariyya: 2.99 (m/s)
+Top 10 Cities with lowest mean wind speed
+Los Angeles: 0.76 (m/s)
+Phoenix: 1.12 (m/s)
+Vancouver: 1.47 (m/s)
+San Diego: 1.68 (m/s)
+Jerusalem: 1.69 (m/s)
+Portland: 1.83 (m/s)
+Seattle: 1.90 (m/s)
+Atlanta: 1.97 (m/s)
+Charlotte: 2.03 (m/s)
+Denver: 2.11 (m/s)
+Beersheba: 2.21 (m/s)
+
+The average wind speed over spring 2013 in New York is: 4.45 (m/s)
+
+Top 10 Cities with highest mean pressure
+Seattle: 1023.78 (hpa)
+Vancouver: 1020.56 (hpa)
+Haifa: 1019.73 (hpa)
+Atlanta: 1018.95 (hpa)
+Nahariyya: 1018.71 (hpa)
+Miami: 1018.66 (hpa)
+Jacksonville: 1018.48 (hpa)
+Charlotte: 1018.45 (hpa)
+Philadelphia: 1018.45 (hpa)
+Nashville: 1017.96 (hpa)
+Portland: 1017.75 (hpa)
+Top 10 Cities with lowest mean pressure
+Albuquerque: 1000.25 (hpa)
+Beersheba: 1000.38 (hpa)
+Jerusalem: 1002.92 (hpa)
+Kansas City: 1005.83 (hpa)
+Denver: 1007.31 (hpa)
+Phoenix: 1008.43 (hpa)
+Eilat: 1008.82 (hpa)
+Las Vegas: 1012.44 (hpa)
+New York: 1013.11 (hpa)
+Tel Aviv District: 1013.51 (hpa)
+Los Angeles: 1014.68 (hpa)
+
+The average pressure over spring 2013 in New York is: 1019.81 (hpa)
+
 ```
 </div>
 
