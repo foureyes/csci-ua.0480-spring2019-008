@@ -1060,6 +1060,8 @@ Using the board object, `board`, and a string of moves, `s`, play out a series o
 Again, the second parameter, `s`, will supply the pieces and moves (that is, which columns to drop the piece in). 
 
 * the first two characters in `s` are the pieces, and every character after should be an uppercase letter indicating which column to place the piece in (for example `XOAABB`)
+	* ⚠️⚠️⚠️  ... to deal with emoji convert the string to an `Array` first rather than using `charAt` or `codePointAt`
+	* from there, you can access by `Array` index
 * the piece is then set by _dropping_ it to the lowest unoccupied cell in that column.
 * so, `😎OAABB` would result in a board that looks like this (since the emoji is first dropped into column A, and then the letter O is dropped on top of that):
 	<pre class="board"><code data-trim contenteditable>|    |    |    |    |    |    |    |
@@ -1071,6 +1073,9 @@ Again, the second parameter, `s`, will supply the pieces and moves (that is, whi
 |----+----+----+----+----+----+----|
 | A  | B  | C  | D  | E  | F  | G  |
 </code></pre>
+
+
+
 
 __Example:__
 
