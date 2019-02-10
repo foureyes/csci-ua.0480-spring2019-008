@@ -767,6 +767,23 @@ After completed the previous part, you now have better understanding of `tempera
 3. The next dataset to the wind speed is `pressure-resource.json`.
 4. As long as all these datasets are well prepared, perfrom similar analytics using the function you created in the previous part (you only need logics of problem 4 and 5 in the previous part).
 
+### Initial ROOT URL to retrieve data
+
+```
+https://cs.nyu.edu/courses/spring19/CSCI-UA.0480-008/_site/homework/02/
+```
+This URL will authenticate username and password. Use your username and password that log you in to the website above.
+
+A good practice is to put your credentials in an individual module and require them instead of writing them in the main file. Also **DO NOT** commit and push your own credentials to the Github.
+
+For example, you may have a file:
+```
+// credentials.js
+moduel.exports = {
+    // put user name and password
+}
+```
+
 ### Data
 
 The `temperature-resource.json` you fetched using request from given url looks like below. **Note that the request url you are using is `ROOT_URL + /temperature-resource.json`. The ROOT_URL will be given.** After the dataset return from remote, you can use the `next` property to construct next url then fetch the following dataset. The descriptions of properties in this data are listed below.
