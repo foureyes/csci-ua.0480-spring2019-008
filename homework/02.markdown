@@ -460,16 +460,18 @@ Once you're finished with your functions, remember to:
 3. commit and push your code!
 
 
-## Part 2 - Weather Analyst
+## Part 2 - Weather Analysis
 
-In this part, you'll work with a dataset of Hourly weather data for 30 US & Canadian Cities + 6 Israeli Cities.
+In this part, you'll work with a dataset of Hourly weather data for 30 US & Canadian Cities + 6 Israeli Cities. You'll use higher order functions to analyze the data;
 
 The data is a Kaggle Challenge which you can access via [https://www.kaggle.com/selfishgene/historical-hourly-weather-data](https://www.kaggle.com/selfishgene/historical-hourly-weather-data).
 
-You'll be using two files for this part of homework:
+You'll work with the following two files for this part: 
+
 1. `tempAnalytic.js` to create a function called `analyzeTemperature`
     * the function will take an `Array` of objects with each object representing the temperature of 36 cities
-2. `readWeatherFs.js` to read in a file containing JSON data representing a list of hourly temperature and use the `analyzeTemperature` function above to create a report (Note: you can assume there are no missing values, NaN or null in the data. In other words, the data is cleaned.)
+    * the function should be exported so that it can be accessed when this filed is used as a module through `require`
+2. `readWeatherFs.js` to read in a file containing JSON data. The JSON data is a list of hourly temperatures per city. Use the `analyzeTemperature` function from the `tempAnalytic.js` above to create a report (Note: you can assume there are no missing values, `NaN` or null in the data. In other words, no data cleansing or validation is necessary.)
 
 ### Importing Data
 

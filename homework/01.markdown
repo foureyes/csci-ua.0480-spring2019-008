@@ -1381,7 +1381,7 @@ Choose a column letter to drop your piece in
   * (as described in the next step, board is still shown in state prior to move, above this prompt)
   * tell the user to press ENTER to see the computer move to allow them to see what the board look like before the computer goes
   * you can assume that the computer makes valid moves (if the board were full, the computer shouldn't move)
-  * aaand... and another gif 
+  * aaand... another gif 
   <br>
   ![press enter for computer](../resources/img/connectmoji/press-enter.gif)
 1. In either case:
