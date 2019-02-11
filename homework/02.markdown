@@ -729,6 +729,7 @@ Lint, commit and push your code; the next part will make modifications to this e
 
 In this part, you'll be setting up your project to work with JSON data from a url and issue requests in a particular order.
 
+{% comment %}
 ### Context (Optional)
 
 The description below is meant to provide some context; you can skip this if you're already familiar with async I/O. 
@@ -739,13 +740,16 @@ In the previous part, you only worked with one dataset (resource). In some cases
 2. GET /orders/some_user_id  (user id is used to get all orders for that user)
 
 However, because this is IO, it's non-blocking... so it's tricky to order this! This final part of the homework deals with ordering async IO. Instead of reading a single file from the file system, you'll programmatically download files from the web.
+{% endcomment %}
 
 ### Retrieve and Process JSON 
 
-After completing the previous part, you now have a better understanding of `temperature.json`, we can move on to retrieving data from an online resource, like hourly wind data, or hourly air pressure (along with the original temperature data set as well!). The initial file will be `temperature-resource.json`. __The URL for this file will be posted on piazza__. 
+This final part of the homework deals with ordering async IO. Instead of reading a single file from the file system, you'll programmatically download files from the web. However, this is tricky because you have to deal with executing code only after IO has finished.
+
+After completing the previous part, you now have a better understanding of `temperature.json`, we can move on to retrieving data from an online resource. This time, we'll retrieve other weather data, like hourly wind and hourly air pressure (along with the original temperature data set as well!). The initial file will be `temperature-resource.json`. __The URL for this file will be posted on piazza__. 
 
 1. Again, you will be given an initial url which identifies the location of `temperature-resource.json`
-2. In the `temperature-resource.json`, there is an additional property called `next`, which helps you identify the name of the `next` dataset (even if you know the name of the next data set, do not hardcode it it in your program!)
+2. In the `temperature-resource.json`, there is an additional property called `next`, which helps you identify the name of the `next` dataset (⚠️⚠️⚠️  __even if you know the name of the next data set, do not hardcode the urls in your program__ ... with the exception of the first one)
 	* consequently, the structure of the temperature data is no longer an `Array`, but an object
 	* one property is `response`, which contains the `Array` of hourly temperature objects
 	* the other property is `next`, which contains the url of the next data file
