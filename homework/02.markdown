@@ -460,11 +460,11 @@ Once you're finished with your functions, remember to:
 3. commit and push your code!
 
 
-## Part 2 - Weather Analyst
+## Part 2 - Weather Analysis
 
-In this part, you'll work with a dataset of Hourly weather data for 30 US & Canadian Cities + 6 Israeli Cities.
+In this part, you'll work with hourly weather data for 30 US & Canadian Cities + 6 Israeli Cities.
 
-The data is a Kaggle Challenge which you can access via [https://www.kaggle.com/selfishgene/historical-hourly-weather-data](https://www.kaggle.com/selfishgene/historical-hourly-weather-data).
+The data for this part a Kaggle Challenge which you can access via [https://www.kaggle.com/selfishgene/historical-hourly-weather-data](https://www.kaggle.com/selfishgene/historical-hourly-weather-data).
 
 You'll be using two files for this part of homework:
 1. `tempAnalytic.js` to create a function called `analyzeTemperature`
