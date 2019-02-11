@@ -9,12 +9,6 @@ title: CSCI-UA.0480 - Homework #2
 
 # Higher Order Functions: Exercises and Processing Data - __Due Feb 18 at 11pm__
 
-<!-->
-<div markdown="block" class="img">
-![dog](../resources/img/dog.gif)
-</div>
--->
-
 ## Overview
 
 ### Description
@@ -462,68 +456,48 @@ Once you're finished with your functions, remember to:
 
 ## Part 2 - Weather Analysis
 
-In this part, you'll work with hourly weather data for 30 US & Canadian Cities + 6 Israeli Cities. You'll use higher order functions to analyze the data.
+In this part, you'll work with hourly weather data for 30 US & Canadian Cities + 6 Israeli Cities. You'll use higher order functions to analyze this data.
 
-The data for this part a Kaggle Challenge which you can access via [https://www.kaggle.com/selfishgene/historical-hourly-weather-data](https://www.kaggle.com/selfishgene/historical-hourly-weather-data).
+The data for this part was based off of data uploaded to kaggle ([https://www.kaggle.com/selfishgene/historical-hourly-weather-data](https://www.kaggle.com/selfishgene/historical-hourly-weather-data)), which in turn was sourced from [https://openweathermap.org/](https://openweathermap.org/).
 
 You'll work with the following two files for this part: 
 
 1. `tempAnalytic.js` to create a function called `analyzeTemperature`
-    * the function will take an `Array` of objects with each object representing the temperature of 36 cities
-    * the function should be exported so that it can be accessed when this filed is used as a module through `require`
-2. `readWeatherFs.js` to read in a file containing JSON data. The JSON data is a list of hourly temperatures per city. Use the `analyzeTemperature` function from the `tempAnalytic.js` above to create a report (Note: you can assume there are no missing values, `NaN` or null in the data. In other words, no data cleansing or validation is necessary.)
+	* the function will take an `Array` of objects, with each object representing the temperature of 36 cities
+	* the function should be exported so that it can be accessed when this filed is used as a module through `require`
+2. `readWeatherFs.js` to read in a file containing JSON data...
+	* the JSON data is a list of hourly temperatures per city
+	* use the `analyzeTemperature` function from `tempAnalytic.js` above to generate a report 
+	* note: you can assume there are no missing values, `NaN` or null in the data. In other words, no data cleansing or validation is necessary.
 
 ### Importing Data
 
-* Download the data by going to [https://data.cityofnewyork.us/Health/DOHMH-Dog-Bite-Data/rsgh-akpg](https://data.cityofnewyork.us/Health/DOHMH-Dog-Bite-Data/rsgh-akpg) and name the folder `historical-hourly-weather-data-json`
-    * place the folder in the root folder of your repository
-    * `historical-hourly-weather-data-json` should contain a `temperature.json` file
-* Start by reading in the file using `fs.readFile`
-    * ⚠️⚠️⚠️ __use a relative path so that grader's can grade on their computer__
+* Your repository should contain a file, `historical-hourly-weather-data-json/temperature.json` 
+* Start by reading in the data from `temperature.json` using `fs.readFile`
     * make sure that the `fs` module is brought in using `require`, then call the function)
-    * __do not use readFileSync__
-* See the docs on `fs.readFile` (HINT: make sure you specify `utf8` as the second argument)
-* Also remember that the data read in the memory is a `JSON string`
-* The file that you read in contains an array of hourly temperature data:
-    * each object in the array is an hourly temperature of 36 cities.
+	* [see the documentation for usage](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback) to see how to use `fs.readFile`
+		* HINT: make sure you specify `utf8` as the second argument
+	* recall from the [slides on node](../slides/js/js-node-npm-debug-git.html) that I/O in node can be done asynchronously
+	* to learn how to deal with non-blocking code, you must use the async version of `fs.readFile` (rather than `fs.readFileSync`)
+	* consequently, if you'd like to perform an action after reading a file, you must do it within the callback function:
+		<pre><code data-trim contenteditable>fs.readFile('path/to/myFile.txt', 'utf8', function(err, data) {
+  if (err) {
+      console.log('uh oh', err);
+  } else {
+      console.log('congrats, the file has been read:', data);
+  }
+});
+</code></pre>
+    * when using `fs.readFile`, ⚠️⚠️⚠️ __use a relative path so that your program will run in different environments__ (for example, a grader's computer)
+	* assume that the program will be run from the project's root directory
+    * again, __do not use readFileSync__
+* Remember that the data read into memory is a `String` in JSON format
+* The JSON `String` represents an `Array` of hourly temperature data:
+    * each object in the `Array` contains a time and the temperature of 36 cities at that time
     * the first property in the object is `datetime` formatted as `YYYY-MM-dd HH:mm:ss`
-    * following properties are `city name` with value of `temperature` in *Kevlin Scale*
-* Find a way to read in and convert the Kevlin scale to Fahrenheit which is more commonly used:
-    * The formula is `T(F) = T(K) * 1.8 - 459.67` [https://www.rapidtables.com/convert/temperature/how-kelvin-to-fahrenheit.html](https://www.rapidtables.com/convert/temperature/how-kelvin-to-fahrenheit.html)
-    * note that the goal of this assignment is to work with higher order functions, so memory efficiency does not need to be taken into consideration
-* All of your parsing can only be done within the callback function (or the function to be called once data is read from the file) that you supply to `fs.readFile`
-* **Print the first ten lines of temperature in New York with the format using template literals**
-
-```javascript=
-// Format
-At ${time}, the temperature in NY is ${degree in Fahrenheit} (F)
-
-// Example
-At 2012-10-01 13:00:00, the temperature in NY is 59.13 (F)
-```
-
-* Later, you will be supplying this `Array` to the `analyzeTemperature` function that you create in `tempAnalytic.js` to generate a report.
-
-### Folder Structure
-
-For this part, your homework folder structure looks like:
-
-```
-├── historical-hourly-weather-data-json
-│   └── temperature.json
-└── src
-    ├── tempAnalytic.js
-    └── readWeatherFs.js 
-```
-Note: this is the basic strcuture, you may create extra `.js` for modularity of the folder.
-
-### Examining the Data
-Assuming that your parsed data is in a variable called `weatherData` and `weatherData` will be an `Array` of JSON objects.
-
-Below is one object of the JSON array in your assignment. All temperatures are in degree of Kelvin scale.
-
-```
-{
+    * the remaining 36 properties are named after cities (`Portland`, `Vancouver`, etc.), and each property has a value of `temperature` in *Kevlin Scale*
+	* example:
+		<pre><code data-trim contenteditable> {
     "datetime":"2012-10-01 13:00:00",
     "Vancouver":284.63,
     "Portland":282.08,
@@ -537,15 +511,25 @@ Below is one object of the JSON array in your assignment. All temperatures are i
     "Nahariyya":304.4,
     "Jerusalem":303.5
 }
-```
+* Turn the string into an actual `Array` of objects [see the docs on JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or see the slides on [../slides/js/js-objects.html#/25]
+* Find a way to convert Kelvin to Fahrenheit:
+    * the formula is `T(F) = T(K) * 1.8 - 459.67` [https://www.rapidtables.com/convert/temperature/how-kelvin-to-fahrenheit.html](https://www.rapidtables.com/convert/temperature/how-kelvin-to-fahrenheit.html)
+    * note that the goal of this assignment is to work with higher order functions, so memory efficiency does not need to be taken into consideration
+* As noted above, your parsing and conversion should be done within the callback function (or the function to be called once data is read from the file)
+* Once you're done, use the `Array` that you've produced to **print the first ten lines of temperature in New York with the the following format using template literals**:
+	<pre><code data-trim contenteditable>// Format
+At ${time}, the temperature in NY is ${degree in Fahrenheit} (F)
 
-### Analytics
+// Example
+At 2012-10-01 13:00:00, the temperature in NY is 59.13 (F)
+</code></pre>
+* Later, you will be supplying this `Array` to the `analyzeTemperature` function that you create in `tempAnalytic.js` to generate a report.
 
-#### The `analyzeTemperature` Function
 
-This is the function that you will create in `tempAnalytic.js` where it performs basic data analytic and output the analysis string to `stdout`. You are expected to use as much higher order function as you can to build this function.
 
 ### `analyzeTemperature (weatherData)`
+
+In `tempAnalytic.js`, implement  a function called `analyzeTemperature`. 
 
 __Parameters:__
 
@@ -553,58 +537,50 @@ __Parameters:__
 
 __Returns:__
 
-* void. the analysis strings are output to `stdout`. (simply use `console.log`)
+* a `String` version of a your weather data report
 
 __Description:__
 
-This function will generate a report based on the `Array` of objects passed in. The report will contain the average temperature of different cities over the entire time series, or a specific year, or a particular season. It also includes reporting the coldest (warmest) date and figuring out the top ten coldest (warmest) cities in the dataset.
+This function will generate a report based on the `Array` of objects passed in. The report will contain:
+
+* the average temperature of different cities over:
+	* the entire time series
+	* a specific year
+	* a particular season
+* the coldest and warmest dates / times  and 
+* the top ten coldest and warmest cities in the dataset
 
 ### Implementation Requirements
 
-When creating your report in `analyzeTemperature`, for each required data analytic, you must use all of the following Array methods at least once each in your program:
+⚠️⚠️⚠️ __You must avoid using regular loops in your implementation.__ Avoid using:
 
-1. `forEach`
-2. `filter`
-3. `map`
-4. `reduce`
-5. Other functions that may help you apply higher order functions
-6. There will be a small penalty for each one not used (-2).
-7. Note: try not to modify the input data during executing your function. Usually the input should be read-only and if you would like to overwrite it, creating an copy would be fine. (In this assignment, the size of data is relatively small)
+
+* `for`, `for in`, `for of` and `while`
+* the `Array` method, `forEach`
+
+You will get two "free" regular loops to use, but after that, using a regular loop will result in a minor penalty (likely around around two points, but potentially slightly more or less). This may result in less efficient code, or code that is trickier to understand... but the goal of this homework is to get accustomed to using higher order functions.
+
+With that said, consider using the following `Array` methods for your implementations:
+
+1. `filter`
+2. `map`
+3. `reduce`
+
+Note: try not to modify the input data during executing your function. Usually the input should be read-only and if you would like to overwrite it, creating a copy would be fine. (In this assignment, the size of data is relatively small).
 	
 ### Problem Overview
 
 Your report will use the data passed in to determine:
 
-1. First 10 lines of Temperature in NY
+1. The first 10 lines of Temperature in NY
 2. The mean temperature in San Diego
 3. The coldest, warmest time and temperature in New York
 4. Top 10 cities with coldest and warmest mean temperature
 5. The average temperature over spring 2013 in New York
 
-See the following details...
-
-You are going to create a function. Note that after the output of each problem, print an empty line to separate each section.
-
-```javascript=
-// tempAnalytic.js
-
-function analyzeTemperature (weatherData) {
-    // Implement Head 10 lines of Temperature in NY
-
-    console.log('');
-    // Implement The mean temperature in San Diego
-
-    ...
-
-    // Implement The average temperature over spring 2013 in New York
-    
-    console.log('');
-}
-```
-
 ### First 10 lines of Temperature in NY
 
-This is to test if you convert the temperature scale in the callback correctly and display floating point numbers in a certain format (when you are creating a dashboard, this matters). Also when doing data analytic, the first step is to peek a small portion of data. (like head function in pandas dataframe)
+This part of the report will show your temperature conversion as well as formatting floating point numbers (generally useful for any type of reporting, including data dashboards!). It's also typical to preview a small portion of a data set prior to performing an analysis (similar to `head` in bash or like the head function in pandas dataframes).
 
 The output format and example are listed below:
 
@@ -612,7 +588,7 @@ Format: Print all decimal numbers with 2 digits after decimal point
 ```
 At `YYYY-MM-dd HH:mm:ss`, the temperature in NY is `xx.xx` (F)
 ```
-HINT: use `toFixed(n)` or `toPrecision(n)`. what's the difference between them?
+HINT: use [`toFixed(n)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toPrecision) or [`toPrecision(n)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toPrecision). What's the difference between these two? Which one would be appropriate for displaying data / a report to an end user?
 
 Example:
 ```
@@ -620,11 +596,10 @@ First 10 lines of Temperature in NY:
 At 2012-10-01 13:00:00, the temperature in NY is 59.13 (F)
 ...
 ```
-Note: regular for loop is fine, but try to use higher order functions
 
 ### The mean temperature in San Diego
 
-This is to test if you can composite more than one higher order functions.
+For this part of the report, it may be useful to call one higher order function after another (for example, taking the resulting of one, and calling the other on that result: `arr.hof1().hof2()`... it's ok to break this up into two separate calls or chain them as shown here).
 
 Format: Print all decimal numbers with 2 digits after decimal point
 ```
@@ -656,32 +631,36 @@ Top 10 Cities with lowest mean temperature
 Toronto: 47.96 (F)
 Denver: 49.54 (F)
 ```
-Note: use as much higher order functions as you can.
 
 HINT: to get the mean of a sequence of values, you will convert an array to a single number. you should also consider `weatherData` is an array of objects (conceptually a 2 dimensional array), how can you do achieve this applying a higher order function?
 
-HINT: what is the simplest way to rank a sequence of data?
+HINT: [`sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) will be helpful here... note that it takes in a comparison function; what do you think that comparison function should be if the elements are objects? 
 
 ### The average temperature over spring 2013 in New York
 
-This is to help you get a sense of how to use `date` in Javascript. Please refer to [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
- and look at how to instantiate a date object. More detail steps are listed.
+This is to help you get a sense of how to use `date` in Javascript. Please refer to [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) and look at how to instantiate a date object. More detail steps are listed.
 
-1. Let's define the spring in NY is from *Feburary* to *April*.
-2. The date string in the dataset is represented as `'YYYY-MM-dd HH:mm:ss'`. This is compared based on string instead of date. So **parse** this date string to date object and fetch `year`, `month`, `day`, `hour`, `minute`, and `second` (write your own parser for date string and instantiate a [date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)), you may create a function `stringToDate(dateStr)` that returns a date object
-3. Until now, you can set up a range to retrieve records during spring 2013. Hint: by using `getFullYear()`, `getMonth()` of the date object. (Again, try to use higher order functions)
-4. Then compute the mean temperature of NY in spring 2013
+1. Let's define the spring in NY is from *Feburary* through *April* (inclusive)
+2. The date string in the dataset is represented as `'YYYY-MM-dd HH:mm:ss'`. This is compared based on string instead of date. So **parse** this date string to date object 
+	* this can be done by writing your own parser to extract  `year`, `month`, `day`, `hour`, `minute`, and `second` to instantiate a [date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+	* you can also find a method on date objects that does this for you
+	* you can bring in (`require`) a 3rd party library
+	* lastly, you can assume that all times are in [UTC](https://en.wikipedia.org/wiki/Coordinated_Universal_Time) (making this assumption as no timezone data is supplied)
+3. Limit your data to Spring 2013
+	* [`getFullYear()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getFullYear), [`getMonth()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getMonth) might be helpful
+4. Then compute the mean temperature of NY in Spring 2013
 
 Format: Print all decimal numbers with 2 digits after decimal point
 
 ```
 The average temperature over spring 2013 in New York is: **.** (F)
 ```
+
 HINT: be careful to the numeric representation of month returned from `getMonth()`.
 
 ### Return Value
 
-Your function can return void (i.e., you don't need to return any value, just make sure you output the result strings in `stdout` using `console.log`)
+Your function should concatenate the string version of each part of the report into a single `String`, with each part separated by a new line. 
 
 ### Calling analyzeTemperature
 
@@ -690,7 +669,7 @@ Now that you've finished your function, you can try to call it on your data from
 1. In `readWeatherFs.js`: require the module that you created (`tempAnalytic.js`).
 2. Use readFile to read `temperature.json` in the folder `historical-hourly-weather-data-json`
 3. Call `analyzeTemperature()` in the callback of `fs.readFile`
-4. Print out the report.
+4. Print out the result of the report.
 5. You can compare your output with the example output below (See bottom how to compare your output with the below example)
 
 ```
@@ -740,7 +719,6 @@ Seattle: 52.39 (F)
 Indianapolis: 53.11 (F)
 
 The average temperature over spring 2013 in New York is: 41.10 (F)
-
 ```
 
 Lint, commit and push your code; the next part will make modifications to this existing code (you can overwrite your work in this file directly for the next part).
@@ -749,50 +727,42 @@ Lint, commit and push your code; the next part will make modifications to this e
 
 ### Setup for Retrieving JSON
 
-In this part, you'll be setting up your project to work with JSON data from a url and issue request in a particular order.
+In this part, you'll be setting up your project to work with JSON data from a url and issue requests in a particular order.
 
 ### Context (Optional)
-Below is to provide you a context, you can skip this which doesn't affect the implementation of this problem.
 
-In the previous part, you only work with one dataset (resource). But in reality, you may need to work with multiple datasets from different resources. Sometimes you need one information in one dataset you just retrieved to help you identify target document you need to retrieve from other resources. For example, you may have initial access to a resource called `user`. Now you want to retrieve an information `price` of a user's order in a different resource called `order`. In order to retrieve the correct price for specific user's order, you must have `user_id` (which resides in `user`) in hand, then request `price` (which resides in `order`) by matching `user_id` with records in `order`. Now, the **order of retrieval** here matters, where you must receive the response from `user`, then request `order` and send `user_id` along with the request. 
+The description below is meant to provide some context; you can skip this if you're already familiar with async I/O. 
 
-In this part of homework, we are trying to simulate this to help you get a better understanding of this process using Node.
+In the previous part, you only worked with one dataset (resource). In some cases you may need to work with multiple datasets from different sources. Sometimes you need information in one dataset that you just retrieved to help you identify the next document you need to retrieve. For example, you may have access have initial access to a resource called `user` that allows you to search by name (`user/joe`). The `user` resource may give you a user's id number, email, etc. ... Now you want to retrieve a user's order history, but that data is stored in a different resource, `order`, and it can only be searched by `user_d` rather than name. Consequently, to retrieve the history, you must have `user_id` (which resides in `user`) in hand, then request the order data (which resides in `order`) by matching `user_id` with records in `order`. Now, the **sequence of retrieval** here matters, where you must receive the response from `user`, then request `order` and send `user_id` along with the request:
+
+1. GET /user/some_user_name (give back a user id)
+2. GET /orders/some_user_id  (user id is used to get all orders for that user)
+
+However, because this is IO, it's non-blocking... so it's tricky to order this! This final part of the homework deals with ordering async IO. Instead of reading a single file from the file system, you'll programmatically download files from the web.
 
 ### Retrieve and Process JSON 
 
-After completed the previous part, you now have better understanding of `temperature.json`. But a weather analyst, also wants to analyze hourly wind speed and air pressure as well. The url of these datasets are inside the previous resources you retrieved. In order to retrieve all datasets and perform analysis on them, you have to follow below steps.
+After completing the previous part, you now have a better understanding of `temperature.json`, we can move on to retrieving data from an online resource, like hourly wind data, or hourly air pressure (along with the original temperature data set as well!). The initial file will be `temperature-resource.json`. __The URL for this file will be posted on piazza__. 
 
-1. You are given an initial url which identifies the `temperature-resource.json`.
-2. In the `temperature-resource.json`, there is an additional property called `next`, which helps you identify the next dataset `wind_speed-resource.json`.
-3. The next dataset to the wind speed is `pressure-resource.json`.
-4. As long as all these datasets are well prepared, perfrom similar analytics using the function you created in the previous part (you only need logics of problem 4 and 5 in the previous part).
-
-### Initial ROOT URL to retrieve data
-
-```
-https://cs.nyu.edu/courses/spring19/CSCI-UA.0480-008/_site/homework/02/
-```
-This URL will authenticate username and password. Use your username and password that log you in to the website above.
-
-A good practice is to put your credentials in an individual module and require them instead of writing them in the main file. Also **DO NOT** commit and push your own credentials to the Github.
-
-For example, you may have a file:
-```
-// credentials.js
-moduel.exports = {
-    // put user name and password
-}
-```
+1. Again, you will be given an initial url which identifies the location of `temperature-resource.json`
+2. In the `temperature-resource.json`, there is an additional property called `next`, which helps you identify the name of the `next` dataset (even if you know the name of the next data set, do not hardcode it it in your program!)
+	* consequently, the structure of the temperature data is no longer an `Array`, but an object
+	* one property is `response`, which contains the `Array` of hourly temperature objects
+	* the other property is `next`, which contains the url of the next data file
+	* additionally, there will be some meta data describing what is being measured:
+		* `variable` - the name of the data point (temperature, wind, etc.)
+		* `unit` - the unit of measurement (K, m/s, etc.)
+3. As long as all these datasets are well prepared, perform similar analytics using the function you created in the previous part TODO:
 
 ### Data
 
-The `temperature-resource.json` you fetched using request from given url looks like below. **Note that the request url you are using is `ROOT_URL + /temperature-resource.json`. The ROOT_URL will be given.** After the dataset return from remote, you can use the `next` property to construct next url then fetch the following dataset. The descriptions of properties in this data are listed below.
+Below is an example of the general structure of the data files (note, this shows `temperature-resource.json`):
 
-1. `next`: contains the next resource name (not the exact url)
-2. `response`: JSON array and each object contains weather data of each of 36 cities (same as the `temperature.json` in Part 2)
 ```
 {
-    "next": "wind_speed-resource",
+    "next": "name-of-next-file.json",
+    "variable": "temperature",
+    "unit": "K",
     "response": [{"datetime": "2012-10-01 13:00:00",
                   "Vancouver": 284.63,
                   "Portland":  282.08,
@@ -811,44 +781,63 @@ The `temperature-resource.json` you fetched using request from given url looks l
                 ]
 }
 ```
+1. `next`: contains the next resource name (not the exact url)
+2. `response`: JSON array and each object contains weather data of each of 36 cities (same as the `temperature.json` in Part 2)
+3. `variable`: the name of the data point
+4. `unit`: the unit of measurement for that data point 
 
 ### Implementation Detail
 
-1. Install the requests library in your project's root folder: `npm install --save request` (similar to installing `readline-sync` in the previous assignment)
+1. Install the `request` library in your project's root folder: `npm install --save request` (similar to installing `readline-sync` in the previous assignment)
 2. Create a new file `readWeatherUrl.js`
 3. Add the `request` module to the beginning of `readWeatherUrl.js` using `require`
 4. [Read the documentation](https://github.com/mikeal/request) to see how to use the requests module (or see the [slides](../slides/js/js-node-npm-debug-git.html#/6))
 	* Notice that the data is only available within the callback that you pass in to calling `request` (much like using readFile)
 	* Again, a __callback__ is a function passed as an argument to another function... the callback will be invoked / executed at a later time, when some event is triggered
 	* In the case of `request`, it's the function that you pass in as the 2nd argument
-5. Instead, use request to download the first json file (url given through piazza)
-6. Notice that the json file has two fields `response` and `next`
+5. In `readWeatherUrl.js`, use request to download the first json file (url given through piazza) representing the original temperature data
+6. Notice that the json file has a few new fields `response`, `next`, `variable`, and `unit`
 	* `response` is a list of objects, with each object containing temperatures of each of 36 cities
-	* `next` is the name (without extension) of the next file to retrieve
-7. Create a file `analytic.js` and export a function called `analytic`
-8. Copy and paste the analytic code for `Top 10 Cities with coldest and warmest mean temperature` and `The average temperature over spring 2013 in New York` on `analytic.js`
-9. Now this code is going to accept not only a list of objects containing `temperature`, but also `wind speed` and `pressure`.
-10. The function signature should be `analytic(weatherData, variable, unit)` as shown below:
-    ```javascript=
-    // analytic.js
-
-    function analytic(weatherData, variable, unit) {
-        /* params:
-         *   weatherData: an array of objects (temperature, wind speed, pressure)
-         *   variable: exactly 'temperature', 'wind speed', 'pressure'
-         *   unit: 'F' for temperature, 'm/s' for wind speed, 'hpa' for pressure
-         */
-
-         // COPY AND PASTE YOUR CODE IN PART 2 BELOW AND DO SOME GENERALIZATIONS
-    }
+	* `next` is the name (without extension and without the "root url") of the next file to retrieve
+7. Create a file `analytic.js` and export a function called `generateReport`, which will mimic (but also generalize) some of the functionality from the report in Part 2
+8. As a starting off point, use the logic that you have for `Top 10 Cities with coldest and warmest mean temperature` and `The average temperature over spring 2013 in New York` to create `generateReport` in `analytic.js`
+9. This function is going to accept not only a list of objects containing `temperature`, but also, it should be flexible enough to deal with objects that represent `wind speed` and `pressure`; consequently, it'll have a few more parameters...
+10. The function signature should be `generateReport(weatherData, variable, unit)` as shown below:
+	<pre><code data-trim contenteditable>// in analytic.js
+/* params:
+ *   weatherData: an Array of objects (similar to the objects in 
+ *                temperature.json, but they may represent wind speed 
+ *                or pressure)
+ *   variable: the String name of the data point that we're reporting on 
+ *             (for example, 'temperature', 'wind speed', 'pressure')
+ *   unit: the unit we'll use for that data point (for example 'K', 'm/s', 
+ *         'hpa')
+ * returns:
+ * 	 a String representing the report that contains:
+ *   - Top 10 Cities with highest mean X
+ *   - Top 10 Cities with lowest mean X
+ *   - The average X over spring 2013 in New York is
+ *   ...where X is the name of the data point
+ *   see instructions for full example of output
+ */
+function generateReport(weatherData, variable, unit) {
+  // COPY AND PASTE YOUR CODE FROM PART 2 BELOW AND MAKE SOME GENERALIZATIONS
+}
+</code></pre>
     
-    ```
-    The reason behind this is to create a generalized method that can report different weather variables (not only temperature).
-11. Note: you can imagine that there will be a sequence of callbacks and you need to deal with different variable scopes. Try to avoid making your code **callback hell** by designing your functions properly.
+11. Again, the goal is to create create a generalized function in `analytic.js`  that can report different weather variables (not only temperature).
+12. Require `analytic.js` in `readWeatherUrl` so that you can generate a report from the first file that you retrieved
+13. This means that you have to first parse the JSON to create the appropriate values for arguments to `generateReport`
+14. And, of course, call `generateReport` and print out the result
+15. If there is a `next` property in the JSON that you parsed, use that as another URL to retrieve...
+16. ...And go back to the step where you parse the newly retrieved JSON (step 13)
+17. If there's no next, stop retrieving urls!
+
+Hint: one way to implement this may look a little like a recursive function (well... with callbacks mixed in!)
 
 ### Folder Structure
 
-Until this part, your homework folder structure looks like:
+At this point, your homework folder structure looks like:
 
 ```
 ├── historical-hourly-weather-data-json
@@ -859,9 +848,8 @@ Until this part, your homework folder structure looks like:
     ├── analytic.js
     └── tempAnalytic.js
 ```
-Note: this is the basic strcuture, you may create extra `.js` for modularity of the folder.
 
-### Result
+### Example Output
 
 ```
 Top 10 Cities with highest mean temperature
@@ -918,43 +906,9 @@ Beersheba: 2.21 (m/s)
 
 The average wind speed over spring 2013 in New York is: 4.45 (m/s)
 
-Top 10 Cities with highest mean pressure
-Seattle: 1023.78 (hpa)
-Vancouver: 1020.56 (hpa)
-Haifa: 1019.73 (hpa)
-Atlanta: 1018.95 (hpa)
-Nahariyya: 1018.71 (hpa)
-Miami: 1018.66 (hpa)
-Jacksonville: 1018.48 (hpa)
-Charlotte: 1018.45 (hpa)
-Philadelphia: 1018.45 (hpa)
-Nashville: 1017.96 (hpa)
-Portland: 1017.75 (hpa)
-Top 10 Cities with lowest mean pressure
-Albuquerque: 1000.25 (hpa)
-Beersheba: 1000.38 (hpa)
-Jerusalem: 1002.92 (hpa)
-Kansas City: 1005.83 (hpa)
-Denver: 1007.31 (hpa)
-Phoenix: 1008.43 (hpa)
-Eilat: 1008.82 (hpa)
-Las Vegas: 1012.44 (hpa)
-New York: 1013.11 (hpa)
-Tel Aviv District: 1013.51 (hpa)
-Los Angeles: 1014.68 (hpa)
-
-The average pressure over spring 2013 in New York is: 1019.81 (hpa)
-
+(There may be another file to process!)
 ```
 
-### Testing for Part 2 and Part 3
-
-You can copy and paste the provided result to a text file. Then redirect the output from node to another file, and use a Linux command `diff`. For example:
-
-```
-node part3.js > file2.txt
-diff file1.txt file2.txt
-```
 </div>
 
 </div>
