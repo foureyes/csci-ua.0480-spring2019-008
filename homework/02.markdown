@@ -109,9 +109,9 @@ npm install --save-dev eslint-plugin-mocha
 2. implement functions below in __hoffy.js__
 3. make sure you export your functions as you implement them so that...
 4. you can run tests as you develop these functions (again, the tests are included in the repository):
-    `mocha tests/hoffy-test.js`
+    `npx mocha tests/hoffy-test.js`
 5. also remember to run eslint (there's a `.eslintrc` file included in the repository):
-    `node_modules/.bin/eslint src/*`
+    `npx eslint src/*`
 
 ### (40 points) Functions to Implement
 
@@ -364,7 +364,7 @@ __Example:__
     const constrainedParseInt2 = constrainDecorator(parseInt);
     constrainedParseInt2("-12") // --> -12
 
-hr>
+<hr>
 
 ### `limitCallsDecorator(fn, n)`
 
