@@ -17,8 +17,25 @@ __hoffy.js__ - Write a series of functions that demonstrate the use of the rest 
 
 __analytic.js__, __tempAnalytic.js__, __readWeatherFs.js__, and __readWeatherUrl.js__ - Generate reports analyzing weather data,  in two parts):
 
-* An initial version that works off of a local csv file
+* An initial version that works off of a local `json` file
 * A second version that works off of remote urls containing json (you can overwrite the previous part with this code)
+* The folder structure showing all files should look like
+
+```
+├── .eslintrc.js
+├── historical-hourly-weather-data-json
+│   └── temperature.json
+└── src
+    ├── hoffy.js
+    ├── readWeatherFs.js
+    ├── readWeatherUrl.js.js
+    ├── analytic.js
+    └── tempAnalytic.js
+```
+
+* `hoffy` - contains your higher order functions
+* `tempAnalytic` and `readWeatherFs` - a module with a report generating function and a file that uses it to run a report on a file read locally from your file system
+* `analytic` and `readWeatherUrl` - a module with a _flexible_ report generating function and a file that uses it to create a report on multiple files programmatically downloaded from (mostly) unknown urls
 
 
 ### Submission Process
@@ -919,20 +936,6 @@ function generateReport(weatherData, variable, unit) {
 
 Hint: one way to implement this may look a little like a recursive function (well... with callbacks mixed in!)
 
-### Folder Structure
-
-At this point, your homework folder structure looks like:
-
-```
-├── historical-hourly-weather-data-json
-│   └── temperature.json
-└── src
-    ├── hoffy.js
-    ├── readWeatherFs.js
-    ├── readWeatherUrl.js.js
-    ├── analytic.js
-    └── tempAnalytic.js
-```
 
 ### Example Output
 
