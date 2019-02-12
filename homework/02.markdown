@@ -15,12 +15,11 @@ title: CSCI-UA.0480 - Homework #2
 
 __hoffy.js__ - Write a series of functions that demonstrate the use of the rest operator (or call/apply), and higher order functions
 
-__analytic.js__, __tempAnalytic.js__, __readWeatherFs.js__, and __readWeatherUrl.js__ - Print out a report analyzing dog bite data. There are two parts to this:
+__analytic.js__, __tempAnalytic.js__, __readWeatherFs.js__, and __readWeatherUrl.js__ - Generate reports analyzing weather data,  in two parts):
 
 * An initial version that works off of a local csv file
 * A second version that works off of remote urls containing json (you can overwrite the previous part with this code)
 
-See the [sample output](#hw02-sample) at the end of these instructions.
 
 ### Submission Process
 
@@ -77,10 +76,11 @@ __There will a small (-2) penalty every time one is used__. (Homework is 100 poi
 ### Steps
 
 1. prep...
+	* create a `packsge.json` using `npm init`
     * create a `.gitignore` to ignore node_modules
 	* create a `package.json` by using `npm init`
     * make sure that `mocha`, `chai`, and `eslint` are still installed (similar to previous assignment)
-        <pre><code data-trim contenteditable>npm install -g mocha
+        <pre><code data-trim contenteditable>npm install --save-dev mocha
 npm install --save-dev eslint
 npm install --save-dev chai
 npm install --save-dev eslint-plugin-mocha
@@ -100,9 +100,75 @@ npm install --save-dev eslint-plugin-mocha
 
 ### (-2 per while, for, forEach, for of, or for in loop used)
 
+### `parseMoves(s)`
+
+__Parameters:__
+
+* `s` - a `String` representing a series of moves in a connection game in the format [piece 1][piece 2][...moves]
+
+__Returns:__
+
+* an `Array` of objects representing the moves encoded in the `String`, `s`
+
+__Description:__
+
+This is a warm-up for using the `Array` function, [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map). It builds off of the background information for homework 01.
+
+It parse a series of moves encoding in a string as:
+
+* `[piece 1][piece 2][...moves]`
+* for example: `😎💻AABBCC`
+	* where sunglasses moves to column A
+	* then laptop moves to column A
+* the first two characters are the pieces
+* the remaining characters are the names of the columns that the pieces are dropped in
+* the values alternate when being placed in columns (sunglasses emoji goes in A, laptop goes in A, sunglasses go in B, etc.)
+
+It will return the moves as an `Array` of objects, with each object representing a single move. Each move object will contain the following properties:
+
+* `val` - the value of the piece dropped
+* `col` - the column that the piece was dropped in 
+
+For example, the `String`, `'😎💻ABACAA'` would yield:
+
+```
+[ { val: '😎', col: 'A' },
+  { val: '💻', col: 'B' },
+  { val: '😎', col: 'A' },
+  { val: '💻', col: 'C' },
+  { val: '😎', col: 'A' },
+  { val: '💻', col: 'A' } ]
+```
+
+To do this without regular loops, use a combination of 
+* spread  (`...`) to break up a `String` into an `Array` of chracters
+* [`entries`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries) to break up an `Array` into an `Array` of `Arrays`, with each sub `Array` containing two elements: the position of the original element and the original element itself 
+	* note that this returns an iterable object... 
+	* so you'll need spread to turn it into an `Array`
+		<pre><code data-trim contenteditable>const words = ['foo', 'bar', 'baz'];
+console.log([...words.entries()]);
+// [[0, 'foo'], [1, 'bar'], [2, 'baz']]
+</code></pre>
+* [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) - to transform elements of an `Array`
+
+
+__Example:__
+
+`console.log(parseMoves('😎💻ABACAA'));`
+
+```
+// results in:
+[ { val: '😎', col: 'A' },
+  { val: '💻', col: 'B' },
+  { val: '😎', col: 'A' },
+  { val: '💻', col: 'C' },
+  { val: '😎', col: 'A' },
+  { val: '💻', col: 'A' } ]
+```
+
 <hr>
 
-### `longestString(s1, s2, s3 to sN)`
+### `shortestString(s1, s2, s3 to sN)`
 
 __Parameters:__
 
@@ -110,12 +176,12 @@ __Parameters:__
 
 __Returns:__
 
-* the longest string in the arguments passed in
+* the shortest string in the arguments passed in
 * if no arguments are passed in, give back `undefined`
 
 __Description:__
 
-Goes through every string argument passed in and gives back the longest string. No error checking is required; you can assume that every argument is a string or no arguments are passed in at all. If there is a tie, return the argument that appears in the later position. If there are no arguments passed in, return `undefined`
+Goes through every string argument passed in and gives back the shortest string. No error checking is required; you can assume that every argument is a string or no arguments are passed in at all. If there is a tie, return the argument that appears in the later position. If there are no arguments passed in, return `undefined`
 
 HINTS:
 
@@ -124,70 +190,77 @@ HINTS:
 
 __Example:__
 
-    longestString('foo', 'bar', 'bazzy', 'qux', 'quxx') // --> bazzy
-    longestString('foo', 'bar', 'baz', 'qux') // --> qux
+    shortestString('foozy', 'barrr', 'bazzz', 'qux', 'quxx') // --> qux
+    shortestString('f', 'g', 'foo') // --> g
     longestString() // --> undefined
 
 <hr>
 
-### `maybe(fn)`
+### `repeatCall(fn, n arg)`
 
 __Parameters:__
 
-* `fn` - the function to be called 
+* `fn` - the function to be called repeatedly
+* `n` - the number of times to call function, `fn`
+* `arg` - the argument to pass to function, `fn`, when it is called
 
 __Returns:__
 
-* a new `function` or `undefined` - the `function` calls the original function
+* `undefined` (no return value)
 
 __Description:__
 
-`maybe` will take a function, `fn` and return an entirely new function that behaves mostly like the original function, `fn` passed in, but will return undefined if any `null` or `undefined` arguments are passed in to `fn`.
+This function demonstrates using functions as an argument or arguments to another function. It calls function, `fn`, `n` times, passing in the argument, `arg` to each invocation / call.  It will ignore the return value of function calls. Note that it passes in only one `arg`. Check out the [readings](http://eloquentjavascript.net/05_higher_order.html) or [slides](../slides/js/higher-order-functions-continued.html) on higher order functions for relevant background material and examples.
 
-The new function will take the same arguments as the original function (`fn`). Consequently when the new function is called, it will use the arguments passed to it and call the old function and return the value that's returned from the old function. However, if any of the arguments are `undefined` or `null`, the old function is not called, and `undefined` is returned instead. You can think of it as a way of calling the old function only if all of the arguments are not `null` or not `undefined`.
-
+HINT: use recursion to avoid regular loops
 
 __Example:__
 
-    function createFullName(firstName, lastName) {
-        return `${firstName} ${lastName}`; 
-    }
-    maybe(createFullName)('Frederick', 'Functionstein'); // Frederick Functionstein
-    maybe(createFullName)(null, 'Functionstein');        // undefined
-    maybe(createFullName)('Freddy', undefined);          // undefined 
+    repeatCall(console.log, 3, "Hello!");
+    // prints out:
+    // Hello!
+    // Hello!
+    
+    // calls console.log twice, each time passing in only the first argument
+    // (we'll see how to fix this later)
+    repeatCall(console.log, 2, "foo", "bar", "baz", "qux", "quxx", "corge");
+        
+    // prints out (again, only 1st arg is passed in):
+    // foo 
+    // foo 
 
 <hr>
 
-### `filterWith(fn)`
+### `repeatCallAllArgs(fn, n, args1 ... argsn)`
 
 __Parameters:__
 
-* `fn` - a _callback_ function that takes in a single argument and returns a value (it will eventually operate on every element in an array)
+* `fn` - the function to be called repeatedly
+* `n` - the number of times to call function, `fn`
+* `args1 ... argsn` - _all_ of the arguments to pass in to the function `fn` when it is called
 
 __Returns:__
 
-* `function` - a function that...
-    * has 1 parameter, an `Array`
-    * returns a new Array where only elements that cause `fn` to return `true` are present (all other elements from the old Array are not included)
+* `undefined` (no return value)
 
 __Description:__
 
-This is different from regular filter. The regular version of filter immediately calls the callback function on every element in an Array to return a new Array of filtered elements. `filterWith`, on the other hand, gives back a function rather than executing the callback immediately (think of the difference between bind and call/apply). `filterWith` is basically a function that turns another function into a filtering function (a function that works on Arrays). 
+This is pretty much the same function as the previous, but it also demonstrates using a variable number of arguments. It calls function, `fn`, `n` times, passing in all of the remaining arguments that were passed to the original function, as the arguments to the `fn` function invocation. It will ignore the return value of function calls. Here are some hints:
+
+
+* use `rest` parameters and `spread`
+* or use the `arguments` object along with `apply`
+
+HINT: use recursion to avoid regular loops
 
 __Example:__
 
-    // original even function that works on Numbers
-    function even(n) {return n % 2 === 0;} 
-
-    // create a 'filter' version of the square function
-    filterWithEven = filterWith(even); 
-
-    // now square can work on Arrays of Numbers!
-    console.log(filterWithEven([1, 2, 3, 4])); // [2, 4]    
-    
-    const nums = [1, NaN, 3, NaN, NaN, 6, 7];
-    const filterNaN = filterWith(n => !isNaN(n));
-    console.log(filterNaN(nums)); // [1, 3, 6, 7]
+    // calls console.log twice, each time passing in the args, "foo", "bar", ... "corge"
+    repeatCallAllArgs(console.log, 2, "foo", "bar", "baz", "qux", "quxx", "corge");
+        
+    // prints out:
+    // foo bar baz qux quxx corge
+    // foo bar baz qux quxx corge
 
 <hr>
 
@@ -208,7 +281,7 @@ __Description:__
 
 Calls the function `fn` using every `step` number of elements from the `Array`, `arr`, as arguments to `fn`. For example, if `step` were 3, then `fn` would be called with the first 3 elements of `arr` each as a positional argument. `fn` will be called again with the next 3 arguments. `fn` will continue to be called until there are no more elements to use as arguments from `arr`. If the last group of arguments is less than `step` call the function `fn` with whatever arguments are left (see example below)
 
-HINT: to adhere to the restrictions regarding use of for, for of, forEach, while, etc. ... it might be useful to think of a way to implement this function recursivelu
+HINT: to adhere to the restrictions regarding use of for, for of, forEach, while, etc. ... it might be useful to think of a way to implement this function recursively
 
 __Example:__
 
@@ -271,7 +344,7 @@ __Example:__
 
     // however, if either min or max are missing, then the new function
     // returns the result of fn unmodified regardless of value
-    var constrainedParseInt2 = constrainDecorator(parseInt);
+    const constrainedParseInt2 = constrainDecorator(parseInt);
     constrainedParseInt2("-12") // --> -12
 
 <hr>
