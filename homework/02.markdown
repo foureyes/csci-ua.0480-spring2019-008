@@ -23,7 +23,7 @@ __analytic.js__, __tempAnalytic.js__, __readWeatherFs.js__, and __readWeatherUrl
 
 ### Submission Process
 
-You will be given access to a private repository on GitHub. It will contain unit tests, stub files for your code, a `package.json` and a `.eslintrc`
+You will be given access to a private repository on GitHub. It will contain unit tests, stub files for your code and an `.eslintrc.js`
 
 * The final version of your assignment should be in GitHub.
 * __Push__ your changes to the homework repository on GitHub.
@@ -76,7 +76,7 @@ __There will a small (-2) penalty every time one is used__. (Homework is 100 poi
 ### Steps
 
 1. prep...
-	* create a `packsge.json` using `npm init`
+	* create a `package.json` using `npm init`
     * create a `.gitignore` to ignore node_modules
 	* create a `package.json` by using `npm init`
     * make sure that `mocha`, `chai`, and `eslint` are still installed (similar to previous assignment)
@@ -348,6 +348,43 @@ __Example:__
     constrainedParseInt2("-12") // --> -12
 
 hr>
+
+### `limitCallsDecorator(fn, n)`
+
+__Parameters:__
+
+* `fn` - the function to modify (_decorate_)
+* `n` - the number of times that `fn` is allowed to be called
+
+__Returns:__
+
+* `function` - a function that...
+    * does the same thing as the original function, `fn` (that is, it calls the original function)
+    * but can only be called `n` times
+    * after the `n`th call, the original function, `fn` will not be called, and the return value will always be `undefined`
+
+__Description:__
+
+This is the culmination of all of the concepts from the previous functions. However, instead of just reading from a variable that's available through the closure, you'll use it to keep track of the number of times that a function is called... and prevent the function from being called again if it goes over the `max` number of allowed function calls. Here are the steps you'll go through to implement this:
+
+1. create your decorator (function)
+2. create a local variable to keep track of the number of calls
+3. create an inner function to return
+    * the inner function will check if the number of calls is less than the max number of allowed calls
+    * if it's still under max, call the function, `fn` (allow all arguments to be passed), return the return value of calling `fn`, and increment the number of calls
+    * if it's over max, just return `undefined` immediately without calling the original function
+
+__Example:__
+
+    const = limitedParseInt = limitCallsDecorator(parseInt, 3);
+    limitedParseInt("423") // --> 423
+    limitedParseInt("423") // --> 423
+    limitedParseInt("423") // --> 423
+    limitedParseInt("423") // --> undefined
+
+
+<hr>
+
 
 ### `bundleArgs(fn, args1, args2 to argsn)`
 
@@ -865,8 +902,14 @@ function generateReport(weatherData, variable, unit) {
   // COPY AND PASTE YOUR CODE FROM PART 2 BELOW AND MAKE SOME GENERALIZATIONS
 }
 </code></pre>
-    
-11. Again, the goal is to create create a generalized function in `analytic.js`  that can report different weather variables (not only temperature).
+11. Again, the goal is to create create a generalized function in `analytic.js` that can report different weather variables (temperature, wind speed, etc.)
+	* again the report will be...
+	* Top 10 Cities with highest mean [variable]
+ 	* Top 10 Cities with lowest mean [variable]
+	* The average X over spring 2013 in New York is...
+	* use the `variable` and `unit` paramaters
+	* __you'll have to special case `temperature` in this function though...__ if, `variable` is `temperature` and unit is `K`, convert to fahrenheit
+    * see belowfor full example of output
 12. Require `analytic.js` in `readWeatherUrl` so that you can generate a report from the first file that you retrieved
 13. This means that you have to first parse the JSON to create the appropriate values for arguments to `generateReport`
 14. And, of course, call `generateReport` and print out the result
@@ -884,6 +927,7 @@ At this point, your homework folder structure looks like:
 ├── historical-hourly-weather-data-json
 │   └── temperature.json
 └── src
+    ├── hoffy.js
     ├── readWeatherFs.js
     ├── readWeatherUrl.js.js
     ├── analytic.js
@@ -891,6 +935,9 @@ At this point, your homework folder structure looks like:
 ```
 
 ### Example Output
+
+
+(Notice that `variable` and `unit` influence output, with `temperature` and `K` special cased for conversion to fahrenheit)
 
 ```
 Top 10 Cities with highest mean temperature
