@@ -347,43 +347,7 @@ __Example:__
     const constrainedParseInt2 = constrainDecorator(parseInt);
     constrainedParseInt2("-12") // --> -12
 
-<hr>
-
-### `limitCallsDecorator(fn, n)`
-
-__Parameters:__
-
-* `fn` - the function to modify (_decorate_)
-* `n` - the number of times that `fn` is allowed to be called
-
-__Returns:__
-
-* `function` - a function that...
-    * does the same thing as the original function, `fn` (that is, it calls the original function)
-    * but can only be called `n` times
-    * after the `n`th call, the original function, `fn` will not be called, and the return value will always be `undefined`
-
-__Description:__
-
-This is the culmination of all of the concepts from the previous functions. However, instead of just reading from a variable that's available through the closure, you'll use it to keep track of the number of times that a function is called... and prevent the function from being called again if it goes over the `max` number of allowed function calls. Here are the steps you'll go through to implement this:
-
-1. create your decorator (function)
-2. create a local variable to keep track of the number of calls
-3. create an inner function to return
-    * the inner function will check if the number of calls is less than the max number of allowed calls
-    * if it's still under max, call the function, `fn` (allow all arguments to be passed), return the return value of calling `fn`, and increment the number of calls
-    * if it's over max, just return `undefined` immediately without calling the original function
-
-__Example:__
-
-    const = limitedParseInt = limitCallsDecorator(parseInt, 3);
-    limitedParseInt("423") // --> 423
-    limitedParseInt("423") // --> 423
-    limitedParseInt("423") // --> 423
-    limitedParseInt("423") // --> undefined
-
-
-<hr>
+hr>
 
 ### `bundleArgs(fn, args1, args2 to argsn)`
 
