@@ -951,7 +951,6 @@ Nahariyya: 69.39 (F)
 Beersheba: 69.12 (F)
 San Antonio: 69.04 (F)
 Jacksonville: 68.88 (F)
-Las Vegas: 68.48 (F)
 Top 10 Cities with lowest mean temperature
 Minneapolis: 44.82 (F)
 Montreal: 45.29 (F)
@@ -963,7 +962,6 @@ Boston: 51.07 (F)
 Vancouver: 51.08 (F)
 Pittsburgh: 51.18 (F)
 Seattle: 51.80 (F)
-Portland: 52.84 (F)
 
 The average temperature over spring 2013 in New York is: 35.22 (F)
 
@@ -978,7 +976,6 @@ Montreal: 3.27 (m/s)
 Minneapolis: 3.17 (m/s)
 Dallas: 3.14 (m/s)
 Kansas City: 3.02 (m/s)
-Nahariyya: 2.99 (m/s)
 Top 10 Cities with lowest mean wind speed
 Los Angeles: 0.76 (m/s)
 Phoenix: 1.12 (m/s)
@@ -990,7 +987,6 @@ Seattle: 1.90 (m/s)
 Atlanta: 1.97 (m/s)
 Charlotte: 2.03 (m/s)
 Denver: 2.11 (m/s)
-Beersheba: 2.21 (m/s)
 
 The average wind speed over spring 2013 in New York is: 4.45 (m/s)
 
