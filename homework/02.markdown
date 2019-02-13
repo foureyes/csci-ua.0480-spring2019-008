@@ -611,7 +611,6 @@ You'll work with the following two files for this part:
 * Once you're done, use the `Array` that you've produced to **print the first ten lines of temperature in New York with the the following format using template literals**:
 	<pre><code data-trim contenteditable>// Format
 At ${time}, the temperature in NY is ${degree in Fahrenheit} (F)
-
 // Example
 At 2012-10-01 13:00:00, the temperature in NY is 59.13 (F)
 </code></pre>
@@ -776,7 +775,6 @@ At 2012-10-01 19:00:00, the temperature in NY is 59.89 (F)
 At 2012-10-01 20:00:00, the temperature in NY is 60.03 (F)
 At 2012-10-01 21:00:00, the temperature in NY is 60.17 (F)
 At 2012-10-01 22:00:00, the temperature in NY is 60.32 (F)
-At 2012-10-01 23:00:00, the temperature in NY is 60.46 (F)
 
 The mean temperature in San Diego is: 62.72 (F)
 
@@ -796,7 +794,6 @@ Houston: 69.97 (F)
 Nahariyya: 69.70 (F)
 San Antonio: 69.23 (F)
 Jerusalem: 68.06 (F)
-Las Vegas: 66.79 (F)
 Top 10 Cities with lowest mean temperature
 Montreal: 45.11 (F)
 Minneapolis: 45.81 (F)
@@ -808,7 +805,6 @@ Boston: 51.25 (F)
 Vancouver: 51.28 (F)
 Pittsburgh: 51.80 (F)
 Seattle: 52.39 (F)
-Indianapolis: 53.11 (F)
 
 The average temperature over spring 2013 in New York is: 41.10 (F)
 ```
