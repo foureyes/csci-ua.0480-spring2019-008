@@ -237,6 +237,7 @@ __Example:__
     // prints out:
     // Hello!
     // Hello!
+    // Hello!
     
     // calls console.log twice, each time passing in only the first argument
     // (we'll see how to fix this later)

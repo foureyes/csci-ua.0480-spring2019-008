@@ -164,12 +164,9 @@ __Due Sunday 9/25, by 9am__
 
 * [Networking ACK!](https://jvns.ca/zines/#networking-ack) by Julia Evans
 
-MDN Documentation on HTTP
+Net Module Review
 
-* [An overview of HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)
-* [A typical HTTP session](https://developer.mozilla.org/en-US/docs/Web/HTTP/Session)
-* [HTTP Messages](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) (HTTP/2 is not covered in the course, so those parts are optional)
-* Reference for HTTP [methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) and [status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+* [Create Server](https://nodejs.org/api/net.html#net_net_createserver_options_connectionlistener)
 
 [{{ site.book_js_5 }}]({{ site.book_js_5_link }}) (Optional, same content as above)
 
@@ -182,15 +179,9 @@ MDN Documentation on HTTP
 
 
 ",
-y,,6,13-Feb,Wed,"* A Simple Web Server Continued / Our ""Framework""
+,,6,13-Feb,Wed,"* A Simple Web Server Continued / Our ""Framework""
 * Routing
-* Node HTTP Module","Discussion
-
-* Academic Integrity (Again)
-
-Slides
-
-* [HTTP Summary](slides/07/http-summary.html)
+* Node HTTP Module","* [HTTP Summary](slides/07/http-summary.html)
 * [Sockets Review](slides/07/sockets-review.html)
 
 ","HTTP
@@ -200,24 +191,16 @@ Slides
 * [HTTP Messages](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) (HTTP/2 is not covered in the course, so those parts are optional)
 * Reference for HTTP [methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) and [status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 
-Cookies
+","Due Wednesday 2/20 at 11am
 
-* [MDN on Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
-* nczonline articles on [Cookies](https://www.nczonline.net/blog/2009/05/05/http-cookies-explained/) and [Cookies and Security](https://www.nczonline.net/blog/2009/05/12/cookies-and-security/)
-","* Quizzes #4 and #5
+* Quiz #4  (Readings and Slides from classes 5 and 6)
+* Quiz #5  (Readings from class 10)
 
-<!--
-
-__Due Monday 2/25 at 11pm:__
-
-
-
-* [Homework #3](homework/03.html)
--->",
-y,holiday,,18-Feb,Mon,President's Day,,,,
-y,,7,20-Feb,Wed,"* HTTP Module
+",
+,holiday,,18-Feb,Mon,President's Day,,,,
+,,7,20-Feb,Wed,"* HTTP Module
 * Web Framework
-* Project Layout","Coding Demo
+* Project Layout","<!--Coding Demo
 
 * review net module
 * routing
@@ -241,7 +224,15 @@ Example Set 2
 * public/[mouse.html](examples/class07b/public/mouse.html)
 
 
+
+
+* [Node's HTTP Module](slides/07/node-http.html)
+* [Project Setup](slides/08/setup.html)
+-->
+
+
 <!--
+(????)
 * Notes: 
   * [Web Server, Request Class, POST etc.](examples/class06/notes.js)
   * public/html/[form.html](examples/class06/public/html/form.html)
@@ -250,15 +241,19 @@ Example Set 2
 * Basic net module [Echo Server](examples/net/echoServer.js) Example
 * Another [Web Server / Routing / Dispatching](examples/net/webServer.js) Example
 -->
+",See previous classes on HTTP and network programming,"<!--
+
+__Due Monday 2/25 at 11pm:__
 
 
-* [Node's HTTP Module](slides/07/node-http.html)
-* [Project Setup](slides/08/setup.html)
 
-",,,
-y,,8,25-Feb,Mon,"* Web Framework Continued
+* [Homework #3](homework/03.html)
+
+-->",
+,,8,25-Feb,Mon,"* Web Framework Continued
 * Middleware
-* Templating","Slides
+* Templating","<!--
+Slides
 
 * [Express](slides/08/express.html) 
 * [Templating](slides/09/templating.html)
@@ -268,19 +263,18 @@ y,,8,25-Feb,Mon,"* Web Framework Continued
 Coding Demo
 
 * [Express Basics](examples/class08/express-basics.zip)
-
+-->
 ","* [Express Hello World](https://expressjs.com/en/starter/hello-world.html)
 * [Express Basic Routing](https://expressjs.com/en/starter/basic-routing.html)
 * [Express Routing](https://expressjs.com/en/guide/routing.html) (up to, but not including route paths)
 * [Express Static Files](https://expressjs.com/en/starter/static-files.html)
 * [Handlebars Basics](http://handlebarsjs.com/expressions.html) (Basic Usage Section Only)
 * [Handlebars Loops/Conditionals](http://handlebarsjs.com/block_helpers.html) (Up to Hash Arguments, Ignore blocks with `registerHelper`)
-","__Due Wednesday 3/4 at 11pm:__
-
-* [Homework #4](homework/04.html)",
-y,,9,27-Feb,Wed,"* Cookies
+",,
+,,9,27-Feb,Wed,"* Cookies
 * Sessions
-* Forms","Slides 
+* Forms","<!--
+Slides 
 
 * Templating (from previous class)
 * Middleware (from previous class)
@@ -290,37 +284,40 @@ y,,9,27-Feb,Wed,"* Cookies
 Coding Demo
 
 * [Middleware and Forms](examples/class09/middleware-forms.zip)
+-->
 
 ","* [Middleware](https://expressjs.com/en/guide/writing-middleware.html)
 
-",,
-y,,10,04-Mar,Mon,"* Cookies
+","<!--
+__Due Wednesday 3/4 at 11pm:__
+
+* [Homework #4](homework/04.html)
+-->",
+,,10,04-Mar,Mon,"* Cookies
 * Sessions 
 * NoSQL Database
-","Slides / Notes
+","<!--
+Slides / Notes
 
 * Review form handling, middleware
 * [Sessions and Cookies](slides/10/sessions.html)
 * About the Upcoming Exam
 * Maybe [Mongo DB  and Mongoose](slides/14/mongo.html)
-
+-->
 
 <!--
+(???)
 Coding Demo
 
 
 * [creating middleware, sessions](examples/class10/middleware-sessions.zip)
 
 -->","
-Cookies Revisited
+Cookies 
 
 * [MDN on Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 * nczonline articles on [Cookies](https://www.nczonline.net/blog/2009/05/05/http-cookies-explained/) and [Cookies and Security](https://www.nczonline.net/blog/2009/05/12/cookies-and-security/)
-","
-__Due Friday 3/11 at 11pm:__
-
-* [(Mini) Homework #5](homework/05.html) 
-",
+",,
 y,,11,06-Mar,Wed,"* Object Document Mapper
 * Database Design
 * Authentication","__Slides__
@@ -349,7 +346,13 @@ __Midterm Practice__
  * [books](resources/data/books.csv)
  * [wifi](resources/data/wifi3.json) (NYC Open Data)
 -->
-",,,
+",,"
+
+<!--
+__Due Friday 3/11 at 11pm:__
+
+* [(Mini) Homework #5](homework/05.html) 
+-->",
 y,,12,11-Mar,Mon,"* About the Exam, Review",,,,
 y,exam,13,13-Mar,Wed,EXAM #1 (Midterm Exam),,,,
 y,holiday,,18-Mar,Mon,Spring Break,,,,
