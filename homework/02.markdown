@@ -747,7 +747,7 @@ Format: Print all decimal numbers with 2 digits after decimal point
 The average temperature over spring 2013 in New York is: **.** (F)
 ```
 
-HINT: be careful to the numeric representation of month returned from `getMonth()`.
+HINT: be careful to the constructor of date object and numeric representation of month returned from `getMonth()`. The output may be off if passing the wrong type of parameters to instantiate the date object and the indexing of month.
 
 ### Return Value
 
@@ -806,7 +806,7 @@ Vancouver: 51.28 (F)
 Pittsburgh: 51.80 (F)
 Seattle: 52.39 (F)
 
-The average temperature over spring 2013 in New York is: 41.10 (F)
+The average temperature over spring 2013 in New York is: 41.13 (F)
 ```
 
 Lint, commit and push your code; the next part will make modifications to this existing code (you can overwrite your work in this file directly for the next part).
@@ -877,6 +877,8 @@ Below is an example of the general structure of the data files (note, this shows
 2. `response`: JSON array and each object contains weather data of each of 36 cities (same as the `temperature.json` in Part 2)
 3. `variable`: the name of the data point
 4. `unit`: the unit of measurement for that data point 
+
+Note: The datasets retrived through Urls are subsets of their original datasets to avoid long response. For example, `temperature-resource.json` contains one year of data retrieved from `temperature.json`.
 
 ### Implementation Detail
 
@@ -963,7 +965,7 @@ Vancouver: 51.08 (F)
 Pittsburgh: 51.18 (F)
 Seattle: 51.80 (F)
 
-The average temperature over spring 2013 in New York is: 35.22 (F)
+The average temperature over spring 2013 in New York is: 41.13 (F)
 
 Top 10 Cities with highest mean wind speed
 Eilat: 3.68 (m/s)
@@ -988,7 +990,7 @@ Atlanta: 1.97 (m/s)
 Charlotte: 2.03 (m/s)
 Denver: 2.11 (m/s)
 
-The average wind speed over spring 2013 in New York is: 4.45 (m/s)
+The average wind speed over spring 2013 in New York is: 4.39 (m/s)
 
 (There may be another file to process!)
 ```
