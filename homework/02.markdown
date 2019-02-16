@@ -698,7 +698,7 @@ The mean temperature in San Diego is: xx.xx (F)
 
 ### The coldest, warmest time and temperature in New York
 
-Find the top ten coldest, warmest date and temperature and output in the following format
+Find the coldest, warmest date and temperature and output in the following format
 
 Format: Print all decimal numbers with 2 digits after decimal point
 ```
