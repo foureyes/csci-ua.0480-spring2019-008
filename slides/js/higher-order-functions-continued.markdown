@@ -721,7 +721,6 @@ wasteTime(5000000);
 
 Hm. So... there's a limitation with regards to the kinds of functions that we can time. __Can you spot it?__ &rarr;
 
-<br>
 __Hint__: __How would it handle the following function?__ &rarr;
 {:.fragment}
 
@@ -732,7 +731,6 @@ function wasteTime2(start, limit) {
 </code></pre>
 {:.fragment}
 
-<br>
 __What if the timed function needs more than one argument?__ &rarr;
 {:.fragment}
 
