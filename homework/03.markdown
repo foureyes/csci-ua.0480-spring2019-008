@@ -160,7 +160,7 @@ app.get('/foo', (req, res) => {
 
 In `webby.js`...
 
-1. create some utility objects and helper functions to deal with file extenstion and content type
+1. create some utility objects and helper functions to deal with file extension and content type
 2. create a `Request` object to encapsulate http requests
 3. create an `App` object that encapsulates your server...
     * add application level functionality, such as routing
@@ -283,11 +283,10 @@ You don't have to worry about version, headers, etc. ... This can be copied with
 Once you are finished with your implementation above, you can export, test and try using your new objects, functions, and `Request` class.
 
 1. Export the object using `module.exports`, and try running the tests in `test/webby-test.js` (use [`.only`](https://mochajs.org/#exclusive-tests) for each object you want to test or simply comment out the other tests) 
-    * if you want, you can install `mocha` globally (this is totally optional)
     * install dev dependencies to run tests: npm install \-\-save-dev mocha chai chai-match sinon mocha-sinon
-    * `mocha test/webby-test.js` (or, if you didn't install globally, something like ` ./node_modules/mocha/bin/mocha test/webby-test.js`)
+	* `npx mocha test/webby-test.js`
     * 👀 run the tests from within your `root` folder
-2. Eventually, you'll be able to use this request object to parse the binary data that is passeed in to the callback function `someCallback` in `sock.on('data', someCallback)`
+2. Eventually, you'll be able to use this request object to parse the binary data that is passed in to the callback function `someCallback` in `sock.on('data', someCallback)`
 3. As a consequence, you'll be able to use a `Request` instance's `method` and `path` properties  to conditionally execute code     
 	* `const req = new Request(binaryData.toString());`
 	* `if(req.method === 'GET' && req.path === '/foo') { }`
