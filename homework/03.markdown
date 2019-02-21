@@ -20,11 +20,44 @@ hr {
 	<div class="panel-heading">Homework #3</div>
 	<div class="panel-body" markdown="block">
 
-# A Site About An Animal 🐶🦎🦉🐬🐷, Due Wed, Oct 10th at 11PM 
+# A Site About An Animal 🐶🦎🦉🐬🐷, Due Friday, Feb 29th at 11PM 
 
 <div markdown="block" class="img">
 ![gecko web site](../resources/img/hw03-gecko-00-animation-resized.gif)
 </div>
+
+## Homework Policy
+
+<style>
+strong.highlight {
+	background-color: yellow;
+	font-weight: bold;
+	color: red;
+}
+
+</style>
+
+1. __If you need help, please work with the tutor or me (office hours or set up a time to meet)__{:.highlight} 
+	* helping or receiving help from other students is ok as long as it's limited to:
+	* high level discussions of algorithms / concepts / etc.
+	* help debugging
+	* (if you feel like there may be an issue, ask... and / or comment your code explaining who you discussed the algorithm or concept with to prevent false positives when the graders and I look for cases of cheating)
+	* ... but do not copy someone else's work
+2. __You must submit your own code (do not copy or distribute solutions)__{:.highlight} 
+	* (there have already been instances of Academic Integrity violations this semester!)
+	* distribution includes, but is not limited to:
+		* emailing code
+		* pushing code to a public repository
+		* sending screenshots of your code
+		* etc.
+	* copying includes, but is not limited to:
+		* cloning code that isn't yours
+		* using solutions on line
+		* looking at someone else's work and copying from what's on their screen
+3. __Homework is checked against prior semesters, so do not copy code found online__{:.highlight} 
+	* do not use solutions found online
+	* homeworks submitted are checked against previous semesters' homeworks
+
 
 ## Overview
 
@@ -91,7 +124,8 @@ Before starting, __make sure to review the course materials on the net module an
 
 1. 👀__you can use the code from class samples to start your project__ 👀:
     * see [class 7 for in-class demo code on the net module](../#class7)
-    * (specifically [section 001 webServer.js](../examples/class07/webServer.js) or [section 003 webServer.js](../examples/class07b/webServer.js))
+	* the _actual_ in class demo was [demo.js](../examples/sp19-class07/demo.js)
+    * additionally, check out this example of reading a file and serving the content of the file (which came up when a student asked about serving up facicon.ico): [webServer.js](../examples/class07b/webServer.js))
 2. check out the [slides on the `net` module](../slides/06/sockets.html#/2), paying close attention to the [the last slide](../slides/06/sockets.html#/10).
 3. lastly, make sure that you can write back a valid http response by reviewing::
     * [the slides on http](../slides/05/web.html#/16)
@@ -151,7 +185,7 @@ Create a module-level (_global_) object called `HTTP_STATUS_CODES` that maps sta
 
 ### `MIME_TYPES`
 
-Create a module-level (_global_) object called `MIME_TYPES` that maps file name extensions to [MIME Type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types). This is essentially the value that will be used in the `Content-Type` request header. For example, if a file ends with `jpg`, its MIME Type is `image/jpeg`. Minimally, this mapping should contain `jpg`, `jpeg`, `png`, `html`, `css`, and `txt`.
+Create a module-level (_global_) object called `MIME_TYPES` that maps file name extensions to [MIME Type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types). This is essentially the value that will be used in the `Content-Type` request header. For example, if a file ends with `jpg`, its MIME Type is `image/jpeg`. Minimally, this mapping should contain `jpg`, `jpeg`, `png`, `html`, `css`, and `txt` (both `jpg` and `jpeg` map to the same MIME Type).
 
 [See MDN's documentation of MIME Types to see the mappings between extension and MIME Type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
 
@@ -270,7 +304,7 @@ An instance of an `App` represents a web application. It's responsible for:
 
 1. accepting and parsing incoming http requests (using the `Request` class)
 2. holding "routes" (http method and path combinations) in a property called (of course) `routes`
-3. optionally calling a middleware function if it exists on an `App` instance as `middleware`
+3. optionally calling a middleware function if it exists on an `App` instance as `middleware` (only one middleware function can be set, which is different from how Express works)
 4. or simply determining what to do based on the incoming request path (if no middleware is present, or if middleware passes processing on to the route handlers)
 5. ... and finally sending back a valid http response
 
@@ -553,7 +587,9 @@ res.status(301).send('...');
 
 Once your finished with your implementation above, you can export, test and try using your new `App` and `Response` classes.
 
-1. Export all of the functions and classes that you've created using `module.exports`, and try running the tests in `test/webby-test.js` (again, you can use `.only` to run certain tests one-by-one or comment out other tests)
+1. Export all of the functions and classes that you've created using `module.exports`, and try running the tests in `test/webby-test.js` 
+	* (again, you can use `.only` to run certain tests one-by-one or comment out other tests)
+	* some methods don't have tests (for example, `listen` is not covered)
 2. If everything the tests for `App`, `Response` (and the other previously defined functions and class), you can modify `src/app.js` to create a simple web application (which you'll replace later):
     <pre><code data-trim contenteditable>const webby = require('./webby.js');
 const app = new webby.App();</code></pre>
@@ -602,6 +638,9 @@ Write the following in `src/webby.js`:
         * for example, if `serveStatic` were called with `/projects/myname-homework03/public` and the incoming http request contained `/css/styles.css`, the resulting middleware function returned from `serveStatic` will attempt to read: 
             * `/projects/myname-homework03/public/css/styles.css`
         * use the two argument version of `fs.readFile` to read from the file system (⚠️ only pass in the path and the the callback, don't specify options or encoding!)
+			* ⚠️ check out the [docs for fs.readFile first](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback) 
+			* ⚠️ here's some [sample code that combines the `net` module with `fs.readFile`](../examples/class07b/webServer.js)
+			* ⚠️ finally, read [some notes on fs.readFile and `this`](n03-sendfile-background.html)
         * if reading the file is successful, use the `Response` object passed in to send back the contents of the file that was read
         * HINT: use one / some of the `Response` object's methods to do this
         * you'll have to find a way to set the correct status and the right `Content-Type` in your response; it's adequate to use the extension of the file to determine a content type
@@ -647,6 +686,8 @@ Choose an animal to create a site about. Go back to `src/app.js` and comment out
 ![gecko gallery 1](../resources/img/hw03-gecko-04-gallery-2.png)
     </div>
 3. `GET /pics` - redirects to `/gallery` ... this should be implemented using `app.get` and with the callback setting the write status code and headers for a permanent redirect (check the [redirect article on mdn](https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections))
+	* note that after the redirect, the browser address bar __will show the new address__ 
+	* (that is, the browser will be coerced into making another request to the url that it is being redirected to)
 4. `GET /css/styles.css` - serves up a stylesheet based on a static file contained in `public/css/`
 5. `GET /img/animal1.jpg` ... up through `/img/animal4.jpg` - serves up four images of an animal
 

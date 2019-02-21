@@ -1,24 +1,26 @@
 ---
 layout: homework
-title: CSCI-UA.0480 - sendFile
+title: CSCI-UA.0480 - fs.readFile
 ---
 <div class="panel panel-default">
-	<div class="panel-heading">sendFile: Background Material on Callbacks</div>
+	<div class="panel-heading">Background Material on fs.readFile</div>
 	<div class="panel-body" markdown="block">
 
-## sendFile
+## Working with `fs.readFile`
 
-To implement `sendFile`, you'll have to use methods as callbacks and fix the number of arguments to a method/function.
+IO in node can be tricky because of its async nature and callback based API. That is, if you want to make something happen __after__ an IO operation, such as reading a file, reading from  a network resource, writing to a database, etc. ... you have to put that code in the callback function of the IO operation. A good example of this is using [fs.readFile](https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback), an async function for - as the name implies - reading data from a file (note that there's an synchronous version too, but we're avoiding using that for now).
+
 
 ### Background 
 
 
-Implementing `sendFile` is a little bit tricky because of:
+The trickiest parts of `fs.readFile` are:
 
 1. dealing with callbacks
-2. dealing with `this`
+2. using the right `this` if the callback is a method
+3. reconciling the number of arguments expected for a callback versus the actual number of arguments in the function you'll use as a callback
 
-Since we'll be implementing `sendFile` with the [`fs` module and `readFile`](https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback) we'll have to go over:
+This guide will cover:
 
 1. Using `fs.readFile`
 2. Using a method as a callback for `fs.readFile`

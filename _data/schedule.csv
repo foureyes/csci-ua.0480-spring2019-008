@@ -200,7 +200,20 @@ Net Module Review
 ,holiday,,18-Feb,Mon,President's Day,,,,
 ,,7,20-Feb,Wed,"* HTTP Module
 * Web Framework
-* Project Layout","<!--Coding Demo
+* Project Layout","Coding Demo
+
+* [echoServer.js](examples/class07/echoServer.js) (simple tcp/ip server)
+* [demo.js](examples/sp19-class07/demo.js) (basic http server built on top of net module)
+
+
+Sample Code With File I/O
+
+* [webServer.js](examples/class07b/webServer.js) (same as demo.js, but reads file from file system!)
+* public/[harry.html](examples/class07b/public/harry.html)
+* public/[mouse.html](examples/class07b/public/mouse.html)
+
+
+<!--Coding Demo fa19
 
 * review net module
 * routing
@@ -231,25 +244,14 @@ Example Set 2
 -->
 
 
-<!--
-(????)
-* Notes: 
-  * [Web Server, Request Class, POST etc.](examples/class06/notes.js)
-  * public/html/[form.html](examples/class06/public/html/form.html)
-  * public/html/[index.html](examples/class06/public/html/index.html)
-  * public/img/[croissant.jpg](examples/class06/public/img/croissant.jpg)
-* Basic net module [Echo Server](examples/net/echoServer.js) Example
-* Another [Web Server / Routing / Dispatching](examples/net/webServer.js) Example
--->
-",See previous classes on HTTP and network programming,"<!--
+",See previous classes on HTTP and network programming,"
 
-__Due Monday 2/25 at 11pm:__
+__Due Friday 2/29 at 11pm:__
 
 
 
 * [Homework #3](homework/03.html)
-
--->",
+",
 ,,8,25-Feb,Mon,"* Web Framework Continued
 * Middleware
 * Templating","<!--
@@ -289,7 +291,7 @@ Coding Demo
 ","* [Middleware](https://expressjs.com/en/guide/writing-middleware.html)
 
 ","<!--
-__Due Wednesday 3/4 at 11pm:__
+__Due Friday 3/8 at 11pm:__
 
 * [Homework #4](homework/04.html)
 -->",
@@ -346,9 +348,9 @@ __Midterm Practice__
  * [books](resources/data/books.csv)
  * [wifi](resources/data/wifi3.json) (NYC Open Data)
 -->
-",,"
+",,"<--
+In class lab?
 
-<!--
 __Due Friday 3/11 at 11pm:__
 
 * [(Mini) Homework #5](homework/05.html) 
