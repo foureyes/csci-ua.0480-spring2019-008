@@ -1,5 +1,4 @@
-// this is built-in
-// meant for:
+// net module -  built-in module for:
 // * creating tcp/ip clients
 // * creating tcp/ip servers
 //
@@ -9,17 +8,19 @@
 // * ....create our own http server
 //
 // node actually has an http server... we're not using it
-// (in the future, express, will use use node's http module under the hood)
+// (we'll see that another popular web module, express, uses node's http module 
+// under the hood)
 //
 // to make a server:
-// (check the node docs for full docs)
+// (https://nodejs.org/api/net.html#net_net_createserver_options_connectionlistener)
+//
 // * net.createServer(handleConnect)
 // * handleConnect is a callback.... fn(sock)
 //    * sock obj represents the connected client, it has methods like:
 //      * on(eventName, handleEventCallback)
 //        * eventName - String - 'data', 'close' (read the docs 4 more!!!)
 //        * handleEventCallback(data) - function - called when event ^^^^^^ happens
-//          * data - Bytes object (binary....) ... data sent by client
+//          * data - Buffer object (binary... data sent by client
 //      * write(s) - writes s to client (sends data)
 //      * end - tells client connection will close
 //    * this sock is supplied to us when our callback is called
@@ -38,13 +39,19 @@ function handleConnect(sock) {
     // Buffer object is passed in as argument....
     // contains data sent from client
     // console.log(binaryData.constructor, binaryData + '');
+    
+    // convert from Buffer to string
     const s = binaryData + '';
-    console.log(s);
-    // tell client conn is closing...l
+
+    // logs out to server
+    console.log(s); 
+
+    // write to client
     sock.write(s);
+
+    // tell client conn is closing...
     sock.end();
   });
-  // sock.write('hi there!');
 }
 
 const server = net.createServer(handleConnect);
