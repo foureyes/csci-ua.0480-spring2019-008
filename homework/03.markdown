@@ -39,9 +39,11 @@ strong.highlight {
 
 1. __If you need help, please contact me (office hours or set up a time to meet) or work with the tutor__{:.highlight} 
 	* helping or receiving help from other students is fine as long as it's __limited to__:
-	* __high level discussions__ of algorithms / concepts / etc.
-	* help debugging
-	* (if you feel like there may be an issue, ask... and / or comment your code explaining who you discussed your code with to prevent false positives for instances of cheating)
+		* __high level discussions__ of algorithms / concepts / etc.
+		* help debugging
+	* if you feel like there may be an issue: 
+		* ask me!
+		* comment your code explaining who you discussed your code with to prevent false positives for instances of cheating
 	* of course, do not copy someone else's work, which leads to...
 2. __You must submit your own code (do not copy or distribute solutions)__{:.highlight} 
 	* (there have already been instances of Academic Integrity violations this semester!)
