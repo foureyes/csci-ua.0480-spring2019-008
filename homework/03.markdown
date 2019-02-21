@@ -20,7 +20,7 @@ hr {
 	<div class="panel-heading">Homework #3</div>
 	<div class="panel-body" markdown="block">
 
-# A Site About An Animal 🐶🦎🦉🐬🐷, Due Friday, Feb 29th at 11PM 
+# A Site About An Animal 🐶🦎🦉🐬🐷, Due Friday, March 1st at 11PM 
 
 <div markdown="block" class="img">
 ![gecko web site](../resources/img/hw03-gecko-00-animation-resized.gif)
