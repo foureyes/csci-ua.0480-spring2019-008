@@ -455,7 +455,7 @@ __Parameters:__
 
 __Returns:__
 
-* `function` - a function that will pass it's arguments to `fn1`, take the output of `fn1` and use it as the argument to `fn2`, then take the output of `fn2` and use it for `fn3`, and then... etc
+* `function` - a function that has a single argument; it will pass it's single argument to `fn1`, take the output of `fn1` and use it as the argument to `fn2`, then take the output of `fn2` and use it for `fn3`, and then... etc
 
 
 __Description:__
@@ -698,7 +698,7 @@ The mean temperature in San Diego is: xx.xx (F)
 
 ### The coldest, warmest time and temperature in New York
 
-Find the top ten coldest, warmest date and temperature and output in the following format
+Find the coldest, warmest date and temperature and output in the following format
 
 Format: Print all decimal numbers with 2 digits after decimal point
 ```

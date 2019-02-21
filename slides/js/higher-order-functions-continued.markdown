@@ -721,7 +721,6 @@ wasteTime(5000000);
 
 Hm. So... there's a limitation with regards to the kinds of functions that we can time. __Can you spot it?__ &rarr;
 
-<br>
 __Hint__: __How would it handle the following function?__ &rarr;
 {:.fragment}
 
@@ -732,22 +731,21 @@ function wasteTime2(start, limit) {
 </code></pre>
 {:.fragment}
 
-<br>
 __What if the timed function needs more than one argument?__ &rarr;
 {:.fragment}
 
 <pre><code data-trim contenteditable>
 function logExecutionTime(f) {
-	return function(...args) {
-		console.time('function timing');
-        // use spread and rest
-        val = f(...args);
+  return function(...args) {
+  	console.time('function timing');
+    // use spread and rest
+    const val = f(...args);
 
-        // old way with es5, with apply
-		// const val = f.apply(null, arguments);
-		console.timeEnd('function timing');
-		return val; 
-	};
+    // old way with es5, with apply
+  	// const val = f.apply(null, arguments);
+  	console.timeEnd('function timing');
+  	return val; 
+  };
 }
 wasteTime = logExecutionTime(wasteTime);
 wasteTime(-5000000, 5000000);
@@ -765,7 +763,7 @@ __Why might function decorators be a useful? When would it make sense to impleme
 
 * {:.fragment} they allow us to modify how a function runs, even one that we did not write!
 * {:.fragment} decorators can be reused! for example, you can make any function a timed function, but should you need to change the implementation of timing, you only change it in one place
-* {:.fragment} there's potential for combining / chaining decoratiors!
+* {:.fragment} there's potential for combining / chaining decorators!
 </section>
 
 <section markdown="block">
