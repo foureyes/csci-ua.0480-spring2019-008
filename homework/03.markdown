@@ -88,8 +88,9 @@ You will be given access to a private repository on GitHub. It will contain:
 3. unit tests in `test`
 4. __you'll have to create your own `package.json`, `package-lock.json`, `.gitignore`__
     * (these are required and part of grading)
+	* use `npm init` to create `package.json` (you can just press enter all the way through)
     * remember to put `node_modules` in your `.gitignore`
-5. copy over your linting configuration `.eslintrc.js` from homework 02
+5. if `.eslintrc.js` isn't present, you can copy over your linting configuration `.eslintrc.js` from homework 02
 
 __Push__ your code to the homework repository on GitHub. Repositories will close, so make sure you push your changes before the deadline.
 
