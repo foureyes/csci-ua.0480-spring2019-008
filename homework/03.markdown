@@ -37,12 +37,12 @@ strong.highlight {
 
 </style>
 
-1. __If you need help, please work with the tutor or me (office hours or set up a time to meet)__{:.highlight} 
-	* helping or receiving help from other students is ok as long as it's limited to:
-	* high level discussions of algorithms / concepts / etc.
+1. __If you need help, please contact me (office hours or set up a time to meet) or work with the tutor__{:.highlight} 
+	* helping or receiving help from other students is fine as long as it's __limited to__:
+	* __high level discussions__ of algorithms / concepts / etc.
 	* help debugging
-	* (if you feel like there may be an issue, ask... and / or comment your code explaining who you discussed the algorithm or concept with to prevent false positives when the graders and I look for cases of cheating)
-	* ... but do not copy someone else's work
+	* (if you feel like there may be an issue, ask... and / or comment your code explaining who you discussed your code with to prevent false positives for instances of cheating)
+	* of course, do not copy someone else's work, which leads to...
 2. __You must submit your own code (do not copy or distribute solutions)__{:.highlight} 
 	* (there have already been instances of Academic Integrity violations this semester!)
 	* distribution includes, but is not limited to:
@@ -51,9 +51,10 @@ strong.highlight {
 		* sending screenshots of your code
 		* etc.
 	* copying includes, but is not limited to:
-		* cloning code that isn't yours
-		* using solutions on line
-		* looking at someone else's work and copying from what's on their screen
+		* making digital copies of someone else's code
+		* cloning code from a repository that isn't yours
+		* using solutions found online
+		* looking at someone else's work and copying from what is displayed on their screen
 3. __Homework is checked against prior semesters, so do not copy code found online__{:.highlight} 
 	* do not use solutions found online
 	* homeworks submitted are checked against previous semesters' homeworks
