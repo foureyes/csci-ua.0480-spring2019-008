@@ -472,7 +472,7 @@ app.use((req, res, next) => {
         1. look up the function to call in `this.routes` by using the `method` and `path` property from the incoming `Request` object 
             * Hint: __use a method defined earlier to help deal with casing, traling paths, etc.__
         2. call the function if it's found in `routes` by passing in the `Request` and `Response` objects that were previously passed in to this function as arguments 
-        3. if the `path` and `method` combination doesn't exist in `this.routes`, then send back a `404` and a plain text response saying `Page not found.`
+        3. if the `path` and `method` combination doesn't exist in `this.routes`, then send back a `404` and a plain text response saying `Page not found.` (note - this does not mean `return` from the function, but instead, create an http response and "send" it to the client) 
     * example usage: 
         <pre><code data-trim contenteditable>// assuming that req and res are available:
 this.processRoutes(req, res);
@@ -612,7 +612,7 @@ app.get('/hello', function(req, res) {
     * if everything is running properly, then:
         * regardless of what url you use in your browser, your server (that is, the terminal where you started your server) will log out the request method and request path of every incoming request
     * going to `/hello` will give back HELLO WORLD in a header tag (the html should be rendered, and you _shouldn't_ see angle brackets / `h1` tags)
-    * going to any other url should give back a `404` (send back a 404 response) and a plain text response in the browser saying `Page not found`
+    * going to any other url should give back a `404` (send back a 404 http response to the client) and a plain text response in the browser saying `Page not found`
 
 <hr>
 
