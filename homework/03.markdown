@@ -564,7 +564,7 @@ this.headersToString();
 4. `send(body)` - sets the `body` property of this `Response` object. Sends a valid http response to the client based on this `Response` object's properties (`statusCode`, `version`, and `headers`) and the `body` argument, and closes the connection. 
     * `body` - the body of the http response
     * no return value
-    * It will set the `Content-Type` header to `text/html` even if the header doesn't exist in `headers`. * ⚠️It should write the status line and headers to the socket first... and then write the body (note that there an extra `"\r\n"` should be sent out before the body to separate the body from what was written out before.
+    * It will set the `Content-Type` header to `text/html` if the header doesn't exist in `headers`. * ⚠️It should write the status line and headers to the socket first... and then write the body (note that there an extra `"\r\n"` should be sent out before the body to separate the body from what was written out before.
     * HINT: ⚠️again, write out the status line (first line), headers, and extra new line before writing out the body (use this `Response` object's `sock` property to do this with `sock.write`)
     * example usage:
         <pre><code data-trim contenteditable>res.setHeader('Content-Type', 'text/html');
