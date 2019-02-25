@@ -254,7 +254,7 @@ __Due Friday 3/1 at 11pm:__
 ",
 ,,8,25-Feb,Mon,"* Web Framework Continued
 * Middleware
-* Templating","<!--
+* Templating","
 Slides
 
 * [Express](slides/08/express.html) 
@@ -265,7 +265,7 @@ Slides
 Coding Demo
 
 * [Express Basics](examples/class08/express-basics.zip)
--->
+
 ","* [Express Hello World](https://expressjs.com/en/starter/hello-world.html)
 * [Express Basic Routing](https://expressjs.com/en/starter/basic-routing.html)
 * [Express Routing](https://expressjs.com/en/guide/routing.html) (up to, but not including route paths)
