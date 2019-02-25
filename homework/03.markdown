@@ -488,7 +488,7 @@ The `Response` object represents an http response, and it allows direct manipula
 
 Create a `Response` _class_ based on the [specifications below](#response).  
 
-Again, you can run unit tests as you work, by adding the object to `module.exports`, and running the tests in `test/webframework-test.js`. Remember to use `.only` or comment out other tests if you're only interested in a specific test.
+Again, you can run unit tests as you work, by adding the object to `module.exports`, and running the tests in `test/webby-test.js`. Remember to use `.only` or comment out other tests if you're only interested in a specific test.
 
 <a name="response"></a>
 
