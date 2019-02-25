@@ -400,7 +400,7 @@ p = app.normalizePath('/foo/#bar');
     * returns a `String`, a property name suitable to uniquely identify a route in the `routes` property of an `App` object
     * to create the property name, uppercase method and use the `normalizePath` method defined earlier for the path. Concatenate the two values, with a space between.
     * example usage:
-        <pre><code data-trim contenteditable>const k = app.createRouteKey('Get /FOO/?bar=baz') // p is GET /foo
+        <pre><code data-trim contenteditable>const k = app.createRouteKey('GET', '/FOO/?bar=baz') // p is GET /foo
 </code></pre>
 3. `get(path, cb)` - adds `GET` and `path` together to create a "key", which will be used to map to a value - the callback function, `cb` (the function to be called when a request matching its key's method and path comes in)
     * `path` - the path to respond to (that is, a valid path for the web application)
