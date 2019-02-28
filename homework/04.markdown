@@ -353,7 +353,7 @@ In this section, you'll implement an Express server that interact with a file sy
 * Add below middleware to your app
     * <code>body-parser</code>: this will help you parse query strings in <code>GET</code> request and body in <code>POST</code> request
 * Serve static files:
-	* check out the [slides on serving static files with Express](../slides/08/express.html#/29)
+	* check out the [slides on serving static files with Express](../../slides/08/express.html#/29)
     * test that both the css files and image work after running <code>app.js</code>
         * for example, try to curl <code>http://localhost:3000/img/ubuntu.jpg</code> or go that url in your browser
 * Import a class from the module  <code>fileSystem.js</code>
