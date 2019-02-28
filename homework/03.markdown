@@ -644,7 +644,7 @@ Write the following in `src/webby.js`:
         * use the two argument version of `fs.readFile` to read from the file system (⚠️ only pass in the path and the the callback, don't specify options or encoding!)
 			* ⚠️ check out the [docs for fs.readFile first](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback) 
 			* ⚠️ here's some [sample code that combines the `net` module with `fs.readFile`](../examples/class07b/webServer.js)
-			* ⚠️ finally, read [some notes on fs.readFile and `this`](n03-sendfile-background.html)
+			* ⚠️ finally, read [some notes on fs.readFile and `this`](03-sendfile-background.html)
         * if reading the file is successful, use the `Response` object passed in to send back the contents of the file that was read
         * HINT: use one / some of the `Response` object's methods to do this
         * you'll have to find a way to set the correct status and the right `Content-Type` in your response; it's adequate to use the extension of the file to determine a content type
