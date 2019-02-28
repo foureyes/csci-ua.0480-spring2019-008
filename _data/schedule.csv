@@ -254,7 +254,7 @@ __Due Friday 3/1 at 11pm:__
 ",
 ,,8,25-Feb,Mon,"* Web Framework Continued
 * Middleware
-* Templating","<!--
+* Templating","
 Slides
 
 * [Express](slides/08/express.html) 
@@ -265,7 +265,7 @@ Slides
 Coding Demo
 
 * [Express Basics](examples/class08/express-basics.zip)
--->
+
 ","* [Express Hello World](https://expressjs.com/en/starter/hello-world.html)
 * [Express Basic Routing](https://expressjs.com/en/starter/basic-routing.html)
 * [Express Routing](https://expressjs.com/en/guide/routing.html) (up to, but not including route paths)
@@ -275,7 +275,7 @@ Coding Demo
 ",,
 ,,9,27-Feb,Wed,"* Cookies
 * Sessions
-* Forms","<!--
+* Forms","
 Slides 
 
 * Templating (from previous class)
@@ -286,13 +286,14 @@ Slides
 Coding Demo
 
 * [Middleware and Forms](examples/class09/middleware-forms.zip)
--->
-
 ","* [Middleware](https://expressjs.com/en/guide/writing-middleware.html)
 
-","<!--
-__Due Friday 3/8 at 11pm:__
+","
+__Due Friday 3/9 at 11pm__
 
+(To be posted later this week)
+
+<!--
 * [Homework #4](homework/04.html)
 -->",
 ,,10,04-Mar,Mon,"* Cookies

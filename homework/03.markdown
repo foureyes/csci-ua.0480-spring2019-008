@@ -79,6 +79,7 @@ __You can only use the following two modules for this assignment__ &rarr;
 
 1. `net` - a module for creating TCP servers and clients
 2. `fs` - a module for file system related tasks, such as reading and writing files
+3. `path` - a module for file name and path related manipulation (such as extracting an extension from a file name and joining path names)
 
 __⚠️You can't use the `http` module... or install additional frameworks, such as `express`__
 
@@ -358,7 +359,7 @@ this.server = net.createServer(sock => this.handleConnection(sock));
 
 Note that many of the methods in `App` will be used as callbacks to other methods in `App`. Starting from the method that will likely be called first: 
 
-1. the `constuctor` for this `App` object will use __`handleConnect`__ as the argument to the `net` module's `createServer` so that it's called when a client connects
+1. the `constuctor` for this `App` object will use __`handleConnection`__ as the argument to the `net` module's `createServer` so that it's called when a client connects
 2. `handleConnect` will use __`handleRequest`__ as a callback to a socket object `on` method (`sock.on`) so that `handleRequest` is called when a client sends data
 3. `handleRequest` will use __`processRoutes`__ as a  callback to a middleware function if it's specified or `processRoutes` will be invoked directly from the `App` instance (`this.processRoutes(...)`) if no middleware is set
 
@@ -399,7 +400,7 @@ p = app.normalizePath('/foo/#bar');
     * returns a `String`, a property name suitable to uniquely identify a route in the `routes` property of an `App` object
     * to create the property name, uppercase method and use the `normalizePath` method defined earlier for the path. Concatenate the two values, with a space between.
     * example usage:
-        <pre><code data-trim contenteditable>const k = app.createRouteKey('Get /FOO/?bar=baz') // p is GET /foo
+        <pre><code data-trim contenteditable>const k = app.createRouteKey('GET', '/FOO/?bar=baz') // p is GET /foo
 </code></pre>
 3. `get(path, cb)` - adds `GET` and `path` together to create a "key", which will be used to map to a value - the callback function, `cb` (the function to be called when a request matching its key's method and path comes in)
     * `path` - the path to respond to (that is, a valid path for the web application)
@@ -471,7 +472,7 @@ app.use((req, res, next) => {
         1. look up the function to call in `this.routes` by using the `method` and `path` property from the incoming `Request` object 
             * Hint: __use a method defined earlier to help deal with casing, traling paths, etc.__
         2. call the function if it's found in `routes` by passing in the `Request` and `Response` objects that were previously passed in to this function as arguments 
-        3. if the `path` and `method` combination doesn't exist in `this.routes`, then send back a `404` and a plain text response saying `Page not found.`
+        3. if the `path` and `method` combination doesn't exist in `this.routes`, then send back a `404` and a plain text response saying `Page not found.` (note - this does not mean `return` from the function, but instead, create an http response and "send" it to the client) 
     * example usage: 
         <pre><code data-trim contenteditable>// assuming that req and res are available:
 this.processRoutes(req, res);
@@ -487,7 +488,7 @@ The `Response` object represents an http response, and it allows direct manipula
 
 Create a `Response` _class_ based on the [specifications below](#response).  
 
-Again, you can run unit tests as you work, by adding the object to `module.exports`, and running the tests in `test/webframework-test.js`. Remember to use `.only` or comment out other tests if you're only interested in a specific test.
+Again, you can run unit tests as you work, by adding the object to `module.exports`, and running the tests in `test/webby-test.js`. Remember to use `.only` or comment out other tests if you're only interested in a specific test.
 
 <a name="response"></a>
 
@@ -563,7 +564,7 @@ this.headersToString();
 4. `send(body)` - sets the `body` property of this `Response` object. Sends a valid http response to the client based on this `Response` object's properties (`statusCode`, `version`, and `headers`) and the `body` argument, and closes the connection. 
     * `body` - the body of the http response
     * no return value
-    * It will set the `Content-Type` header to `text/html` even if the header doesn't exist in `headers`. * ⚠️It should write the status line and headers to the socket first... and then write the body (note that there an extra `"\r\n"` should be sent out before the body to separate the body from what was written out before.
+    * It will set the `Content-Type` header to `text/html` if the header doesn't exist in `headers`. * ⚠️It should write the status line and headers to the socket first... and then write the body (note that there an extra `"\r\n"` should be sent out before the body to separate the body from what was written out before.
     * HINT: ⚠️again, write out the status line (first line), headers, and extra new line before writing out the body (use this `Response` object's `sock` property to do this with `sock.write`)
     * example usage:
         <pre><code data-trim contenteditable>res.setHeader('Content-Type', 'text/html');
@@ -611,7 +612,7 @@ app.get('/hello', function(req, res) {
     * if everything is running properly, then:
         * regardless of what url you use in your browser, your server (that is, the terminal where you started your server) will log out the request method and request path of every incoming request
     * going to `/hello` will give back HELLO WORLD in a header tag (the html should be rendered, and you _shouldn't_ see angle brackets / `h1` tags)
-    * going to any other url should give back a `404` and a plain text response in the browser saying `Page not found`
+    * going to any other url should give back a `404` (send back a 404 http response to the client) and a plain text response in the browser saying `Page not found`
 
 <hr>
 
