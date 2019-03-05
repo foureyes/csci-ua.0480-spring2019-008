@@ -12,20 +12,19 @@ h1.warning {
 	<div class="panel-heading">Homework #4</div>
 	<div class="panel-body" markdown="block">
 
-# Remote In-Memory File System
-
+# Express (Make a Site That Looks Like a Commandline Console!)  - __Due Wednesday, March 27th__, by 11PM
 
 ## Overview
 
 ### Description
 
-Create a site that provides a web, form-based Linux Shell supporting basic commands of a remote in-memory file system. In this homework you'll be working with:
+Create a site that provides a web, form-based "Linux Shell" supporting basic commands that can be performed on a remote "fake" in-memory file system. In this homework you'll be working with:
 
 * Serving static files
 * Middleware
 * Handling forms, both GET and POST
 * Templating
-* Simple File System
+* A JSON Representation of a Simple File System 
 
 You'll be creating 2 pages:
 
@@ -55,7 +54,7 @@ Your directory layout should look similar with the following __once you're done 
     └── index.hbs
 </code></pre>
 
-In the __view__ directory, you are not required to have the same files as above. But try to make redundant code as less as possible.
+In the __views__ directory, you are not required to have the same files as above. But try to make redundant code as less as possible.
 
 The focus of this homework is the implementation of GET and POST forms and the file system. Fancy styling is not required.
 
@@ -86,7 +85,6 @@ The focus of this homework is the implementation of GET and POST forms and the f
 	* <code>express</code>
 	* <code>hbs</code>
     * <code>moment</code>
-    * <code>body-parser</code>
 
 
 ###  .gitignore
@@ -346,26 +344,21 @@ class FileSystem {
 
 In this section, you'll implement an Express server that interact with a file system you built in the previous section.
 
-##### Set up
+#### Setup / Middleware
 
 * Create a basic express application called <code>app.js</code>
 	* make sure that your application is __served over port 3000__
 * Add below middleware to your app
-    * <code>body-parser</code>: this will help you parse query strings in <code>GET</code> request and body in <code>POST</code> request
+    * <code>express.urlencoded</code> (this is a built-in middlware function; no installation needed): this will help you parse the body in <code>POST</code> requests
+	* see [the slides on POST forms for setup](../slides/10/forms.html#/6)
 * Serve static files:
 	* check out the [slides on serving static files with Express](../../slides/08/express.html#/29)
     * test that both the css files and image work after running <code>app.js</code>
         * for example, try to curl <code>http://localhost:3000/img/ubuntu.jpg</code> or go that url in your browser
-* Import a class from the module  <code>fileSystem.js</code>
-
+* Import a class from the module <code>fileSystem.js</code>
 * Enable <code>Handlebars</code> for templating in the later section
 
-##### Middleware
-
-* Add a middleware `body-parser`
-
-
-##### Route
+#### Route
 
 <code>GET</code> requests:
 

@@ -280,7 +280,7 @@ Slides
 
 * Templating (from previous class)
 * Middleware (from previous class)
-* Form handling, GET and POST (from previous class)
+* GET and POST / Request and Response (from previous class)
 
 
 Coding Demo
@@ -299,14 +299,15 @@ __Due Friday 3/9 at 11pm__
 ,,10,04-Mar,Mon,"* Cookies
 * Sessions 
 * NoSQL Database
-","<!--
+","
 Slides / Notes
 
+* [Form Handling](slides/10/forms.html)
 * Review form handling, middleware
 * [Sessions and Cookies](slides/10/sessions.html)
 * About the Upcoming Exam
 * Maybe [Mongo DB  and Mongoose](slides/14/mongo.html)
--->
+
 
 <!--
 (???)
@@ -321,7 +322,7 @@ Cookies
 * [MDN on Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 * nczonline articles on [Cookies](https://www.nczonline.net/blog/2009/05/05/http-cookies-explained/) and [Cookies and Security](https://www.nczonline.net/blog/2009/05/12/cookies-and-security/)
 ",,
-y,,11,06-Mar,Wed,"* Object Document Mapper
+,,11,06-Mar,Wed,"* Object Document Mapper
 * Database Design
 * Authentication","__Slides__
 
@@ -349,13 +350,13 @@ __Midterm Practice__
  * [books](resources/data/books.csv)
  * [wifi](resources/data/wifi3.json) (NYC Open Data)
 -->
-",,"<--
-In class lab?
+",,"
+In class lab
 
-__Due Friday 3/11 at 11pm:__
+__Due Wednesday 3/6 at 12:15pm__ (end of class)
 
-* [(Mini) Homework #5](homework/05.html) 
--->",
+* [Express Lab](homework/express-lab.html) 
+* [Form for lab submission](https://docs.google.com/forms/d/e/1FAIpQLSfEbbAKi3duV6Jx_BJwXx9yFwFQE7Z9QeUyzz9v8D2OP2WvXA/viewform)",
 y,,12,11-Mar,Mon,"* About the Exam, Review",,,,
 y,exam,13,13-Mar,Wed,EXAM #1 (Midterm Exam),,,,
 y,holiday,,18-Mar,Mon,Spring Break,,,,
