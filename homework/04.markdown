@@ -28,15 +28,13 @@ Create a site that provides a web, form-based "Linux Shell" supporting basic com
 
 You'll be creating 2 pages:
 
-* __home__ - <code>/</code>: a basic form that allows users to select a version of Linux Operating System.
-* __os__ - <code>/os</code>: a page that allows users to submit Linux commands through two forms and see the output returned from remote in-memory file system.
+* __home__ - <code>/</code>: a basic form that allows users to select a distribution of Linux Operating System.
+* __vfs (virtual file system)__ - <code>/vfs</code>: a page that allows users to manipulate resources of a virtual file system by submitting Linux commands through two forms and see system states returned from the server (This is an in-memory file system).
 
 Your directory layout should look similar with the following __once you're done with the assignment__:
 
 <pre><code data-trim contenteditable>
 ├── app.js
-├── initFs.js
-├── FileSystem.js
 ├── package-lock.json
 ├── package.json
 ├── public
@@ -46,17 +44,21 @@ Your directory layout should look similar with the following __once you're done 
 │       ├── redhat.png
 │       ├── debian.png
 │       └── ubuntu.jpg
-└── views
-    ├── layout.hbs
-    ├── directory.hbs
-    ├── open.hbs
-    ├── terminal.hbs
-    └── index.hbs
+├── views
+│   ├── layout.hbs
+│   ├── directory.hbs
+│   ├── open.hbs
+│   ├── terminal.hbs
+│   └── index.hbs
+│
+└── vfs
+    ├── initFs.js
+    └── FileSystem.js
 </code></pre>
 
 In the __views__ directory, you are not required to have the same files as above. But try to make redundant code as less as possible.
 
-The focus of this homework is the implementation of GET and POST forms and the file system. Fancy styling is not required.
+The focus of this homework is the implementation of GET and POST forms and the file system. Fancy styling is not required. __But you are free to play around with styling by serving static files.__
 
 ### Example Interaction
 
@@ -121,15 +123,17 @@ This part contains four major components.
 
 ###  Serving Static Files
 
-In this section, you'll work with serving static files including css for basic styling, desktop images of 3 different Linux operating systems: Ubuntu, Debian and Redhat.
+In this section, you'll work with serving static files. __Again, you are free to have your own website styles__. Following description is based on the demo.
 
-* Create the following directory structure in your project's root directory
+In the demo, the served static files include css for basic styling, desktop images of 3 different Linux operating systems: Ubuntu, Debian and Redhat.
+
+* To serve static files, create the following directory structure in your project's root directory
 	* <code>public</code>
 	* <code>public/css</code>
 	* <code>public/img</code>
 * Add a blank css file in <code>public/css/style.css</code>
-* Add an image of desktop from [Ubuntu operating system](../../resources/img/hw04-ubuntu.jpg)
-* Add two more desktop images of Linux operating system by downloading it from [Debian](../../resources/img/hw04-debian.png), [RedHat](../../resources/img/hw04-redhat.png).
+* Optionally, add an image of desktop from [Ubuntu operating system](../../resources/img/hw04-ubuntu.jpg)
+* Optionally, add two more desktop images of Linux operating system by downloading it from [Debian](../../resources/img/hw04-debian.png), [RedHat](../../resources/img/hw04-redhat.png).
 
 
 ### File System
@@ -146,7 +150,7 @@ The Shell commands you'll build include
     * **Arguments**: <code>[path/to/dir]</code>
     * **Options**: <code>-l</code>, additionally displays hidden files with the name starts with <code>.</code>
     * **Output**:
-        * list all files (including directories)
+        * list all files including directories, current directory (<code>'.'</code>) and parent directory (<code>'..'</code>)
         * Each line is a file with its metadata including: <code>file_type, permissions, number of hard links, owner, group, size, last-modified data, file name</code>
         * An example directory is:
          <code>drwxr--r-- 1 root root 6 Feb 25 11:20 bin</code>
@@ -201,10 +205,7 @@ The basic information of a node (file) is listed below.
     'last-modified': use momentJS,
     'size': arbitrary number,
     'files': {
-        // a recursive structure but remember to include '.' and '..'.
-
-        '.' : {},    // current directory
-        '..': {}     // parent directory
+        // a recursive structure of JSON objects
     },
 }
 ```
@@ -225,30 +226,25 @@ The basic information of a node (file) is listed below.
 A snapshot of the file system is looking like below. Note that for simplicity, we do not need to have <code>.</code> and <code>..</code> in the root directory.
 
 ```javascript=
-'/': {
+'/':{
+    'permission': 'drwxr--r--',
+    'hard-links': 1,
+    'owner-name': 'root',
+    'owner-group': 'root',
+    'last-modified': moment().format('MMM DD HH:mm'),
+    'size': 6,
     'files': {
-                'bin': {
-                    'permission': 'drwxr--r--',
-                    'hard-links': 1,
-                    'owner-name': 'root',
-                    'owner-group': 'root',
-                    'last-modified': moment().format('MMM DD HH:mm'),
-                    'size': 6,
-                    'files': {
-                        '.': {
-                            'permission': 'drwxr--r--',
-                            'hard-links': 1,
-                            'owner-name': 'root',
-                            'owner-group': 'root',
-                            'last-modified': moment().format('MMM DD HH:mm'),
-                            'size': 6,
-                            'files': 'bin'
-                        },
-                        // other files
-                    }
-                }
+        'bin': {
+            'permission': 'drwxr--r--',
+            'hard-links': 1,
+            'owner-name': 'root',
+            'owner-group': 'root',
+            'last-modified': moment().format('MMM DD HH:mm'),
+            'size': 6,
+            'files': {
             }
-}
+        },
+        .... More files ...
 ```
 
 ##### The Class of File System
@@ -260,7 +256,7 @@ Now, you'll implement this file system using a class in Javascript. Create a fil
     * If you are using function expression instead of arrow functions, bind your methods with <code>this</code> of the class here
 2. <code>find</code>
     * **Arguments**: <code>[path/to/file]</code>
-    * **Description**: traverse the file system tree to find the file or directory. After the file or directory is found, return the JSON object representing the file system subtree rooted at this file or directory.
+    * **Description**: traverse the file system tree to find the file or directory. After the file or directory is found, return the JSON object representing the file system subtree rooted at this file or directory. This method should also record parent directory during traversal. After the file is found, put metadata of current and parent files into the returned JSON object. 
 3. <code>traverseAndList</code>
     * **Arguments**: <code>[path/to/file]</code>
     * **Description**: this method is for <code>ls</code> command. If the path points to a directory, return a list of JSON object representation of the files under this directory. Otherwise, return an empty list.
@@ -270,7 +266,6 @@ Now, you'll implement this file system using a class in Javascript. Create a fil
     * **Requirements**:
         * The file type should be `d`
         * The last-modified-date should be generated by `momentJS` with date format `MMM DD HH:mm`
-        * There must be `.` and `..` while a new directory is created
         * The name of key to store direcotries and files should be `files`
         * Others can be arbitrary
 5. <code>cat</code>
@@ -359,11 +354,14 @@ In this section, you'll implement an Express server that interact with a file sy
 * Enable <code>Handlebars</code> for templating in the later section
 
 #### Route
+In this section, you'll implement callback handlers to server browser requests. There are two routes you'll build: __<code>/</code> and <code>/vfs</code>__ You are required to serve GET and POST requests using __only one Url: <code>/vfs</code>__. 
+
+A Url is a resource identifier and the resource in this homework is our virtual file system. The semantic here is using HTTP verbs to manipulate the file system located at <code>/vfs</code>.
 
 <code>GET</code> requests:
 
-* <code>/</code>: renders an index page and passes appropriate context
-* <code>/get</code>:
+* <code>/</code>: renders an index page <code>index.hbs</code>
+* <code>/vfs</code>:
     * Receives three parameters <code>command</code>, <code>path</code>, <code>option</code>
     * Parse <code>path</code> appropriately, call <code>find</code> method defined in <code>fileSystem</code> object
     * Call appropriate methods in the class given by <code>command</code>
@@ -372,11 +370,7 @@ In this section, you'll implement an Express server that interact with a file sy
 
 <code>POST</code> requests
 
-* <code>/os</code>: destination of form actions
-    * Receive a parameter <code>os</code>
-    * Render an HTML page and respond the Url of appropriate served image (by different options sent from the form)
-
-* <code>/post</code>
+* <code>/vfs</code>
     * Receive three parameters <code>command</code>, <code>path</code>, <code>content</code>
     * Parse <code>path</code> appropriately, call <code>find</code> method defined in <code>fileSystem</code> object
     * Call appropriate methods in the class given by <code>command</code>
@@ -386,7 +380,7 @@ In this section, you'll implement an Express server that interact with a file sy
 
 ### Templating
 
-In this part, you'll work with HTML and templating to build your front-end. You'll also use the context passed from the server to render partial templates. You don't have to implement the interface exactly the same as examples provided (styling is not strictly required). But basic pages for a functional system are required.
+In this part, you'll work with HTML and templating to build your front-end. You'll also use the context passed from the server to render partial templates. You don't have to implement the interface exactly the same as examples provided (styling is not strictly required). But basic pages for a functional system are required. __You are free to style your app using any approach. Following description is based on the demo as an example for explaining goals of this part.__
 
 * Set up handlebars - [these slides](../../slides/09/templating.html) 
 	* Get all the requirements and config setup
@@ -404,19 +398,20 @@ In <code>layout.hbs</code>
 
 #####  Creating a Home Page
 
-The home page consists of a select dropdown with options including three versions of Linux operating system. Users can select one of the OS and submit through the form. 
+The home page consists of a dropdown menu with options for users to select different types of styling in the next page. The styling should be different from each othe and can be implemented through CSS or images. The goal is to retrieve multiple static files from the server.
 
 Your app should receive <code>GET</code> requests on the path, <code>/</code>. Server responds by rendering templates.
 
-* In your <code>layout.hbs</code>
+* In your <code>index.hbs</code>
     * Create a form with attributes below
-        1. <code>action="http://localhost:3000/os"</code> (may be different if the server listens on other ports)
-        2. <code>method="post"</code>
+        1. <code>action="http://localhost:3000/vfs"</code> (may be different if the server listens on other ports)
+        2. <code>method="get"</code>
     * In this form, create a <code>select</code> dropdown with:
         1. a <code>name</code> attribute
         2. three <code>option</code> with <code>value</code> and <code>text</code> equal to the name of selected operating system
     * Lastly, create a <code>button</code> with <code>type</code> of submit
-
+    * Send this form to get the Url of static files and used them in the next page
+    * Below is an example for selecting three OS distributions in the next page <code>terminal.hbs</code>
 
 <div markdown="block" class="img">
 <img src='../resources/img/hw04-file-system-homepage.png' width="100%">
@@ -426,23 +421,20 @@ Your app should receive <code>GET</code> requests on the path, <code>/</code>. S
 
 ##### Creating two forms for submitting commands and arguments
 
-In the homepage,
+In the <code>terminal.hbs</code>, we want to manipulate the file system by using forms and display styles based on the selection of previous page: <code>/</code>. Following demonstrates basic forms. __(HINT: pass additional information to server for requesting static files without showing extra information of two forms)__
 
 * Create a <code>GET</code> form
-    1. <code>action="http://localhost:3000/get"</code> (may be different if the server listens on other ports)
+    1. <code>action="http://localhost:3000/vfs"</code> (may be different if the server listens on other ports)
     2. <code>method="get"</code>
     3. In this form, add three HTML input tags: <code>command</code>, <code>option</code>, and <code>path</code>
     4. Add a submit button with type of <code>submit</code>
+    5. Note that this form shares the same Url with homepage form
 * Create a <code>POST</code> form
-    1. <code>action="http://localhost:3000/post"</code> (may be different if the server listens on other ports)
+    1. <code>action="http://localhost:3000/vfs"</code> (may be different if the server listens on other ports)
     2. <code>method="post"</code>
     3. In this form, add three HTML input tags: <code>command</code>, <code>path</code>, and <code>content</code>
     4. Add a submit button with type of <code>submit</code>
-* Display the image by using the image url passed from the server (i.e. the image that served by the server)
-    * Your server should pass the `Url` of the file you served using `context` object while rendering
-    * Put the image in `<img src='...'>` in a `div` by the forms. As long as it doesn't affect the view of two forms.
-    * Optionally, use **Bootstrap** and add a class <code>form-control</code>
-* Optionally, put two forms on top of the background image by putting the image in `<div style='background-image: ....'>` using HandleBar's template syntax
+* Use static files (css, images) to style your pages 
 
 * Examples would look like below.
 <div markdown="block" class="img">
@@ -452,7 +444,7 @@ In the homepage,
 
 ##### Create an area (terminal) where displaying messages sent from the server
 
-For each command, the server responds with the state of file system wrapped in a context object. In this section, you'll display each information in the context object by using some templating syntax and techniques (HINT: you'll use HBS tempalte syntax for iterating an array, an array of objects, and an object. If statement will also be used).
+For each command, the server responds with the state of file system wrapped in a context object. In this section, you'll display each information in the context object by using some templating syntax and techniques __(HINT: you'll use HBS tempalte syntax for iterating an array, an array of objects, and an object. If statement will also be used)__.
 
 * <code>ls</code>
     1. The server is supposed to pass files and directories in the form of a list of JSON objects.
@@ -484,7 +476,7 @@ For each command, the server responds with the state of file system wrapped in a
         </div>
 * <code>mkdir</code>
     1. The server is supposed to respond a list of files and directories after the directory is created
-    2. If the directory already exists, output `mkdir: File exists`
+    2. If the directory already exists, output `mkdir: ${dirName} : File exists`
     3. After create a directory <code>Hi</code>
     <div markdown="block" class="img">
     <img src="../resources/img/hw04-file-system-af-mkdir.png" width="100%">
@@ -492,7 +484,6 @@ For each command, the server responds with the state of file system wrapped in a
 * <code>write</code>
     1. If success, not required to display any messages. But make sure the content is written to the file by using <code>cat</code>
     2. If failed, output `write: No such file or directory`
-* If the user enter none of above commands, output `Command Not Found`
 
 </div>
 
