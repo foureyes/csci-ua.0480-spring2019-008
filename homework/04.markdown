@@ -54,9 +54,9 @@ Your directory layout should look similar with the following __once you're done 
     └── index.hbs
 </code></pre>
 
-In the __views__ directory, you are not required to have the same files as above. But try to make redundant code as less as possible.
+In the __views__ directory, you are not required to have the same files as above. If you'd like, you can use template partials to reduce redundant markup. See the section on [partials in the hbs module documentation](https://www.npmjs.com/package/hbs#helpers-and-partials).
 
-The focus of this homework is the implementation of GET and POST forms and the file system. Fancy styling is not required.
+The focus of this homework is the implementation of GET and POST forms and the creation of a fake / _virtual_ file system. While using css is required, the amount and complexity of actual styling is your discretion. __The assignment is not graded on aesthetics__, so sophisticated styles are not required.
 
 ### Example Interaction
 
@@ -73,6 +73,7 @@ The focus of this homework is the implementation of GET and POST forms and the f
 3. __Push__ your changes to the homework repository on GitHub by the due date.
 
 ### (4 points) Make at Least 4 Commits
+
 * Commit multiple times throughout your development process.
 * Make at least 4 separate commits - (for example, one option may be to make one commit per part in the homework).
 
@@ -103,44 +104,51 @@ The focus of this homework is the implementation of GET and POST forms and the f
 * make sure that any global linting tools are installed (`eslint`)
 * periodically lint your program as you work
 
-## Part 2 - Remote File System
+## Part 2 - A Fake / _Virtual_ Remote File System
 
 ### Overview
 
-In this homework, you'll create an Express application that displays background images of three Linux operating system, and a Shell interface implemented by HTML forms. Users send Shell commands via GET and POST requests through the forms to a server. The server dispatches requests to operate on a in-memory file system using these commands, and responds states the file system.
+In this homework, you'll create an Express application that displays a background image of three Linux distributions, and a shell-like interface implemented by HTML forms. Users send shell commands via GET and POST requests through the forms to a server. The server dispatches requests to operate on a in-memory virtual file system using these commands, and responds with the state of the virtual file system.
 
-The file system will be implemented using a Javascript class with a nested JSON object representing states of file system, and several methods used for modifying the states.
+The file system will be implemented using a nested JSON object to represent the state of the virtual file system, and an ES6 class that contains several methods for interacting with that virtual file system.
 
-You can assume that all requests will not try to modify resources in the file system at the same time (i.e. you don't have to handle race condition).
+You can assume that your application will handle http requests serially; you don't have to handle any race conditions.
 
 This part contains four major components.
+
 1. Serving static files
-2. Express Server
-3. File System
+2. An Express Server
+3. The Virtual File System
 4. Templating
 
 ###  Serving Static Files
 
-In this section, you'll work with serving static files including css for basic styling, desktop images of 3 different Linux operating systems: Ubuntu, Debian and Redhat.
+In this section, you'll work with serving static files including css for basic styling, and a background for each different supported distributions: Ubuntu, Debian and Redhat.
 
 * Create the following directory structure in your project's root directory
 	* <code>public</code>
 	* <code>public/css</code>
 	* <code>public/img</code>
 * Add a blank css file in <code>public/css/style.css</code>
-* Add an image of desktop from [Ubuntu operating system](../../resources/img/hw04-ubuntu.jpg)
-* Add two more desktop images of Linux operating system by downloading it from [Debian](../../resources/img/hw04-debian.png), [RedHat](../../resources/img/hw04-redhat.png).
+* Add images that you'll use for styling
+	* You can use your own images...
+	* Or use a screen capture of various desktops:
+		* [Ubuntu](../../resources/img/hw04-ubuntu.jpg)
+		* [Debian](../../resources/img/hw04-debian.png)
+		* [RedHat](../../resources/img/hw04-redhat.png).
+	* Note that you may have to stretch or tile these images, so it probably won't look that great, so feel free to use your own images if you like!
+* You'll test these static assets later on on the homework
 
 
 ### File System
 
-In this section, you'll implement a simple architecture of Linux file system.
+In this section, you'll mimic a Linux file system through JavaScript.
 
-File system is implemented by a tree in Linux OS. The root of this tree is the root directory and is denoted as <code>/</code>. Each node in this tree represents a file. If a node is a leaf, then it is a file, otherwise it is a directory (Note: in Linux, a file can be a file or a directory). This node stores metadata of the file and the children of this file is another file system tree recursively. To search a file, perform tree traversal to find such node. 
+In Linux, The file system is implemented as a tree. The root of this tree is the root directory and is denoted as <code>/</code>. Each node in this tree represents a file. If a node is a leaf, then it is a file, otherwise it is a directory (Note: in Linux, a file can be a file or a directory! ...but we won't implement this). This node stores metadata about the file and the children of this file is another file system tree recursively. To search for a file, perform tree traversal to find the node. 
 
-##### Commands
+#### Commands
 
-The Shell commands you'll build include
+Commands will be chosen and issued through forms on an html page. The forms will send requests to the server, and the server will read or modify the virtual file system based on the form data. The Shell commands you'll build include:
 
 1. <code>ls</code>
     * **Arguments**: <code>[path/to/dir]</code>
@@ -176,22 +184,22 @@ The Shell commands you'll build include
 
 Note: since you are not going to implement <code>cd</code>, every path in the argument list is an __ABSOLUTE PATH__.
 
-##### In-memory File System
+#### In-memory File System
 
 Now, you'll implement the in-memory file system in <code>fileSystem.js</code> by encapsulating **states of file system** and __methods__ for handling its states.
 
-When the server is initating, it instantiates this object with a given initial state of file system. While the server is running, it dispatches client's requested actions to object methods and modify states of the file system.
+When the server is initializing (that is, before it starts listening on a port)g, it instantiates this object with a given initial state of file system. While the server is running, it dispatches client's requested actions to object methods and modify states of the file system.
 
 ##### Initial State of File System
 
-You'll be given a javascript file `initFs.js` containing initial structure of the file system, then export it as a module.
+You'll be given a javascript file `initFs.js` containing the initial structure of the file system, then export it as a module.
 
 The structure of a file system is represented using a nested JSON object. A nested JSON object is a structure of an arbitrary tree. A file is a node of this tree and also a key-value pair in a JSON object.
 
 The basic information of a node (file) is listed below.
 
 
-##### Directory
+#### Directory
 ```
 'dir-name': {
     'permission': file type and file mode (drwxr--r--),
@@ -222,7 +230,7 @@ The basic information of a node (file) is listed below.
         }
 ```
 
-A snapshot of the file system is looking like below. Note that for simplicity, we do not need to have <code>.</code> and <code>..</code> in the root directory.
+A snapshot of the file system looks like the example below. Note that for simplicity, we do not need to have <code>.</code> and <code>..</code> in the root directory.
 
 ```javascript=
 '/': {
@@ -251,9 +259,9 @@ A snapshot of the file system is looking like below. Note that for simplicity, w
 }
 ```
 
-##### The Class of File System
+##### The File System Class
 
-Now, you'll implement this file system using a class in Javascript. Create a file `fileSystem.js` and implement this class. Please note that you can implement the file system using your own design.
+Now, you'll implement this file system using a class in Javascript. Create a file `fileSystem.js` and implement this class. Please note that you can implement the file system using your own design, but these are some suggestions:
 
 1. <code>constructor</code>
     * This is the link to the initial state of file system [](), now require this JSON object and initiate a property with this JSON object in your class constructor.

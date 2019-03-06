@@ -232,8 +232,8 @@ __Modify your `/birds` route so that it only displays birds that have been sight
 * add a form to your settings page
 	* it should have a text <code>input</code>(name it appropriately... you'll see that name in the request body!)
 	* ...as well as a submit <code>input</code>
-* the form's method should be <code>GET</code>
-* the action should be <code>"/birds"</code>  (it's <code>GET</code>ting to `/birds` withe the appropriate query string)
+* the form's `method` should be <code>GET</code>
+* the `action` should be <code>"/birds"</code>  (it's <code>GET</code>ting to `/birds` with the appropriate query string)
 * the page should look like:
 
 <div markdown="block" class="img">
