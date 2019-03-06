@@ -29,7 +29,6 @@ You'll be using the following concepts:
 
 * serving static files
 * handling forms
-* sessions
 
 ### Description
 
@@ -248,9 +247,10 @@ __Modify your `/birds` route so that it only displays birds that have been sight
 2. modify the existing `package.json` so that it has express and hbs within its dependencies
 3. add/modify necessary files!
     * for example...
-    * modify `server.js` to add your routes
+    * modify `server.js`/`app.js` to add your routes
     * add files to `public/` (just start typing in file name with directory prefixed)
     * add files to `views/` (just start typing in file name with directory prefixed)
+	* to add images, click on `new file` and `upload`... the file will be available under assets; copy the url after clicking on the image
     * etc.
 4. __change the port so that it looks in the env for the port number!__ (or keep the code as is from the boilerplate)
     * `server.listen(process.env.PORT);`
