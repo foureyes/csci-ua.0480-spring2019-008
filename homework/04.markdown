@@ -65,9 +65,9 @@ The focus of this homework is the implementation of GET and POST forms and the c
 
 ### Example Interaction
 
-<div markdown="block" class="img">
+<div class="img">
 <!--![interaction](../resources/img/hw04-asciidiary-mainexample.gif)-->
-<img src="../resources/img/hw04-file-system-example.gif">
+<img width="75%" src="../resources/img/hw04-file-system-example.gif">
 
 </div>
 
