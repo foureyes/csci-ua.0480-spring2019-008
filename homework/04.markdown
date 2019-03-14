@@ -152,7 +152,7 @@ In Linux, The file system is implemented as a tree. The root of this tree is the
 
 #### Commands
 
-Commands will be chosen and issued through forms on an html page. The forms will send requests to the server, and the server will read or modify the virtual file system based on the form data. The Shell commands you'll implement include:
+Commands will be chosen and issued through forms on an html page. The forms will send requests to the server, and the server will read or modify the virtual file system based on the form data. The commands you'll implement include:
 
 1. <code>ls</code>
     * **Arguments**: <code>[path/to/dir]</code>
@@ -160,10 +160,10 @@ Commands will be chosen and issued through forms on an html page. The forms will
     * **Output**: shows a list of all files in the directory specified by argument
 		* by default, only the names of all the files in the directory are listed 
 			* the names are listed in the order that they appear in the directory node
-			* (this is unlike how the real `ls` works, which sorts by name - _kind_ of)
-		* with the -l option:
+			* (this is different from the _actual_ behavior of `ls` which sorts by name - _kind_ of)
+		* however, with the -l option:
         	* each line in the resulting listing shows information about files or directories contained in the directory
-			* the information is file / directory metadata: <code>file_type, permissions, number of hard links, owner, group, size, last-modified data, file name</code>
+			* the information is file / directory metadata: <code>file_type (d or -), permissions, number of hard links, owner, group, size, last-modified data, file name</code>
         	* an example directory is: <code>drwxr--r-- 1 root root 6 Feb 25 11:20 bin</code>
         	* An example file is: <code>-rwxr--r-- 1 root root 6 Feb 25 11:20 file.txt</code>
         * for more information, please refer to [ls](https://en.wikipedia.org/wiki/Ls).
@@ -172,11 +172,12 @@ Commands will be chosen and issued through forms on an html page. The forms will
     * **Options**: <code>None</code>
     * **Output**:
         * displays the file system tree under <code>[path/to/dir]</code>
+		* names of files / directories are nested underneath eachother through indentation
 3. <code>cat</code>
     * **Arguments**: <code>[path/to/filename, filename]</code>
     * **Options**: <code>None</code>
     * **Output**:
-        * the content of the file
+        * the contents of the file (assume files contain just text)
 4. <code>mkdir</code>
     * **Arguments**: <code>[path/to/dir, dirname]</code>
     * **Options**: <code>None</code>
@@ -188,7 +189,7 @@ Commands will be chosen and issued through forms on an html page. The forms will
     * **Result**:
         * overwrite the file by given content if the <code>filename</code> exists, otherwise create a new file named <code>filename</code> with <code>content</code>
 
-Note: since you are not going to implement <code>cd</code>, every path in the argument list is an __ABSOLUTE PATH__.
+⚠️⚠️ ⚠️   since you are not going to implement <code>cd</code>, __every path in the argument list__ is an __ABSOLUTE PATH__.
 
 #### In-memory File System
 
