@@ -12,9 +12,6 @@ h1.warning {
 	<div class="panel-heading">Homework #4</div>
 	<div class="panel-body" markdown="block">
 
-# Draft (to be fully posted 3/7)
-{:.warning}
-
 # Express Make a Site That Looks Like a Commandline Console!  - __Due Wednesday, March 27th__, by 11PM
 
 ## Overview
@@ -59,9 +56,9 @@ Your directory layout should look similar with the following __once you're done 
     └── FileSystem.js
 </code></pre>
 
-In the __views__ directory, you are not required to have the same files as above. If you'd like, you can use template partials to reduce redundant markup. See the section on [partials in the hbs module documentation](https://www.npmjs.com/package/hbs#helpers-and-partials).
+In the __views__ directory, you are not required to have the same files as above. If you'd like, you can use template partials to reduce redundant markup. This was not covered in class, but you can check out the [documentation on partials in the hbs module's npm page](https://www.npmjs.com/package/hbs#helpers-and-partials).
 
-The focus of this homework is the implementation of GET and POST forms and the creation of a fake / _virtual_ file system. While using css is required, the amount and complexity of actual styling is your discretion. __The assignment is not graded on aesthetics__, so sophisticated styles are not required. __But you are free to play around with styling by serving static files.__
+The focus of this homework is the implementation of GET and POST forms and the creation of a fake / _virtual_ file system. While using css is required, the amount and complexity of actual styling is your discretion. __The assignment is not graded on aesthetics__, so complex styles are not required. There are suggestions on styling, __but you are free to dictate the look and feel of site__ (by using css and images as _static files_ in `public`).
 
 ### Example Interaction
 
@@ -87,7 +84,7 @@ The focus of this homework is the implementation of GET and POST forms and the c
 ###  Installing Dependencies
 
 * create a <code>package.json</code>
-* __install__ the following __dependencies__ (make sure you use the <code>--save</code> option), and __no others__:
+* __install__ the following __dependencies__ (make sure you use the <code>--save</code> option)
 	* <code>express</code>
 	* <code>hbs</code>
     * <code>moment</code>
@@ -113,11 +110,11 @@ The focus of this homework is the implementation of GET and POST forms and the c
 
 ### Overview
 
-In this homework, you'll create an Express application that displays a background image of three Linux distributions, and a shell-like interface implemented by HTML forms. Users send shell commands via GET and POST requests through the forms to a server. The server dispatches requests to operate on a in-memory virtual file system using these commands, and responds with the state of the virtual file system.
+In this homework, you'll create an Express application that displays a background image of three Linux distributions (or some styling of your choice), and a shell-like interface implemented by HTML forms. Users send shell commands via GET and POST requests through the forms to a server. The server dispatches requests to operate on a in-memory virtual file system using these commands, and responds with the state of the virtual file system.
 
-The file system will be implemented using a nested JSON object to represent the state of the virtual file system, and an ES6 class that contains several methods for interacting with that virtual file system.
+The file system will be implemented using a nested JSON object; it will represent the state of the virtual file system. Additionally, use an ES6 class to encapsulate the data and interact with the virtual file system represented by the data.
 
-You can assume that your application will handle http requests serially; you don't have to handle any race conditions.
+You can assume that your application will process http requests serially; you don't have to handle any race conditions.
 
 This part contains four major components.
 
@@ -128,9 +125,9 @@ This part contains four major components.
 
 ###  Serving Static Files
 
-In this section, you'll work with serving static files. __Again, you are free to have your own website styles__. Following description is based on the demo.
+In this section, you'll work with the built-in Express static middleware to serve images and css. __Again, you are free to have your own styles, as long as they are served through `express.satatic` / the `public` folder__. The following description is based on the reference solution's styles.
 
-In the demo, the served static files include css for basic styling, desktop images of 3 different Linux operating systems: Ubuntu, Debian and Redhat.
+In the demo, the static files include css for basic styling and desktop images of 3 different Linux operating systems: Ubuntu, Debian and Redhat.
 
 * To serve static files, create the following directory structure in your project's root directory
 	* <code>public</code>
@@ -143,31 +140,33 @@ In the demo, the served static files include css for basic styling, desktop imag
 		* [Ubuntu](../../resources/img/hw04-ubuntu.jpg)
 		* [Debian](../../resources/img/hw04-debian.png)
 		* [RedHat](../../resources/img/hw04-redhat.png).
-	* Note that you may have to stretch or tile these images, so it probably won't look that great, so feel free to use your own images if you like!
-* You'll test these static assets later on on the homework
+		* (You can stretch, tile, etc. to fill the background if you like, as these images are fixed dimensions)
+* You'll test these static assets later on
 
 
 ### File System
 
 In this section, you'll mimic a Linux file system through JavaScript.
 
-In Linux, The file system is implemented as a tree. The root of this tree is the root directory and is denoted as <code>/</code>. Each node in this tree represents a file. If a node is a leaf, then it is a file, otherwise it is a directory (Note: in Linux, a file can be a file or a directory! ...but we won't implement this). This node stores metadata about the file and the children of this file is another file system tree recursively. To search for a file, perform tree traversal to find the node. 
+In Linux, The file system is implemented as a tree. The root of this tree is the root directory and is denoted as <code>/</code>. Each node in this tree represents a file. If a node is a leaf, then it is a file, otherwise it is a directory (Note: in Linux, a file can be a file or a directory). Each node stores metadata about the directory / file. The children of a node is another nested file system tree. To search for a file, perform tree traversal to find the node. 
 
 #### Commands
 
-Commands will be chosen and issued through forms on an html page. The forms will send requests to the server, and the server will read or modify the virtual file system based on the form data. The Shell commands you'll build include:
+Commands will be chosen and issued through forms on an html page. The forms will send requests to the server, and the server will read or modify the virtual file system based on the form data. The Shell commands you'll implement include:
 
 1. <code>ls</code>
     * **Arguments**: <code>[path/to/dir]</code>
-    * **Options**: <code>-l</code>, additionally displays hidden files with the name starts with <code>.</code>
-    * **Output**:
-        * list all files including directories, current directory (<code>'.'</code>) and parent directory (<code>'..'</code>)
-        * Each line is a file with its metadata including: <code>file_type, permissions, number of hard links, owner, group, size, last-modified data, file name</code>
-        * An example directory is:
-         <code>drwxr--r-- 1 root root 6 Feb 25 11:20 bin</code>
-        * An example file is: 
-        <code>-rwxr--r-- 1 root root 6 Feb 25 11:20 file.txt</code>
-        * More information please refer to [ls](https://en.wikipedia.org/wiki/Ls).
+    * **Options**: <code>-l</code>show file metadata <code>.</code>
+    * **Output**: shows a list of all files in the directory specified by argument
+		* by default, only the names of all the files in the directory are listed 
+			* the names are listed in the order that they appear in the directory node
+			* (this is unlike how the real `ls` works, which sorts by name - _kind_ of)
+		* with the -l option:
+        	* each line in the resulting listing shows information about files or directories contained in the directory
+			* the information is file / directory metadata: <code>file_type, permissions, number of hard links, owner, group, size, last-modified data, file name</code>
+        	* an example directory is: <code>drwxr--r-- 1 root root 6 Feb 25 11:20 bin</code>
+        	* An example file is: <code>-rwxr--r-- 1 root root 6 Feb 25 11:20 file.txt</code>
+        * for more information, please refer to [ls](https://en.wikipedia.org/wiki/Ls).
 2. <code>tree</code>
     * **Arguments**: <code>[path/to/dir]</code>
     * **Options**: <code>None</code>
@@ -193,13 +192,13 @@ Note: since you are not going to implement <code>cd</code>, every path in the ar
 
 #### In-memory File System
 
-Now, you'll implement the in-memory file system in <code>fileSystem.js</code> by encapsulating **states of file system** and __methods__ for handling its states.
+Now, you'll implement the in-memory file system in <code>FileSystem.js</code> by encapsulating the **state of file system** and __methods__ for manipulating it.
 
-When the server is initializing (that is, before it starts listening on a port)g, it instantiates this object with a given initial state of file system. While the server is running, it dispatches client's requested actions to object methods and modify states of the file system.
+When the server is initialized (that is, before it starts listening on a port)g, it instantiates this object with a given initial state of the file system. While the server is running, it dispatches the client's requested actions to methods and modifies or reads the state of the file system. Consequently, the majority of your file system logic will live in a class rather than within the route handling functions of your Express application.
 
 ##### Initial State of File System
 
-You'll be given a javascript file `initFs.js` containing the initial structure of the file system, then export it as a module.
+You'll be given a javascript file `init.josn` containing the initial structure of the file system. 
 
 The structure of a file system is represented using a nested JSON object. A nested JSON object is a structure of an arbitrary tree. A file is a node of this tree and also a key-value pair in a JSON object.
 
@@ -216,7 +215,7 @@ The basic information of a node (file) is listed below.
     'last-modified': use momentJS,
     'size': arbitrary number,
     'files': {
-        // a recursive structure of JSON objects
+        // a nested structure of more directories or files as JSON objects
     },
 }
 ```
@@ -234,7 +233,7 @@ The basic information of a node (file) is listed below.
         }
 ```
 
-A snapshot of the file system looks like the example below. Note that for simplicity, we do not need to have <code>.</code> and <code>..</code> in the root directory.
+A snapshot of the file system looks like the example below. 
 
 ```javascript=
 '/':{
