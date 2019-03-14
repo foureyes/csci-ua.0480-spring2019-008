@@ -24,14 +24,14 @@ Create a site that provides a web, form-based "Linux Shell" supporting basic com
 * Middleware
 * Handling forms, both GET and POST
 * Templating
-* A JSON Representation of a Simple File System 
+* A JavaScript Object Representation of a Simple File System 
 
 You'll be creating 2 pages:
 
 * __home__ - <code>/</code>: a basic form that allows users to select a distribution of Linux Operating System.
 * __vfs (virtual file system)__ - <code>/vfs</code>: a page that allows users to manipulate resources of a virtual file system by submitting Linux commands through two forms and see system states returned from the server (This is an in-memory file system).
 
-Your directory layout should look similar with the following __once you're done with the assignment__:
+Your directory layout should look similar with the following __once you're done with the assignment__ (though it can deviate from this example based on your implementation):
 
 <pre><code data-trim contenteditable>
 ├── app.js
@@ -381,9 +381,33 @@ In this section, you'll implement an Express application that interacts with the
 * Import a class from the module <code>FileSystem.js</code>
 * Enable <code>Handlebars</code> for templating in a later section
 
+
+### Templating
+
+In this part, you'll work with HTML and templating to build your front-end.  You don't have to implement the interface exactly the same as examples provided (styling is required, but it can be minimal, and it does not have to match the images below). Basic pages for a functional system, however, are required. __You are free to style your app using any approach. Following description is based on the demo gif as an example for explaining goals of this part.__
+
+* Set up handlebars - [these slides](../../slides/09/templating.html) 
+	* Get all the requirements and config setup
+	* Create the appropriate views folder, along with an initial layout file:
+		* <code>views</code>
+        * <code>views/layout.hbs</code>
+
+In <code>layout.hbs</code>
+
+* Create a title tag with text <code>OS</code>
+* Create appropriate tags inside <code>head</code>
+* Create <code>body</code> tag
+* Link your <code>style.css</code> stylesheet
+    * A basic <code>style.css</code> is provided, you can modify it if you want a different style
+
 ### Routes
 
-In this section, you'll implement callback handlers to serve responses to browser requests. There are two routes you'll build: __<code>/</code> and <code>/vfs</code>__ You are required to serve GET and POST requests using __only one Url: <code>/vfs</code>__ (and some instances, you'll be able to access both `req.query` and `req.body` if a `POST` is made to a path with a query string). 
+In this section, you'll implement callback handlers to serve responses to browser requests. There are two urls that your application will respond to: __<code>/</code> and <code>/vfs</code>__ 
+
+* `/` will handle `GET` requests only 
+* `/vfs` will accept both `GET` and `POST` 
+	* this means you'll likely have two route handlers for `vfs` 
+	* for the route that handles a `POST` request, you'll be able to access both `req.query` and `req.body` (if a `POST` is made to a path that also contains a query string)
 
 A URL is a resource identifier and the resource in this homework is our virtual file system. The semantic here is using HTTP verbs to manipulate the file system located at <code>/vfs</code>. GETs will read from the file system while POSTs will add to the file system.
 
@@ -404,43 +428,31 @@ A URL is a resource identifier and the resource in this homework is our virtual 
     * Parse <code>path</code> appropriately, call <code>find</code> method defined in <code>fileSystem</code> object
     * Call appropriate methods in the class given by <code>command</code>
     * Use <code>option</code> parameters if necessarily
-    * Render an appropriate HTML page and pass a context containing the message showing success or not
+    * Render an appropriate HTML page and pass a context containing the message showing success or failure
 
+###  Creating a Home Page (`/`)
 
-### Templating
+The home page consists of a dropdown menu with options for users to select different types of styling for the next page. Each option in the dropdown should result in a different look and feel. This can be implemented by using `req.query` to do any of the following:
 
-In this part, you'll work with HTML and templating to build your front-end.  You don't have to implement the interface exactly the same as examples provided (styling is required, but it can be minimal, and it does not have to match the images below). Basic pages for a functional system, however, are required. __You are free to style your app using any approach. Following description is based on the demo gif as an example for explaining goals of this part.__
+* conditionally render different templates
+* within templates conditionally include different images
+* within templates conditionally use different markup
+* etc.
 
-* Set up handlebars - [these slides](../../slides/09/templating.html) 
-	* Get all the requirements and config setup
-	* Create the appropriate views folder, along with an initial layout file:
-		* <code>views</code>
-        * <code>views/layout.hbs</code>
+Note, however, that regardless of how the styling differs, `express.static` must be used to serve `.css` and/or images.
 
-In <code>layout.hbs</code>
-
-* Create a title tag with text <code>OS</code>
-* Create appropriate tags inside <code>head</code>
-* Create <code>body</code> tag
-* Link your <code>style.css</code> stylesheet
-    * A basic <code>style.css</code> is provided, you can modify it if you want a different style
-
-###  Creating a Home Page
-
-The home page consists of a dropdown menu with options for users to select different types of styling in the next page. The styling should be different from each othe and can be implemented through CSS or images. The goal is to retrieve multiple static files from the server.
-
-Your app should receive <code>GET</code> requests on the path, <code>/</code>. Server responds by rendering templates.
+Your app should receive <code>GET</code> requests on the path, <code>/</code>: 
 
 * In your <code>index.hbs</code>
     * Create a form with attributes below
         1. <code>action="http://localhost:3000/vfs"</code> (may be different if the server listens on other ports)
         2. <code>method="GET"</code>
     * In this form, create a <code>select</code> dropdown [see mdn's docs for dropdown markup](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) with:
-        1. a <code>name</code> attribute
-        2. three <code>option</code> with <code>value</code> and <code>text</code> equal to the name of selected operating system
-    * Lastly, create a <code>button</code> with <code>type</code> of submit
-    * Submit this form so that a query string is attached to the request... with the query string determining different styling for the `vfs` page (for example, different background images)
-		* this means that the route for `vfs` should always check `req.query` to determine some design elements)
+        1. a <code>name</code> attribute (this should match with what you reference in `req.query`)
+        2. and two or three <code>option</code> elements with <code>value</code> and <code>text</code> equal to the name of selected operating system (this basically switches the style!)
+    * Lastly, to create a submit button, use an <code>input</code> with <code>type</code> of `submit` 
+    * When this form is submitted, a query string is attached to the GET request... with the query string determining different styling for the `vfs` page (for example, different background images, different markup, etc.)
+		* this means that the route for `vfs` should always check `req.query` to determine what design elements should be shown)
     * Below is an example for selecting three OS distributions in the next page <code>terminal.hbs</code>
 
 <div markdown="block" class="img">
@@ -449,31 +461,31 @@ Your app should receive <code>GET</code> requests on the path, <code>/</code>. S
 </div>
 
 
-##### Creating two forms for submitting commands and arguments
+### Creating two forms for submitting commands and arguments
 
-In the <code>terminal.hbs</code>, we want to manipulate the file system by using forms and display styles based on the selection of previous page: <code>/</code>. Following demonstrates basic forms. 
+In <code>terminal.hbs</code>, create two forms that will allow the user to interact with the virtual file system (again, this page will be styled based on a query string):
 
 * Create a <code>GET</code> form
     1. <code>action="http://localhost:3000/vfs"</code> (may be different if the server listens on other ports)
-    2. <code>method="get"</code>
+    2. <code>method="GET"</code>
     3. In this form, add three HTML input tags: <code>command</code>, <code>option</code>, and <code>path</code>
     4. Add a submit button with type of <code>submit</code>
-    5. Note that this form shares the same Url with homepage form
+    5. Note that this form has the same `action` url as the homepage form
+	6. You can also add a hidden input that set the value of the query string that you use for styling so that it remains persistent
 * Create a <code>POST</code> form
     1. <code>action="http://localhost:3000/vfs"</code> 
     2. <code>method="post"</code>
     3. In this form, add three HTML input tags: <code>command</code>, <code>path</code>, and <code>content</code>
     4. Add a submit button with type of <code>submit</code>
-
-* Examples would look like below.
+* Examples:
 <div markdown="block" class="img">
 <img src="../resources/img/hw04-file-system-ubuntu.png" width="100%">
 <img src="../resources/img/hw04-file-system-debian.png" width="100%">
 </div>
 
-##### Create an area (terminal) where displaying messages sent from the server
+### Create an area below the forms that contains messages sent back through the server's HTTP response
 
-For each command, the server responds with the state of file system wrapped in a context object. In this section, you'll display each information in the context object by using some templating syntax and techniques __(HINT: you'll use HBS template syntax for iterating over an array, an array of objects, and an object. Conditionals may also be useful)__.
+For each command, the server responds with the state of file system or the status of the operation. In this section, you'll display this response by using templating and basic control structures in handlebars  __(HINT: you'll use HBS template syntax for iterating over an array, an array of objects, and an object. Conditionals may also be useful)__.
 
 * <code>ls</code>
     1. The server should pass files and directories in the form of a list of objects.
