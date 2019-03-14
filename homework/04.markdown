@@ -52,7 +52,7 @@ Your directory layout should look similar with the following __once you're done 
 │   └── index.hbs
 │
 └── vfs
-    ├── initFs.js
+    ├── init.json
     └── FileSystem.js
 </code></pre>
 
@@ -150,7 +150,7 @@ In this section, you'll mimic a Linux file system through JavaScript.
 
 In Linux, The file system is implemented as a tree. The root of this tree is the root directory and is denoted as <code>/</code>. Each node in this tree represents a file. If a node is a leaf, then it is a file, otherwise it is a directory (Note: in Linux, a file can be a file or a directory). Each node stores metadata about the directory / file. The children of a node is another nested file system tree. To search for a file, perform tree traversal to find the node. 
 
-#### Commands
+### Commands
 
 Commands will be chosen and issued through forms on an html page. The forms will send requests to the server, and the server will read or modify the virtual file system based on the form data. The commands you'll implement include:
 
@@ -191,113 +191,130 @@ Commands will be chosen and issued through forms on an html page. The forms will
 
 ⚠️⚠️ ⚠️   since you are not going to implement <code>cd</code>, __every path in the argument list__ is an __ABSOLUTE PATH__.
 
-#### In-memory File System
+### In-memory File System
 
-Now, you'll implement the in-memory file system in <code>FileSystem.js</code> by encapsulating the **state of file system** and __methods__ for manipulating it.
+Now, you'll implement an in-memory file system in a class called `FileSystem` (within <code>FileSystem.js</code>) by encapsulating the **state of file system** as properties and using __methods__ for manipulating the file system.
 
-When the server is initialized (that is, before it starts listening on a port)g, it instantiates this object with a given initial state of the file system. While the server is running, it dispatches the client's requested actions to methods and modifies or reads the state of the file system. Consequently, the majority of your file system logic will live in a class rather than within the route handling functions of your Express application.
+When the server is initialized (that is, before it starts listening on a port):
 
-##### Initial State of File System
+* it reads in a JSON file, `init.json`
+* parses the JSON...
+* instantiates a `FileSystem` class given initial state of the file system
+* you'll have to careful when you do this, as you'll want to instantiate this object and start your server __after__ reading `init.json`
+* ⚠️⚠️ ⚠️ ...consequently, you'll likely have to put `listen` and the creation of `FileSystem` within a callback!
 
-You'll be given a javascript file `init.josn` containing the initial structure of the file system. 
+While the server is running: 
 
-The structure of a file system is represented using a nested JSON object. A nested JSON object is a structure of an arbitrary tree. A file is a node of this tree and also a key-value pair in a JSON object.
+* it dispatches the client's requested actions to methods and modifies or reads the state of the file system
+* consequently, the majority of your file system logic will live in a class rather than within the route handling functions of your Express application.
 
-The basic information of a node (file) is listed below.
+### Initial State of File System
+
+You'll be given a file, `init.json`, that contains the initial structure of the file system. 
+
+The file system is represented by a nested JSON object - essentially a tree of objects with keys as file and directory names and objects as meta data about that file or directory. The JSON file has hardcoded dates and times, but when adding new files and directories, you can use [Moment JS](https://momentjs.com/docs/) to get a formatted string representing the current time. Here are a few examples of what the data structure backing the virtual file system may look like (you can also check out `vfs/init.json)`:
+
 
 
 #### Directory
+
 ```
 'dir-name': {
     'permission': file type and file mode (drwxr--r--),
     'hard-links': arbitrary number,
     'owner-name': arbitrary string,
     'owner-group': arbitrary string,
-    'last-modified': use momentJS,
-    'size': arbitrary number,
+    'last-modified': you can use moment.js - moment().format('MMM DD HH:mm'),
+    'size': arbitrary number (can be random_,
     'files': {
         // a nested structure of more directories or files as JSON objects
     },
 }
 ```
 
-##### File
+#### File
 ```
 'file-name': {
             'permission': '-rwxr--r--',
             'hard-links': 1,
             'owner-name': 'root',
             'owner-group': 'root',
-            'last-modified': use momentJS,
+            'last-modified': you can use moment.js - moment().format('MMM DD HH:mm'),
+
             'size': 6,
             'content': 'Hello World!'
         }
 ```
 
-A snapshot of the file system looks like the example below. 
+#### An example of files and directories in context (note that the file system is wrapped in an object with a property called fs):
 
-```javascript=
-'/':{
-    'permission': 'drwxr--r--',
-    'hard-links': 1,
-    'owner-name': 'root',
-    'owner-group': 'root',
-    'last-modified': moment().format('MMM DD HH:mm'),
-    'size': 6,
-    'files': {
-        'bin': {
-            'permission': 'drwxr--r--',
-            'hard-links': 1,
-            'owner-name': 'root',
-            'owner-group': 'root',
-            'last-modified': moment().format('MMM DD HH:mm'),
-            'size': 6,
-            'files': {
-            }
-        },
-        .... More files ...
+```
+{
+	"fs": {
+		'/': {
+			'permission': 'drwxr--r--',
+			'hard-links': 1,
+			'owner-name': 'root',
+			'owner-group': 'root',
+			'last-modified': moment().format('MMM DD HH:mm'),
+			'size': 6,
+			'files': {
+				'bin': {
+					'permission': 'drwxr--r--',
+					'hard-links': 1,
+					'owner-name': 'root',
+					'owner-group': 'root',
+					'last-modified': moment().format('MMM DD HH:mm'),
+					'size': 6,
+					'files': {
+					}
+				},
+				.... More files ...
+			}
+	}
+}
 ```
 
-##### The File System Class
+### The File System Class
 
-Now, you'll implement this file system using a class in Javascript. Create a file `fileSystem.js` and implement this class. Please note that you can implement the file system using your own design, but these are some suggestions:
+To work with your virtual file system, implement a `FileSystem` class in `vfs/FileSystem.js` and export it so that the routes in `app.js` can use it. You can the __parsed__ JSON to initialize this object with file system data.  ⚠️⚠️⚠️  You can design this `FileSystem` class __any way you like,__ as long as you use it to encapsulate the state of the virtual file system. 
+
+Here are some suggestions (but, again, feel free to do this any way you like... as there are no expectations or tests for your implementation):
 
 1. <code>constructor</code>
-    * This is the link to the initial state of file system [](), now require this JSON object and initiate a property with this JSON object in your class constructor.
-    * If you are using function expression instead of arrow functions, bind your methods with <code>this</code> of the class here
+    * **Arguments**: <code>object</code> - an object representing a virtual file system (note that this is _not_ a JSON string, but rather, pass in an object that's the result of parsing a JSON string)
 2. <code>find</code>
     * **Arguments**: <code>[path/to/file]</code>
-    * **Description**: traverse the file system tree to find the file or directory. After the file or directory is found, return the JSON object representing the file system subtree rooted at this file or directory. This method should also record parent directory during traversal. After the file is found, put metadata of current and parent files into the returned JSON object. 
+    * **Description**: traverse the file system nodes to find the file or directory. After the file or directory is found, return an object representing the file system subtree rooted at this file or directory. After the file is found, put the metadata of the current file into the returned object. 
 3. <code>traverseAndList</code>
     * **Arguments**: <code>[path/to/file]</code>
     * **Description**: this method is for <code>ls</code> command. If the path points to a directory, return a list of JSON object representation of the files under this directory. Otherwise, return an empty list.
 4. <code>makeDirectory</code>
     * **Arguments**: <code>[path/to/dir, directory name]</code>
-    * **Description**: first call find to get the JSON object of <code>dir</code>, then create a new entry in this directory. The file type is directory. Other metadata could be arbitrary.
+    * **Description**: first call find to get the object associated with <code>dir</code>, then create a new entry in this directory. The file type is directory. Other metadata can be generated randomly (but see some specifications below).
     * **Requirements**:
         * The file type should be `d`
         * The last-modified-date should be generated by `momentJS` with date format `MMM DD HH:mm`
-        * The name of key to store direcotries and files should be `files`
+        * The name of key to store directories and files should be `files`
         * Others can be arbitrary
 5. <code>cat</code>
     * **Arguments**: <code>[path/to/file]</code>
-    * **Description**: return the content of the file if it is a file, otherwise return error messages (e.g., cat: No such file or directory)
+    * **Description**: returns the content of the file (if it's a file), otherwise return error messages (e.g., cat: No such file or directory)
 6. <code>write</code>
     * **Arguments**: <code>[path/to/file, content]</code>
-    * **Description**: use find to get the JSON object of the **directory** on given path (HINT: use file type in the permission string). If the file exists, overwrite it by <code>content</code>. Otherwise create a new entry in this object with key equals given file name and content written (remember the name of new entries should be different from any name of key in the JSON).
+    * **Description**: use find to get the object of the **directory** on given path (HINT: use file type in the permission string). If the file exists, overwrite it by <code>content</code>. Otherwise create a new entry in this object with the property name as the given file name and content written (remember the name of new entries should be different from any name of other keys in the objects - there shouldn't be two files with the same name).
     * **Requirements**:
         * The file type should be `-`
         * The last-modified-date should be generated by `momentJS` with date format `MMM DD HH:mm`
         * The name of key to store file content should be `content`
         * Others can be arbitrary
 
-Following class is an example to implement this file system. You are not required to follow this class definition.
+Here's what the class may look like (you are not required to follow this exact class definition, though!):
 
-```javascript=
+```
 class FileSystem {
-    constructor () {
-        // Provided by initFs.js
-        this.fs = fs;
+    constructor (obj) {
+        /*    Params: obj representing the virtual file system */
     }
 
     find(path) {
@@ -346,28 +363,29 @@ class FileSystem {
 ```
 
 
-### Express Server
+### Express Application
 
-In this section, you'll implement an Express server that interact with a file system you built in the previous section.
+In this section, you'll implement an Express application that interacts with the `FileSystem` class implemented in the previous section.
 
-#### Setup / Middleware
+### Setup / Middleware
 
 * Create a basic express application called <code>app.js</code>
 	* make sure that your application is __served over port 3000__
-* Add below middleware to your app
-    * <code>express.urlencoded</code> (this is a built-in middlware function; no installation needed): this will help you parse the body in <code>POST</code> requests
+* Add the following middleware to your application
+    * <code>express.urlencoded</code> (this is a built-in middleware function; no installation needed): this will help you parse the body in <code>POST</code> requests
 	* see [the slides on POST forms for setup](../slides/10/forms.html#/6)
 * Serve static files:
 	* check out the [slides on serving static files with Express](../../slides/08/express.html#/29)
-    * test that both the css files and image work after running <code>app.js</code>
+    * test that both the css files and image work after running <code>app.js</code> (these are the files that you placed in the `public` directory earlier on)
         * for example, try to curl <code>http://localhost:3000/img/ubuntu.jpg</code> or go that url in your browser
-* Import a class from the module <code>fileSystem.js</code>
-* Enable <code>Handlebars</code> for templating in the later section
+* Import a class from the module <code>FileSystem.js</code>
+* Enable <code>Handlebars</code> for templating in a later section
 
-#### Route
-In this section, you'll implement callback handlers to server browser requests. There are two routes you'll build: __<code>/</code> and <code>/vfs</code>__ You are required to serve GET and POST requests using __only one Url: <code>/vfs</code>__. 
+### Routes
 
-A Url is a resource identifier and the resource in this homework is our virtual file system. The semantic here is using HTTP verbs to manipulate the file system located at <code>/vfs</code>.
+In this section, you'll implement callback handlers to serve responses to browser requests. There are two routes you'll build: __<code>/</code> and <code>/vfs</code>__ You are required to serve GET and POST requests using __only one Url: <code>/vfs</code>__ (and some instances, you'll be able to access both `req.query` and `req.body` if a `POST` is made to a path with a query string). 
+
+A URL is a resource identifier and the resource in this homework is our virtual file system. The semantic here is using HTTP verbs to manipulate the file system located at <code>/vfs</code>. GETs will read from the file system while POSTs will add to the file system.
 
 <code>GET</code> requests:
 
@@ -391,7 +409,7 @@ A Url is a resource identifier and the resource in this homework is our virtual 
 
 ### Templating
 
-In this part, you'll work with HTML and templating to build your front-end. You'll also use the context passed from the server to render partial templates. You don't have to implement the interface exactly the same as examples provided (styling is not strictly required). But basic pages for a functional system are required. __You are free to style your app using any approach. Following description is based on the demo as an example for explaining goals of this part.__
+In this part, you'll work with HTML and templating to build your front-end.  You don't have to implement the interface exactly the same as examples provided (styling is required, but it can be minimal, and it does not have to match the images below). Basic pages for a functional system, however, are required. __You are free to style your app using any approach. Following description is based on the demo gif as an example for explaining goals of this part.__
 
 * Set up handlebars - [these slides](../../slides/09/templating.html) 
 	* Get all the requirements and config setup
@@ -407,7 +425,7 @@ In <code>layout.hbs</code>
 * Link your <code>style.css</code> stylesheet
     * A basic <code>style.css</code> is provided, you can modify it if you want a different style
 
-#####  Creating a Home Page
+###  Creating a Home Page
 
 The home page consists of a dropdown menu with options for users to select different types of styling in the next page. The styling should be different from each othe and can be implemented through CSS or images. The goal is to retrieve multiple static files from the server.
 
@@ -416,12 +434,13 @@ Your app should receive <code>GET</code> requests on the path, <code>/</code>. S
 * In your <code>index.hbs</code>
     * Create a form with attributes below
         1. <code>action="http://localhost:3000/vfs"</code> (may be different if the server listens on other ports)
-        2. <code>method="get"</code>
-    * In this form, create a <code>select</code> dropdown with:
+        2. <code>method="GET"</code>
+    * In this form, create a <code>select</code> dropdown [see mdn's docs for dropdown markup](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) with:
         1. a <code>name</code> attribute
         2. three <code>option</code> with <code>value</code> and <code>text</code> equal to the name of selected operating system
     * Lastly, create a <code>button</code> with <code>type</code> of submit
-    * Send this form to get the Url of static files and used them in the next page
+    * Submit this form so that a query string is attached to the request... with the query string determining different styling for the `vfs` page (for example, different background images)
+		* this means that the route for `vfs` should always check `req.query` to determine some design elements)
     * Below is an example for selecting three OS distributions in the next page <code>terminal.hbs</code>
 
 <div markdown="block" class="img">
@@ -432,7 +451,7 @@ Your app should receive <code>GET</code> requests on the path, <code>/</code>. S
 
 ##### Creating two forms for submitting commands and arguments
 
-In the <code>terminal.hbs</code>, we want to manipulate the file system by using forms and display styles based on the selection of previous page: <code>/</code>. Following demonstrates basic forms. __(HINT: pass additional information to server for requesting static files without showing extra information of two forms)__
+In the <code>terminal.hbs</code>, we want to manipulate the file system by using forms and display styles based on the selection of previous page: <code>/</code>. Following demonstrates basic forms. 
 
 * Create a <code>GET</code> form
     1. <code>action="http://localhost:3000/vfs"</code> (may be different if the server listens on other ports)
@@ -441,11 +460,10 @@ In the <code>terminal.hbs</code>, we want to manipulate the file system by using
     4. Add a submit button with type of <code>submit</code>
     5. Note that this form shares the same Url with homepage form
 * Create a <code>POST</code> form
-    1. <code>action="http://localhost:3000/vfs"</code> (may be different if the server listens on other ports)
+    1. <code>action="http://localhost:3000/vfs"</code> 
     2. <code>method="post"</code>
     3. In this form, add three HTML input tags: <code>command</code>, <code>path</code>, and <code>content</code>
     4. Add a submit button with type of <code>submit</code>
-* Use static files (css, images) to style your pages 
 
 * Examples would look like below.
 <div markdown="block" class="img">
@@ -455,11 +473,11 @@ In the <code>terminal.hbs</code>, we want to manipulate the file system by using
 
 ##### Create an area (terminal) where displaying messages sent from the server
 
-For each command, the server responds with the state of file system wrapped in a context object. In this section, you'll display each information in the context object by using some templating syntax and techniques __(HINT: you'll use HBS tempalte syntax for iterating an array, an array of objects, and an object. If statement will also be used)__.
+For each command, the server responds with the state of file system wrapped in a context object. In this section, you'll display each information in the context object by using some templating syntax and techniques __(HINT: you'll use HBS template syntax for iterating over an array, an array of objects, and an object. Conditionals may also be useful)__.
 
 * <code>ls</code>
-    1. The server is supposed to pass files and directories in the form of a list of JSON objects.
-    2. Display each file or directory in one line with <code>file_type, permissions, number of hard links, owner, group, size, last-modified data, file name</code>
+    1. The server should pass files and directories in the form of a list of objects.
+    2. Display each file or directory in one line with just names if there are no options, or with `-l`, <code>file_type, permissions, number of hard links, owner, group, size, last-modified data, file name</code>
     3. If the path cannot be found, output `ls: No such file or directory`
     4. Example:
         without <code>-l</code> option
@@ -470,31 +488,31 @@ For each command, the server responds with the state of file system wrapped in a
         <img src="../resources/img/hw04-file-system-ls-l.png" width="100%">
         </div>
 * <code>tree</code>
-    1. The server is supposed to pass the entire file system object
-    2. You don't have to display it in a tree structure. Any way of showing the hierarchy would be accepted.
-    3. If you would like to create a tree-like directory, please refer to <code>partials</code> to recursively generate a tree-like view
-    4. If the directory cannot be found, output `tree: No such file or directory`
-    5. Example:
+	1. Display the entire file system tree rooted at the `path` specified in the form
+    2. Any way of showing the hierarchy would be accepted (such as varying levels of indentation).
+    3. If the path cannot be found, output `tree: No such file or directory`
+    4. Example:
         <div markdown="block" class="img">
         <img src="../resources/img/hw04-file-system-tree.png" width="100%">
         </div>
 * <code>cat</code>
-    1. The server is supposed to respond the content of the file (a string).
+    1. The server should respond with the contents of the file (a string).
     2. If the file cannot be found, output `cat: No such file or directory`
     3. Example:
         <div markdown="block" class="img">
         <img src="../resources/img/hw04-file-system-cat.png" width="100%">
         </div>
 * <code>mkdir</code>
-    1. The server is supposed to respond a list of files and directories after the directory is created
+    1. The server should reply with a list of files and directories after the directory is created
     2. If the directory already exists, output `mkdir: ${dirName} : File exists`
-    3. After create a directory <code>Hi</code>
+    3. After creating a directory <code>Hi</code>:
     <div markdown="block" class="img">
     <img src="../resources/img/hw04-file-system-af-mkdir.png" width="100%">
     </div>
 * <code>write</code>
-    1. If success, not required to display any messages. But make sure the content is written to the file by using <code>cat</code>
-    2. If failed, output `write: No such file or directory`
+    1. If successful, no message should be displayed
+	2. The operation can be checked by submitting a request with the `cat` command 
+    3. If writing fails, output `write: No such file or directory`
 
 </div>
 
