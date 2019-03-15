@@ -12,7 +12,7 @@ h1.warning {
 	<div class="panel-heading">Homework #4</div>
 	<div class="panel-body" markdown="block">
 
-# Express Make a Site That Looks Like a Commandline Console!  - __Due Wednesday, March 27th__, by 11PM
+# Express Make a Site That Looks Like a Commandline Console!  - __Due Friday, March 29th__, by 11PM
 
 ## Overview
 
@@ -490,70 +490,130 @@ For each command, the server responds with the state of file system or the statu
 ⚠️⚠️ ⚠️ - __Universal Requirements for Each Command__
 
 * __In either `path` field, the leading forward slash (`/`) may be omitted (the path should still be treated as if it were an absolute path, though)__
+* __In either `path` field, if the path is left blank, then assume it is root (`/`)__
 * __There can only be one option in the option field, and it should be preceded with a dash, `-`__
 
-* <code>ls</code>
-	1. Example form data 1:
-		* command: `ls`
-		* option: `-l`
-		* path: field left blank
-		* result shown on page:
-			<pre><code data-trim contenteditable>drwxr--r-- 1 root root 6 Feb 27 08:17 bin
+### Commands and Examples
+
+### <code>ls</code>
+1. Example form data 1:
+	* command: `ls`
+	* option: `-l`
+	* path: field left blank
+	* result shown on page:
+		<pre><code data-trim contenteditable>drwxr--r-- 1 root root 6 Feb 27 08:17 bin
 drwxr--r-- 1 root root 6 Jan 20 12:45 home
 drwxr--r-- 1 root root 6 Jan 05 08:02 lib
 drwxr--r-- 1 root root 6 Mar 10 07:30 dev
 </code></pre>
 		* comments: leaving the path blank will default to listing the files and directories in `/`
-	2. Example form data  2:
-		* command: `ls`
-		* option: field left blank 
-		* path: `/home`
-		* result shown on page:
-			<pre><code data-trim contenteditable>es6.jpg</code></pre>
-		* comments: 
-			* leaving the option field blank will result in only the names of the files being displayed 
-		    * in this case, `es6.jpg` is the only file contained within `/home` 
-			* note: it's not really an image... it's just a file that has arbitrary text in it
-			* (if you want to get fancy though, you can have a link to a file in `public` and display that based on image extensions)
-    3. The server should pass files and directories into the template in the form of a list of objects.
-    4. Display each file or directory in one line with just names if there are no options, or with `-l`, <code>file_type, permissions, number of hard links, owner, group, size, last-modified data, file name</code>
-    5. If the path cannot be found, output `ls: No such file or directory`
-    6. Example:
-        without <code>-l</code> option
-        <div markdown="block" class="img">
-        <img src="../resources/img/hw04-file-system-ls.png" width="100%">
-        with <code>-l</code> option
-        <div markdown="block" class="img">
-        <img src="../resources/img/hw04-file-system-ls-l.png" width="100%">
-        </div>
-* <code>tree</code>
-	1. Display the entire file system tree rooted at the `path` specified in the form
-    2. Any way of showing the hierarchy would be accepted (such as varying levels of indentation).
-    3. If the path cannot be found, output `tree: No such file or directory`
-    4. Example:
-        <div markdown="block" class="img">
-        <img src="../resources/img/hw04-file-system-tree.png" width="100%">
-        </div>
-* <code>cat</code>
-    1. The server should respond with the contents of the file (a string).
-    2. If the file cannot be found, output `cat: No such file or directory`
-    3. Example:
-        <div markdown="block" class="img">
-        <img src="../resources/img/hw04-file-system-cat.png" width="100%">
-        </div>
-* <code>mkdir</code>
-    1. The server should reply with a list of files and directories after the directory is created
-    2. If the directory already exists, output `mkdir: ${dirName} : File exists`
-    3. After creating a directory <code>Hi</code>:
+2. Example form data  2:
+	* command: `ls`
+	* option: field left blank 
+	* path: `/home`
+	* result shown on page:
+		<pre><code data-trim contenteditable>es6.jpg</code></pre>
+	* comments: 
+		* leaving the option field blank will result in only the names of the files being displayed 
+	    * in this case, `es6.jpg` is the only file contained within `/home` 
+		* note: it's not really an image... it's just a file that has arbitrary text in it
+		* (if you want to get fancy though, you can have a link to a file in `public` and display that based on image extensions)
+3. The server should pass files and directories into the template in the form of a list of objects.
+4. Display each file or directory in one line with just names if there are no options, or with `-l`, <code>file_type, permissions, number of hard links, owner, group, size, last-modified data, file name</code>
+5. If the path cannot be found, output `ls: No such file or directory`
+6. Example UI:
+    with <code>-l</code> option
     <div markdown="block" class="img">
-    <img src="../resources/img/hw04-file-system-af-mkdir.png" width="100%">
+    <img src="../resources/img/hw04-file-system-ls.png" width="100%">
     </div>
-* <code>write</code>
-    1. If successful, no message should be displayed
-	2. The operation can be checked by submitting a request with the `cat` command 
-    3. If writing fails, output `write: No such file or directory`
 
-</div>
+<hr>
+
+### <code>tree</code>
+
+1. Example form data 1:
+	* command: `tree`
+	* option:field left blank 
+	* path: field left blank
+	* result shown on page:
+		<pre><code data-trim contenteditable>bin
+home
+    es6.jpg
+lib
+    modules
+              aba.txt
+dev			
+</code></pre>
+		* comments: leaving the path blank will default to listing the files and directories in `/`
+2. Example form data 1:
+	* command: `tree`
+	* option:field left blank 
+	* path: `/lib`
+	* result shown on page:
+		<pre><code data-trim contenteditable>modules
+    aba.txt
+</code></pre>
+	* comments: adding a path shows the tree under that path
+3. Display the entire file system tree rooted at the `path` specified in the form
+4. Any way of showing the hierarchy would be accepted (such as varying levels of indentation or nested lists: `ol` and `li`).
+5. If the path cannot be found, output `tree: No such file or directory`
+6. Example UI:
+    <div markdown="block" class="img">
+    <img src="../resources/img/hw04-file-system-tree.png" width="100%">
+    </div>
+
+<hr>
+
+### <code>cat</code>
+
+0. Example form data:
+	* command: `cat`
+	* option: field left blank 
+	* path: `/lib/modules/aba.txt`
+	* result shown on page:
+		<pre><code data-trim contenteditable>hello world!</code></pre>
+1. The server should respond with the contents of the file (a string).
+2. If the file cannot be found, output `cat: No such file or directory`
+3. Example UI:
+    <div markdown="block" class="img">
+    <img src="../resources/img/hw04-file-system-cat.png" width="100%">
+    </div>
+
+<hr>
+
+### <code>mkdir</code>
+
+0. Example form data:
+	* command: `mkdir`
+	* path: `/lib/modules/`
+	* content: `tmp`
+	* result shown on page:
+		<pre><code data-trim contenteditable>aba.txt
+tmp
+</code></pre>
+	* comments: 
+		* note that the `content` field specifies the new directory name and `path` specifies where to create the new directory
+		* additionally, all of the files and directories in `path` are displayed (including the new one)
+1. The server should reply with a list of files and directories after the directory is created
+2. If the directory already exists, output `mkdir: ${dirName} : File exists`
+3. Example UI: after creating a directory <code>Hi</code>:
+	<div markdown="block" class="img"> 
+	<img src="../resources/img/hw04-file-system-af-mkdir.png" width="100%">
+	</div>
+
+<hr>
+
+### <code>write</code>
+
+0. Example form data:
+	* command: `write`
+	* path: `/lib/modules/foo.txt`
+	* content: `bar,baz,qux,quux`
+	* result shown on page: nothing is shown to the user (use cat or ls to verify creation of file)
+	* comments: 
+1. If successful, no message should be displayed
+2. The operation can be checked by submitting a request with the `cat` command 
+3. If writing fails, output `write: No such file or directory`
 
 ## Documentation
 
@@ -564,6 +624,9 @@ drwxr--r-- 1 root root 6 Mar 10 07:30 dev
 	* __example__: if there's a `POST` to `vfs` with `ls` as the form input
 	* show the part of your code where a method is called on your instance of `FileSystem`
 	* ...that gives back a list of files that are eventually put into a rendered template
+
+
+</div>
 
 
 
