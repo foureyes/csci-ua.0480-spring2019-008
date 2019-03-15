@@ -487,7 +487,7 @@ In <code>terminal.hbs</code>, create two forms that will allow the user to inter
 
 For each command, the server responds with the state of file system or the status of the operation. In this section, you'll display this response by using templating and basic control structures in handlebars. (HINT: you'll use HBS template syntax for iterating over an array, an array of objects, and an object. Conditionals may also be useful).
 
-⚠⚠⚠ - __Universal Requirements for Each Command__
+⚠️⚠️ ⚠️ - __Universal Requirements for Each Command__
 
 * __In either `path` field, the leading forward slash (`/`) may be omitted (the path should still be treated as if it were an absolute path, though)__
 * __There can only be one option in the option field, and it should be preceded with a dash, `-`__
