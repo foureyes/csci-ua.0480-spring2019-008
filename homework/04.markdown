@@ -512,20 +512,30 @@ drwxr--r-- 1 root root 6 Mar 10 07:30 dev
 	* option: field left blank 
 	* path: `/home`
 	* result shown on page:
-		<pre><code data-trim contenteditable>es6.jpg</code></pre>
+		<pre><code data-trim contenteditable>foo.txt
+es6.jpg</code></pre>
 	* comments: 
 		* leaving the option field blank will result in only the names of the files being displayed 
-	    * in this case, `es6.jpg` is the only file contained within `/home` 
-		* note: it's not really an image... it's just a file that has arbitrary text in it
+	    * in this case, `foo.txt` and `es6.jpg` are the only two files contained within `/home` 
+		* note: `es6.jpg` is not really an image... it's just a file that has arbitrary text in it
 		* (if you want to get fancy though, you can have a link to a file in `public` and display that based on image extensions)
 3. The server should pass files and directories into the template in the form of a list of objects.
-4. Display each file or directory in one line with just names if there are no options, or with `-l`, <code>file_type, permissions, number of hard links, owner, group, size, last-modified data, file name</code>
-5. If the path cannot be found, output `ls: No such file or directory`
+4. Display each file or directory in one line with just <code>name</code> if there are no options, or with `-l`, <code>file_type, permissions, number of hard links, owner, group, size, last-modified data, file name</code> (using `li`)
+5. If the path cannot be found or it's a file, output `ls: No such file or directory`
 6. Example UI:
     with <code>-l</code> option
     <div markdown="block" class="img">
     <img src="../resources/img/hw04-file-system-ls.png" width="100%">
     </div>
+7. Example UI:
+    without <code>-l</code> option
+    <div markdown="block" class="img">
+    <img src="../resources/img/hw04-file-system-ls-no-l.png" width="100%">
+    </div>
+8. Example UI: <code>path</code> does not exist or it's a file:
+    <div markdown="block" class="img"> 
+	<img src="../resources/img/hw04-file-system-ls-not-exists.png" width="100%">
+	</div>
 
 <hr>
 
@@ -533,7 +543,7 @@ drwxr--r-- 1 root root 6 Mar 10 07:30 dev
 
 1. Example form data 1:
 	* command: `tree`
-	* option:field left blank 
+	* option: field left blank 
 	* path: field left blank
 	* result shown on page:
 		<pre><code data-trim contenteditable>bin
@@ -547,7 +557,7 @@ dev
 		* comments: leaving the path blank will default to listing the files and directories in `/`
 2. Example form data 1:
 	* command: `tree`
-	* option:field left blank 
+	* option: field left blank 
 	* path: `/lib`
 	* result shown on page:
 		<pre><code data-trim contenteditable>modules
@@ -556,11 +566,15 @@ dev
 	* comments: adding a path shows the tree under that path
 3. Display the entire file system tree rooted at the `path` specified in the form
 4. Any way of showing the hierarchy would be accepted (such as varying levels of indentation or nested lists: `ol` and `li`).
-5. If the path cannot be found, output `tree: No such file or directory`
+5. If the path cannot be found or it's a file, output `tree: No such file or directory`
 6. Example UI:
     <div markdown="block" class="img">
     <img src="../resources/img/hw04-file-system-tree.png" width="100%">
     </div>
+7. Example UI: <code>path</code> does not exist or it's a file:
+    <div markdown="block" class="img"> 
+	<img src="../resources/img/hw04-file-system-tree-not-exists.png" width="100%">
+	</div>
 
 <hr>
 
@@ -571,13 +585,17 @@ dev
 	* option: field left blank 
 	* path: `/lib/modules/aba.txt`
 	* result shown on page:
-		<pre><code data-trim contenteditable>hello world!</code></pre>
+		<pre><code data-trim contenteditable>hello world.</code></pre>
 1. The server should respond with the contents of the file (a string).
 2. If the file cannot be found, output `cat: No such file or directory`
-3. Example UI:
+3. Example UI: if the file exists
     <div markdown="block" class="img">
     <img src="../resources/img/hw04-file-system-cat.png" width="100%">
     </div>
+4. Example UI: <code>path</code> is not a file:
+    <div markdown="block" class="img"> 
+	<img src="../resources/img/hw04-file-system-write-not-exists.png" width="100%">
+	</div>
 
 <hr>
 
@@ -595,26 +613,37 @@ tmp
 		* note that the `content` field specifies the new directory name and `path` specifies where to create the new directory
 		* additionally, all of the files and directories in `path` are displayed (including the new one)
 1. The server should reply with a list of files and directories after the directory is created
-2. If the directory already exists, output `mkdir: ${dirName} : File exists`
-3. Example UI: after creating a directory <code>Hi</code>:
+2. If the directory (<code>content</code>) already exists, output `mkdir: ${dirName} : File exists`
+3. If the <code>path</code> not found, output `mkdir: No such file or directory`
+4. Example UI: after creating a directory <code>tmp</code>:
 	<div markdown="block" class="img"> 
 	<img src="../resources/img/hw04-file-system-af-mkdir.png" width="100%">
 	</div>
-
+5. Example UI: create <code>tmp</code> when <code>tmp</code> exists:
+    <div markdown="block" class="img"> 
+	<img src="../resources/img/hw04-file-system-mkdir-exists.png" width="100%">
+	</div>
+6. Example UI: <code>path</code> does not exist or it's a file:
+    <div markdown="block" class="img"> 
+	<img src="../resources/img/hw04-file-system-mkdir-no-path-found.png" width="100%">
+	</div>
 <hr>
 
 ### <code>write</code>
 
-0. Example form data:
+1. Example form data (creating `foo.txt` under `/lib/modules`):
 	* command: `write`
 	* path: `/lib/modules/foo.txt`
 	* content: `bar,baz,qux,quux`
 	* result shown on page: nothing is shown to the user (use cat or ls to verify creation of file)
 	* comments: 
-1. If successful, no message should be displayed
-2. The operation can be checked by submitting a request with the `cat` command 
-3. If writing fails, output `write: No such file or directory`
-
+2. If successful, no message should be displayed
+3. The operation can be checked by submitting a request with the `cat` command 
+4. If writing fails, output `write: No such file or directory`
+5. Example UI: <code>path</code> does not exist or it's a file:
+    <div markdown="block" class="img"> 
+	<img src="../resources/img/hw04-file-system-write-no-path-found.png" width="100%">
+	</div>
 ## Documentation
 
 ⚠️⚠️⚠️  To help graders find your usage of the `FileSystem` class, use [GitHub's documentation for linking to code](https://help.github.com/en/articles/creating-a-permanent-link-to-a-code-snippet) to add links to the following:
