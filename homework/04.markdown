@@ -636,11 +636,10 @@ tmp
 	* path: `/lib/modules/foo.txt`
 	* content: `bar,baz,qux,quux`
 	* result shown on page: nothing is shown to the user (use cat or ls to verify creation of file)
-	* comments: 
 2. If successful, no message should be displayed
 3. The operation can be checked by submitting a request with the `cat` command 
 4. If writing fails, output `write: No such file or directory`
-5. Example UI: <code>path</code> does not exist or it's a file:
+5. Example UI: <code>path</code> does not exist:
     <div markdown="block" class="img"> 
 	<img src="../resources/img/hw04-file-system-write-no-path-found.png" width="100%">
 	</div>
