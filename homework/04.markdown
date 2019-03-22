@@ -429,7 +429,7 @@ A URL is a resource identifier and the resource in this homework is our virtual 
     * Call appropriate methods in the class given by <code>command</code>
     * Use <code>option</code> parameters if necessarily
     * Render an appropriate HTML page and pass a context containing the message showing success or failure
-	* ⚠Typically, POST requests result in a redirect to prevent form resubmission. In this application, you can render the template directly rather than redirect, since we don't currently have a way of "sending" the result of the operation to another route handler
+	* ⚠️⚠️⚠️ Typically, POST requests result in a redirect to prevent form resubmission. In this application, you can render the template directly rather than redirect, since we don't currently have a way of "sending" the result of the operation to another route handler
 
 ###  Creating a Home Page (`/`)
 
