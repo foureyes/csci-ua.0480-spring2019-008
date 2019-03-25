@@ -355,14 +355,17 @@ __Due Wednesday 3/6 at 12:15pm__ (end of class)
 
 * [Express Lab](homework/express-lab.html) 
 * [Form for lab submission](https://docs.google.com/forms/d/e/1FAIpQLSfEbbAKi3duV6Jx_BJwXx9yFwFQE7Z9QeUyzz9v8D2OP2WvXA/viewform)",
-y,,12,11-Mar,Mon,"* About the Exam, Review",,,,
-y,exam,13,13-Mar,Wed,EXAM #1 (Midterm Exam),,,,
-y,holiday,,18-Mar,Mon,Spring Break,,,,
-y,holiday,,20-Mar,Wed,Spring Break,,,,
-y,,14,25-Mar,Mon,"* URL Parameters
+,,12,11-Mar,Mon,"* About the Exam, Review",,,,
+,exam,13,13-Mar,Wed,EXAM #1 (Midterm Exam),,,,
+,holiday,,18-Mar,Mon,Spring Break,,,,
+,holiday,,20-Mar,Wed,Spring Break,,,,
+,,14,25-Mar,Mon,"* URL Parameters
 * Finishing Database
-* Validation","* [Router Objects](slides/14/routers.html)
+* Validation","* MongoDB, Mongoose from Previous Classes
+* Sessions and Cookies from Previous Classes
+* [Router Objects](slides/14/routers.html)
 * [URL Parameters](slides/14/params.html)
+* Validation from Previous Classes
 ","MongoDB
 
 * [Databases and Collections](https://docs.mongodb.com/manual/core/databases-and-collections/)
