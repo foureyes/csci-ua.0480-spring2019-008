@@ -112,7 +112,7 @@ The focus of this homework is the implementation of GET and POST forms and the c
 
 In this homework, you'll create an Express application that displays a background image of three Linux distributions (or some styling of your choice), and a shell-like interface implemented by HTML forms. Users send shell commands via GET and POST requests through the forms to a server. The server dispatches requests to operate on a in-memory virtual file system using these commands, and responds with the state of the virtual file system.
 
-The file system will be implemented using a nested JSON object; it will represent the state of the virtual file system. Additionally, use an ES6 class to encapsulate the data and interact with the virtual file system represented by the data.
+The file system will be implemented using JavaScript object; it will represent the state of the virtual file system. Additionally, use an ES6 class to encapsulate the data and interact with the virtual file system represented by the data.
 
 You can assume that your application will process http requests serially; you don't have to handle any race conditions.
 
@@ -212,7 +212,7 @@ While the server is running:
 
 You'll be given a file, `init.json`, that contains the initial structure of the file system. 
 
-The file system is represented by a nested JSON object - essentially a tree of objects with keys as file and directory names and objects as meta data about that file or directory. The JSON file has hardcoded dates and times, but when adding new files and directories, you can use [Moment JS](https://momentjs.com/docs/) to get a formatted string representing the current time. Here are a few examples of what the data structure backing the virtual file system may look like (you can also check out `vfs/init.json)`:
+The initial file system is represented by a nested JSON object - essentially a tree of objects with keys as file and directory names and objects as meta data about that file or directory. The JSON file has hardcoded dates and times, but when adding new files and directories, you can use [Moment JS](https://momentjs.com/docs/) to get a formatted string representing the current time. Here are a few examples of what the data structure backing the virtual file system may look like (you can also check out `vfs/init.json)`:
 
 
 
@@ -277,9 +277,9 @@ The file system is represented by a nested JSON object - essentially a tree of o
 
 ### The File System Class
 
-To work with your virtual file system, implement a `FileSystem` class in `vfs/FileSystem.js` and export it so that the routes in `app.js` can use it. You can the __parsed__ JSON to initialize this object with file system data.  ⚠️⚠️⚠️  You can design this `FileSystem` class __any way you like,__ as long as you use it to encapsulate the state of the virtual file system. 
+To work with your virtual file system, implement a `FileSystem` class in `vfs/FileSystem.js` and export it so that the routes in `app.js` can use it. You can use the __parsed__ JSON to initialize this object with file system data.  ⚠️⚠️⚠️  You can design this `FileSystem` class __any way you like,__ as long as you use it to encapsulate the state of the virtual file system. 
 
-Here are some suggestions (but, again, feel free to do this any way you like... as there are no expectations or tests for your implementation):
+Here are some suggestions (but, again, ⚠️ __feel free to do this any way you like... as there are no expectations or tests for your implementation__):
 
 1. <code>constructor</code>
     * **Arguments**: <code>object</code> - an object representing a virtual file system (note that this is _not_ a JSON string, but rather, pass in an object that's the result of parsing a JSON string)
@@ -288,7 +288,7 @@ Here are some suggestions (but, again, feel free to do this any way you like... 
     * **Description**: traverse the file system nodes to find the file or directory. After the file or directory is found, return an object representing the file system subtree rooted at this file or directory. After the file is found, put the metadata of the current file into the returned object. 
 3. <code>traverseAndList</code>
     * **Arguments**: <code>[path/to/file]</code>
-    * **Description**: this method is for <code>ls</code> command. If the path points to a directory, return a list of JSON object representation of the files under this directory. Otherwise, return an empty list.
+    * **Description**: this method is for <code>ls</code> command. If the path points to a directory, return a list of objects representation of the files under this directory. Otherwise, return an empty list.
 4. <code>makeDirectory</code>
     * **Arguments**: <code>[path/to/dir, directory name]</code>
     * **Description**: first call find to get the object associated with <code>dir</code>, then create a new entry in this directory. The file type is directory. Other metadata can be generated randomly (but see some specifications below).
