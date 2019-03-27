@@ -384,7 +384,7 @@ Mongoose
 * [Embedded Documents - Sub Docs](http://mongoosejs.com/docs/subdocs.html) 
 * [Document References - Mongoose Population](http://mongoosejs.com/docs/populate.html) 
 ",,
-y,,15,27-Mar,Wed,"* Authentication
+,,15,27-Mar,Wed,"* Authentication
  * Authentication Library
 * Deployment
 
@@ -410,9 +410,12 @@ Password Hashing
 * [NIST - Recommendation for Password-Based Key Derivation](http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf)
 * [How to securely hash passwords](http://security.stackexchange.com/questions/211/how-to-securely-hash-passwords)              
 * [Salted Password Hashing - Doing it Right](https://crackstation.net/hashing-security.htm)
-","__Due Wednesday 4/3 at 11pm:__
+","
+__Due Friday 4/5 at 11pm:__
 
-* [Homework #6](homework/06.html)
+<!--* Homework #5](homework/06.html)-->
+
+* Homework #5 To Be Posted
 * [Final Project Miletsone #01](final-project.html#milestone01)",
 y,,16,01-Apr,Mon,"* HTML Primer, JavaScript and the Browser
 * The Document Object Model
