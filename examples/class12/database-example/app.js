@@ -13,8 +13,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
-  Cat.find((err, cats, count) => {
-    res.render('index', {cats: cats});
+  Cat.find((err, foundCats, count) => {
+    res.render('index', {cats: foundCats});
   });
 });
 

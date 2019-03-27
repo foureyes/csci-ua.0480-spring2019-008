@@ -11,7 +11,7 @@ mongoose.model('Cat', CatSchema);
 // schema name / model name... will be pluralized and lowercase for collection name
 
 
-mongoose.connect('mongodb://localhost/003_class12');
+mongoose.connect('mongodb://localhost/catdb');
 
 
 
