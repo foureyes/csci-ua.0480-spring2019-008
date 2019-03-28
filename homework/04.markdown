@@ -12,7 +12,7 @@ h1.warning {
 	<div class="panel-heading">Homework #4</div>
 	<div class="panel-body" markdown="block">
 
-# Express Make a Site That Looks Like a Commandline Console!  - __Due Friday, March 29th__, by 11PM
+# Express Make a Site That Looks Like a Commandline Console!  - __Due <s>Friday, March 29th</s> Saturday, March 30th__, by 11PM
 
 ## Overview
 
