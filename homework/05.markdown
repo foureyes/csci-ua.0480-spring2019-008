@@ -1,3 +1,4 @@
+---
 layout: homework
 title: CSCI-UA.0480 - Homework #5
 ---
@@ -7,7 +8,6 @@ title: CSCI-UA.0480 - Homework #5
 	<div class="panel-body" markdown="block">
 
 # Book Buzz - Book Review Site (Storing Data, URL Parameters, Sessions)
-
 
 ## Overview
 
