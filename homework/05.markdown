@@ -525,6 +525,12 @@ Once your familiar with `express-session`, find a way to keep a count of the tot
 
 <hr>
 
+## About the Reference Solution
+
+You're free to style your application at your discretion. With that said, the reference solution does use some outside resources:
+
+* background image from [xmple.com](https://www.xmple.com/wallpaper/black-beehive-honeycomb-yellow-hexagon-2736x1824-c2-ffd700-000000-l2-8-96-a-0-f-5-image/)
+* fonts (Merriweather and Lobster) from [Google Fonts](https://fonts.google.com/)
 
 </div>
 
