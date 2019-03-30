@@ -1,16 +1,6 @@
-book.slug---
 layout: homework
 title: CSCI-UA.0480 - Homework #5
 ---
-{% comment %}
-// sanitize
-// keep names of inputs
-// display error messages on create forms
-// findOneAndUpdate
-// must implement number as stars
-// range https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
-// else / ifhttps://handlebarsjs.com/builtin_helpers.html
-{% endcomment %}
 
 <div class="panel panel-default">
 	<div class="panel-heading">Homework #5</div>
