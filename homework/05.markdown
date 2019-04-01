@@ -56,7 +56,6 @@ Your application will support the following routes (:slug specifies that the par
 * `POST /books-new` - process a new book
 * `GET /books/:slug` - show information about a single book and display the add review form
 * `POST /books/:slug/comments` - 
-* `GET /books/mine` - show the books added during the user's session
 
 Finally, it should:
 
