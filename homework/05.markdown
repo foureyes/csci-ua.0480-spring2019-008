@@ -311,8 +311,9 @@ const Book = mongoose.model('Book');
 
 You can now use <code>Book.find</code> to retrieve all of the books in your database!
 
-* create a route handler that accepts requests for <code>/</code>
-* in that route handler, the callback should use <code>Book.find</code> to retrieve all books!
+* create route handlers that accepts requests for `/` and `/books`
+* `/` should just redirect to `/books`
+* in the `/books` route handler, the callback should use <code>Book.find</code> to retrieve all books!
 * <code>find</code> takes a __query object__ (just a regular object) that specifies the criteria for what we're searching for using name/value pairs... for example <code>{title: "Advanced Programming in the UNIX Environment"}</code> would be all book reviews for title named <code>"Advanced Programming in the UNIX Environment"</code>.
 * ⚠️ if you leave the value empty (regardless of whether or not `title` or `author` is chosen), it'll just give back __all books__ (clearing the filter)
 * the second argument for find is yet another callback... this time, it's the function that's executed when mongoose finishes finding stuff for you
