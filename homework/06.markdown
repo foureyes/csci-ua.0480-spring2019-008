@@ -23,12 +23,11 @@ You'll be using the following concepts:
 
 Memory Matching Game is a card game in which all of the cards are laid face down on a surface and two cards are flipped face up over each turn. The object of the game is to turn over pairs of matching cards.
 
-You will be making an interface with following functions. 
+You will be making an interface with following components. 
 1. A form to preset the number of cards, maximum turns, and symbols on cards using a character string
-2. A quit button to restart the game during the game
+2. A quit button to restart the game during playing the game
 3. A board where the cards are initially laid face down, and flipped face up over each turn
-4. Display the number of matches over all turns
-
+4. Display the total number of matches over all turns
 
 <!-- <img src="../resources/img/hw07-forest-01-main.gif"> -->
 
@@ -43,18 +42,33 @@ You will be given access to a private repository on GitHub.  The final version o
 * Commit multiple times throughout your development process.
 * Make at least 4 separate commits
 
-## Forest Generator Requirements
+## Memory Matching Game
 
 ### __Required Features__
 
+### Create an express application and setup some directories
+
+1. You don't _really_ need an Express application to do this homework, but start with one anyway, in case you decide to do the extra credit...
+2. Start a new express project that uses express-static, using the following directory structure:
+    * `package.json`
+    * `.eslintrc.js`
+    * `README.md`
+    * `src`
+        * `app.js`
+        * `public`
+            * `index.html`
+            * `stylesheets`
+                * `style.css`
+            * `javascripts`
+                * `main.js`
+3. (there's no need to create any route handlers for this homework, you can do the whole thing with static files)
+4. In your public folder, create an <code>index.html</code> file.
+5. In your public folder, create a `stylesheets` folder and a file, `style.css`, within it 
+6. In your public folder, create a `javascripts` folder and a file, `main.js`, within it 
+
 __Use the following markup__
 
-1. Start a new express project that uses express-static.
-	* the root directory should contain `package.json`, your eslint config, `.gitignore`, etc.
-	* the `src` directory should contain `app.js` (serving on 3000), `public`, etc.
-2. (there's no need to create any route handlers for this homework, you can do the whole thing with static files)
-3. In your public folder, create an <code>index.html</code> file.
-4. Add the following code to your <code>index.html</code>:
+1. Add the following code to your <code>index.html</code>:
     <pre><code data-trim contenteditable>
       &lt;!doctype html&gt;
       &lt;html&gt;
@@ -132,7 +146,7 @@ __Start with a form that allows the user to pick the number of cards to be playe
     <br> -->
 
 __Generate a game board__
-* Based on the number submitted, generate a game board
+* Based on the number submitted, generate a game board in the <code>game</code> div
 * The number of cards should be equal to 2 x the number of symbols (you'll need matching pairs, of course!)
 * The cards should be arranged as a square if possible (for example, 8 symbols means 16 cards, which means a 4 x 4 grid)
 * If they cannot be a square, then take ceiling of the square root, and use that as the height (square root of 12 gives us 3.4, rounded up is 4, so 4 tall and 3 wide)
@@ -170,21 +184,22 @@ __Allow the user to click on cards__
 * Do not allow more than two flipped cards at once
 
 __Handle two consecutive clicks / two flipped cards in each turn__
+* In the <code>game</code> div, display messages to instruct the player to continue the game
 * If there are two cards flipped after two clicks in one turn
   * Display an "OK" button
     * onclick, the game goes to the next turn
-  * If they don't match
+  * If two cards don't match
     * flip them back so that the symbols don't show
     * show a message such as "No Match. Press OK" below the game board
-  * If they do match, leave them around so that the symbols remain revealed
+  * If two cards do match, leave them around so that the symbols remain revealed
     * show a message such as "Match. Press OK" below the game board
 * If there's only one card flipped, allow another card to be flipped
 * Again there are matches that are already flipped, don't unflip them
 
 __Keep track of the turns__
-* Flipping two cards represents one turn
+* One turn means a player flipped two cards
 * Above the game board, show <code>number of turns played / max playing turns</code>
-  * For example, displaying <code>TURN 2/4</code> means the player is playing the second turn and can only play maximum 4 turns.
+  * For example, displaying <code>TURN 2/4</code> means the player is playing the second turn and can only play 4 turns maximum.
 * The result over each turn should be saved in a variable or in a class to represent the state of the game
   * The game state can be as simple as a 2D Array, as sophisticated as a class, or perhaps even embedded in the DOM elements
 
@@ -211,7 +226,7 @@ __Pause after two cards are clicked to give the user time to view the cards__
 
 __A reset button to restart the game once the game is over__
 * This reset button will restore the page to the page when first loaded.
-* Only display the div with class <code>start</code>, hide div with class name <code>game</code>, <code>win</code>, <code>reset</code>, and <code>error-message</code>
+* Only display the div with class <code>start</code>, hide div with class <code>game</code>, <code>win</code>, <code>reset</code>, and <code>error-message</code>
 
 
 __At the end of the game, show high scores and have a form that allows a user to post their initials__
