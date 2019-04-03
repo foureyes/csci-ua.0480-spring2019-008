@@ -121,7 +121,7 @@ __Start with a form that allows the user to pick the number of cards to be playe
     * Make sure the div with class <code>game</code> , <code>win</code>, <code>reset</code>, and <code>error-message</code> are not displayed
     * Hint:
         * Make the appropriate CSS rules
-        * Use JavaScript's <code>someElementObj.classList</code>'s <code>add</code>, <code>remove</code>, and <code>toggle</code> [to _add and remove_ classes](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList) so that you can control which CSS rules are active
+        * __Use JavaScript's <code>someElementObj.classList</code>'s <code>add</code>, <code>remove</code>, and <code>toggle</code> [to _add and remove_ classes](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList) so that you can control which CSS rules are active__
 * Add an event listener to listen for clicks
 * When the "Game Start" button is pressed, the even listener should:
   * Determine the value of the input field (you can use whatever method you like to retrieve this 		value)
