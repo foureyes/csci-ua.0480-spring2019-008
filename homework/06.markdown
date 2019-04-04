@@ -31,7 +31,7 @@ You'll be using the following concepts:
 
 ### Description
 
-MemorEmoji is a card game in which all of the cards are laid face down on a surface and two cards are flipped face up over each turn. The object of the game is to turn over pairs of matching cards. The player will have a limited number of turns to do this.
+MemorEmoji is a card game in which a deck of cards containing pairs of symbols are shuffled and laid face down on a surface. A player flips two cards over on each turn. The object of the game is to turn over pairs of matching cards. The player will have a limited number of turns to do this.
 
 You will be making an interface with following components. 
 
