@@ -7,9 +7,13 @@ title: CSCI-UA.0480 - Homework #6
 	<div class="panel-heading">Homework #6</div>
 	<div class="panel-body" markdown="block">
 
-# Memory Matching Game (Client Side JavaScript) - __Due 4/12 at 11pm__
+# DRAFT
+
+# MemorEmoji (Client Side JavaScript) - __Due 4/12 at 11pm__
 
 ## Overview
+
+<img src="../resources/img/hw06-memoremoji/won.gif">
 
 ### Goals / Topics Covered
 
@@ -21,13 +25,14 @@ You'll be using the following concepts:
 
 ### Description
 
-Memory Matching Game is a card game in which all of the cards are laid face down on a surface and two cards are flipped face up over each turn. The object of the game is to turn over pairs of matching cards.
+MemorEmoji is a card game in which all of the cards are laid face down on a surface and two cards are flipped face up over each turn. The object of the game is to turn over pairs of matching cards. The player will have a limited number of turns to do this.
 
 You will be making an interface with following components. 
-1. A form to preset the number of cards, maximum turns, and symbols on cards using a character string
-2. A quit button to restart the game during playing the game
-3. A board where the cards are initially laid face down, and flipped face up over each turn
-4. Display the total number of matches over all turns
+
+1. A form to set the number of cards, maximum turns, and symbols on cards using a character string
+2. A quit button to restart the game 
+3. A "board" where the cards are initially laid face down, and flipped face up over each turn
+4. A count of the turns taken over the maximum number of turns
 
 <!-- <img src="../resources/img/hw07-forest-01-main.gif"> -->
 
@@ -42,7 +47,7 @@ You will be given access to a private repository on GitHub.  The final version o
 * Commit multiple times throughout your development process.
 * Make at least 4 separate commits
 
-## Memory Matching Game
+## MemorEmoji
 
 ### __Required Features__
 
@@ -116,7 +121,7 @@ __Use the following markup__
 6. All of your JavaScript should go in your external JavaScript file.
 7. ... and, of course, all of your CSS should go in your external CSS file.
 
-__Start with a form that allows the user to pick the number of cards to be played and customize symbols on card face using a character string__
+__Start with a form that allows the user to specify the number of cards in the game and, optionally, the actual "value" / symbol of each card by using a character string of comma separated symbols__
 * Only show the content in the h2 with class <code>title</code>, and div with class <code>start</code>
     * Make sure the div with class <code>game</code> , <code>win</code>, <code>reset</code>, and <code>error-message</code> are not displayed
     * Hint:
@@ -161,6 +166,8 @@ __Create a quit button__
 * Create a button at the bottom of the page. When this button is clicked, only the div with class <code>start</code> should be displayed.
 
 __Assign a random symbol to each card__
+
+* __NOTE THAT IF THE PLAYER PRESETS THE CARDS__, then use those characters instead of random generation... otherwise...
 * Find a way to assign a symbol from the set of available symbols to each card
 * The symbol assignment should be randomized!
 * The symbol should not appear in the user interface at the beginning of the game
@@ -171,6 +178,10 @@ __Assign a random symbol to each card__
   * Perhaps creating an object model that drives your game
   * Randomly choose index to swap cards in different positions
   * Oooor… any other scheme that you can come up with
+
+Here's an example of preset cards:
+
+<img src="../resources/img/hw06-memoremoji/preset.gif">
 
 __Allow the user to click on cards__
 * Assign an event listener to each card
@@ -204,11 +215,13 @@ __Keep track of the turns__
   * The game state can be as simple as a 2D Array, as sophisticated as a class, or perhaps even embedded in the DOM elements
 
 __Game is over when:__
-* The turn played is equal to maximum play turns
-* All of the revealed cards are matches
+* The turn played is equal to maximum turns
+* All of the revealed cards are matched
 
 __Display results of the game__
-* Once the game is over, display the number of matches over all turns and the number of maximum playing turns in the div with class name <code>win</code>
+* Once the game is over, display the number turns over the max turns and display whether or not the player has won or lost. Here's an example of a loss:
+
+<img src="../resources/img/hw06-memoremoji/lost.gif">
 
 ### Optional Features (Extra Credit)
 
