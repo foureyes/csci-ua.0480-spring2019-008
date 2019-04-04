@@ -7,6 +7,12 @@ title: CSCI-UA.0480 - Homework #6
 	<div class="panel-heading">Homework #6</div>
 	<div class="panel-body" markdown="block">
 
+<style>
+img {
+	width: 880px;
+}
+</style>
+
 # DRAFT
 
 # MemorEmoji (Client Side JavaScript) - __Due 4/12 at 11pm__
