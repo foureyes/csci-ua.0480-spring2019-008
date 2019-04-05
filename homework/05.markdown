@@ -274,7 +274,7 @@ Book
 
 Review
 
-* rating (a __required__ <code>Number</code> between 0 and 5)
+* rating (a __required__ <code>Number</code> between 1 and 5 inclusive)
 * name (a _optional_ <code>String</code>)
 * text (a __required__ <code>String</code>)
 
