@@ -359,7 +359,7 @@ In this part of the assignment, you'll add a form to your page that allows you t
 You already know how to do most of this, but here's a rough sketch of some of the relevant tasks:
 
 * in the same page as your table of books, create a form that uses GET
-  * it should go to `/` when submitted
+  * it should go to `/books` when submitted
   * note that we __don't__ need `req.body` for this since the request should be a GET
   * also... why are we using GET instead of POST? because we're merely reading data... (pretty common convention for search / filter)
 * modify your request handler to try to get the value of query string parameters (<code>req.query.nameOfFormElement</code>)
