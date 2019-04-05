@@ -385,7 +385,7 @@ You already know how to do most of this, but here's a rough sketch of some of th
 
 ### Overview
 
-In this part of the assignment, you'll create another page that contains a form to add new books. The form will POST data... and then redirect back to <code>/</code>.
+In this part of the assignment, you'll create another page that contains a form to add new books. The form will POST data... and then redirect back to <code>/books</code>.
 
 ### Details
 
@@ -408,7 +408,7 @@ Again, you've already done something similar in a previous lab / assignment (usi
 		* when it's done, it should redirect back to the page that shows all of the books
 		* ⚠️ if one of the required fields are missing, the `err` object in `save` will be populated with data
 			* if an error exists (`if(err)`)...
-			* re0render your create book form template rather than redirecting
+			* re-render your create book form template rather than redirecting
 			* pass along an error message that says there was in issue saving the book
 			* (see the animated gif example below)
 * ⚠️ when working with the data from `req.body`, you'll have to sanitize your input to prevent database query injection attacks
@@ -482,7 +482,7 @@ This part deals with adding a review for a specific book. Create a route handler
 	* [check out the slides on findOneAndUpdate](../slides/12/mongoose.html#/16)
 	* pass a sanitized version of `req.params.slug` as a _query_ object (first argument)
 	* ...and use the data submitted from the form (again sanitized) as the _update_ object (second argument)
-* when it's done, it should redirect back to the page that shows the book's details / comments
+* when it's done, it should redirect back to the page that shows the book's details and comments page
 
 
 ### Example - Adding a Review
