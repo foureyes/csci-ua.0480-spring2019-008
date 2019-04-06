@@ -13,8 +13,6 @@ img {
 }
 </style>
 
-# DRAFT
-
 # MemorEmoji (Client Side JavaScript) - __Due 4/12 at 11pm__
 
 ## Overview
