@@ -227,6 +227,8 @@ __Handle two consecutive clicks / two flipped cards in each turn__
     * If two cards do match, leave symbols revealed
 	* In both cases, play can resume so that the user can flip another two cards
 
+<img src="../resources/img/hw06-memoremoji/ok.gif">
+
 __Keep track of the turns__
 
 * One turn means a player flipped two cards
