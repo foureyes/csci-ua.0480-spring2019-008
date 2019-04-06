@@ -199,7 +199,6 @@ Choose at least __8 points__ worth of these following topics (research and imple
 
 ### __Due Date 4/12 at 11pm__ - Milestone 2 - Initial Deployment and First Form (20 points)
 
-{% comment %}
 1. your server and port name can be accessed through a link in a piazza post for milestone #2
 2. attempt to deploy your code to Courant's servers by following [instructions](homework/deploy.html)
 3. <span class="warning">use [this form to submit your deployed site](https://docs.google.com/forms/d/e/1FAIpQLSezswWaLIKQgk96gifpZu1KFykNGIULChR7qlKO7PwAbQE49w/viewform)</span>
@@ -218,7 +217,6 @@ Choose at least __8 points__ worth of these following topics (research and imple
 <br>
 <br>
 <br>
-{% endcomment %}
 
 
 ### __Due Date 4/19 at 11pm__ - Milestone 3 - 2nd Form and More Progress on Research (20 points)
@@ -234,7 +232,7 @@ Choose at least __8 points__ worth of these following topics (research and imple
     3. run `forever stopall` and `forever start bin/www` 
         * you'll have to use the full path to forever, likely `~/usr/local/node_modules/bin/forever`
         * and perhaps the full bath to `bin/www`
-3. __[fill out form to submit assignment](https://docs.google.com/forms/d/e/1FAIpQLScCfGEc4Mz19tm8ioMWMP_h488oHq4mXTaT3HxChhwfBK9Epw/viewform)__; it will contain:
+3. __[fill out form to submit assignment](https://docs.google.com/forms/d/e/1FAIpQLSeDK0kCfwzhpZbEW1XSWq1sT1WIinZdZJ8Q8KjQiB5vTFKh9Q/viewform)__; it will contain:
     * __both working forms or ajax interactions (that are not login or registration)__ 
     * a link to show code changes since milestone #2:
         * start with the url to your repository: `https://github.com/nyu-csci-ua-0480-008-spring-2018/NETID-final-project/`
