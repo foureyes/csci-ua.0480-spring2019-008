@@ -39,7 +39,7 @@ These instructions detail deployment to Courant's compute and assignment servers
 
 Deployment __to Courant's compute and assignment servers__ involves the following steps:
 
-1. Finding your assigned server and port number in NYU Classes
+1. Finding your assigned server and port number 
 2. Logging in to the server and prepping your home directory
 3. Creating a database for your project
 4. Getting your project onto the server
@@ -49,19 +49,18 @@ Deployment __to Courant's compute and assignment servers__ involves the followin
 8. Reinstalling and/or redeploying
 
 
-### Part 1: Finding your assigned server and port number in NYU Classes
+### Part 1: Finding your assigned server and port number
 
 <section markdown="block">
 Courant's compute / assignment servers are shared, so other students will be running their projects on it. Consequently, to run your node web application, you'll have run it on a port number and server that's been assigned to you.
 
 There are multiple potential servers that can host assignments. See the [documentation](https://cims.nyu.edu/webapps/content/systems/resources/computeservers) on compute servers. These can only be accessed via ssh by going through another host, cims.nyu.edu. 
 
-To determine which port number and server you'll use:
+To determine which port number and server, see the milestone #2 announcement on piazza:
 
-1. Log in to NYU Classes
-2. Go to <code>Assignments</code>
-3. Click on <code>Milestone 2</code>
-4. Find the link to the port retrieval page in the milestone 2 instructions
+1. Log in piazza
+2. Go to the pinned post announcing <code>Final Project Milestone #2</code>
+3. User the link to the port retrieval page and the password supplied in the post
 
 </section>
 
