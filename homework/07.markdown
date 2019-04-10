@@ -142,6 +142,21 @@ Note that this will be implemented __as a single page web app__. This means that
         * display failure messages
     * close the modal and clear all fields
 
+### Creating Modal
+
+1. Use the following HTML as a basic modal
+  <pre><code data-trim contenteditable>
+    &lt;div id="modal-question" class="modal"&gt;
+        &lt;div class="modal-content"&gt;
+            &lt;span class="close" id="close-modal"&gt;&times;&lt;/span&gt;
+            &lt;input type="button" value="Click Me" /&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  </code></pre>
+  (The <code>span</code> tag is a button for closing the modal)
+2. Add Javascript code to change the <code>style.display</code> of the entire div element to <code>block</code> when you want to display the modal or <code>none</code> when you close the modal
+3. Optionally, add CSS styling to this modal (for example, centering the modal and making the main page light grey when the modal is turned on)
+
 See the movie from earlier in the instructions to check out an example of adding a question and an answer (pay close attention to the network tab showing the requests).
 
 </div>
