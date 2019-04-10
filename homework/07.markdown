@@ -120,7 +120,6 @@ Note that this will be implemented __as a single page web app__. This means that
         * display failure messages
     * close the modal and clear all fields
 
-
 ### Adding New Answers
 
 1. In the route, `POST /questions/answers/add`,  create a new answer
@@ -142,9 +141,23 @@ Note that this will be implemented __as a single page web app__. This means that
         * display failure messages
     * close the modal and clear all fields
 
+### Loading Existing Question-Answer
+
+1. In the route `GET /questions/list`, retrieve all documents from the collection saving all questions.
+    * it should give back a JSON object as the response
+    * it should f
+2. In the client side, when the page is on load, displaying all existing question-answer retrieving from the database
+    * invoking a function containing the AJAX GET request to `/questions/list` when page is loaded
+    * in the AJAX callback
+      * On success
+        * put all questions and answers together and arrange them in the same layout as implemented above (in __Adding New Questions__ and __Adding New Answers__, your client side code create an HTML layout for a single document, in this callback, reuse such function to create a list of the same documents)
+        * should reuse the same client side code as above for each question of the list sent from the server
+      * On failure
+        * display failure messages
+
 ### Creating Modal
 
-1. Use the following HTML as a basic modal
+1. Use the following HTML as a basic modal (will be provided in the starter code)
   <pre><code data-trim contenteditable>
     &lt;div id="modal-question" class="modal"&gt;
         &lt;div class="modal-content"&gt;
