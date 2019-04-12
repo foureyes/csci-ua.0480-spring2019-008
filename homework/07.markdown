@@ -22,7 +22,7 @@ title: CSCI-UA.0480 - Homework #7
 
 You'll be using the following concepts:
 
-* XMLHttpRequest
+* XMLHttpRequest (or fetch)
 * sending back json from Express
 
 ### Description

@@ -8,7 +8,7 @@ title: CSCI-UA.0480 - Homework #6
 	<div class="panel-body" markdown="block">
 
 
-# MemorEmoji (Client Side JavaScript) - __Due 4/12 at 11pm__
+# MemorEmoji (Client Side JavaScript) - <strike>Due 4/12 at 11pm</strike> __Due 4/13 at 11pm__
 
 ## Overview
 
