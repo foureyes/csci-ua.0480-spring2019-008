@@ -197,7 +197,7 @@ Choose at least __8 points__ worth of these following topics (research and imple
 <br>
 <br>
 
-### __Due Date 4/12 at 11pm__ - Milestone 2 - Initial Deployment and First Form (20 points)
+### <strike>Due Date 4/12 at 11pm</strike> __Due Date 4/13 at 11pm__ - Milestone 2 - Initial Deployment and First Form (20 points)
 
 1. your server and port name can be accessed through a link in a piazza post for milestone #2
 2. attempt to deploy your code to Courant's servers by following [instructions](homework/deploy.html)
@@ -219,7 +219,7 @@ Choose at least __8 points__ worth of these following topics (research and imple
 <br>
 
 
-### __Due Date 4/19 at 11pm__ - Milestone 3 - 2nd Form and More Progress on Research (20 points)
+### __Due Date 4/20 at 11pm__ - Milestone 3 - 2nd Form and More Progress on Research (20 points)
 
 
 {% comment %}
