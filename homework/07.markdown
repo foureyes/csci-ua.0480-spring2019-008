@@ -25,6 +25,11 @@ You'll be using the following concepts:
 * XMLHttpRequest (or fetch)
 * sending back json from Express
 
+<img src="../resources/img/hw07-qandait/all.gif">
+<img src="../resources/img/hw07-qandait/ask.gif">
+<img src="../resources/img/hw07-qandait/answer.gif">
+<img src="../resources/img/hw07-qandait/read.gif">
+
 ### Description
 
 Create a question-and-answer site where anonymous users post questions and answer these questions. You will create this "single page app" using AJAX calls instead of regular page rendering and form submission.
