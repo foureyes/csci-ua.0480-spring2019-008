@@ -212,7 +212,7 @@ Choose at least __8 points__ worth of these following topics (research and imple
         * or, if it's something that's already visible, a link to the a page on your site that's deployed to the server
       
 
-<a name="milestone3">
+<a name="milestone03">
 
 <br>
 <br>
@@ -222,22 +222,22 @@ Choose at least __8 points__ worth of these following topics (research and imple
 ### __Due Date 4/20 at 11pm__ - Milestone 3 - 2nd Form and More Progress on Research (20 points)
 
 
-{% comment %}
 1. make at least 3 additional commits to add:
     * your 2nd form / ajax interaction
     * make more progress on your research topics
-2. redeploy your code to Courant's server by running git pull and restarting forever (__do not do this until you receive your milestone #2 grades__)
+2. __update youre README.md to reflect any changes to what your final project is__ (you cannot change your project idea after this point, but you can make modifications to your research topics)
+3. redeploy your code to Courant's server by running git pull and restarting forever (__do not do this until you receive your milestone #2 grades__)
     1. `ssh` into linserv1 or linserv2 (remember, you have to go to access.cims.nyu.edu first)
     2. `cd` into your project directory (should be in `~/opt/NETID-final-project`)
     3. run `forever stopall` and `forever start bin/www` 
         * you'll have to use the full path to forever, likely `~/usr/local/node_modules/bin/forever`
         * and perhaps the full bath to `bin/www`
-3. __[fill out form to submit assignment](https://docs.google.com/forms/d/e/1FAIpQLSeDK0kCfwzhpZbEW1XSWq1sT1WIinZdZJ8Q8KjQiB5vTFKh9Q/viewform)__; it will contain:
-    * __both working forms or ajax interactions (that are not login or registration)__ 
+4. __[fill out form to submit assignment](https://docs.google.com/forms/d/e/1FAIpQLSd720a6HdIc8Ok_raL4VAk2p5C9sfQVXHZmcaSbq30QJ8u67w/viewform)__; it will contain:
+    * __both working forms or ajax interactions__ 
     * a link to show code changes since milestone #2:
-        * start with the url to your repository: `https://github.com/nyu-csci-ua-0480-008-spring-2018/NETID-final-project/`
-        * and append the following to the url: `compare/master@%7B04-13-18%7D...master`
-        * for example: `https://github.com/nyu-csci-ua-0480-008-spring-2018/NETID-final-project/compare/master@%7B04-13-18%7D...master`
+        * start with the url to your repository: `https://github.com/nyu-csci-ua-0480-008-spring-2019/NETID-final-project/`
+        * and append the following to the url: `compare/master@%7B04-20-19%7D...master`
+        * for example: `https://github.com/nyu-csci-ua-0480-008-spring-2019/NETID-final-project/compare/master@%7B04-13-19%7D...master`
 
 <a id="final_submit" name="final_submit">
 
@@ -245,7 +245,6 @@ Choose at least __8 points__ worth of these following topics (research and imple
 <br>
 <br>
 <br>
-{% endcomment %}
 
 ### __Due Date 4/26 at 11PM__ - Final Project Complete and Code is fully  _Deployed_ (40 points)
 
