@@ -6,14 +6,19 @@ title: CSCI-UA.0480 - Homework #7
 .warning {
     background-color: #ffaabb;
 }
+
+img {
+	width: 890px;
+}
 </style>
+
 
 
 <div class="panel panel-default">
   <div class="panel-heading">Homework #7</div>
   <div class="panel-body" markdown="block">
 
-# ANONYMOUS Q&AIT (AJAX) - __Due Friday, April 19th by 11pm__
+# ANONYMOUS Q&AIT (AJAX) - __Due Saturday, April 20th by 11pm__
 
 
 ## Overview
@@ -25,14 +30,9 @@ You'll be using the following concepts:
 * XMLHttpRequest (or fetch)
 * sending back json from Express
 
-<img src="../resources/img/hw07-qandait/all.gif">
-<img src="../resources/img/hw07-qandait/ask.gif">
-<img src="../resources/img/hw07-qandait/answer.gif">
-<img src="../resources/img/hw07-qandait/read.gif">
-
 ### Description
 
-Create a question-and-answer site where anonymous users post questions and answer these questions. You will create this "single page app" using AJAX calls instead of regular page rendering and form submission.
+Create a question-and-answer site where users post questions and answers to these questions anonymously. You will create this "single page app" using AJAX calls instead of regular page rendering and form submission.
 
 You will:
 
@@ -45,13 +45,19 @@ Use the following resources as reference:
 2. [Slides on AJAX Part 2](../slides/21/ajax-express.html)
 3. [AJAX POST (from Part 2)](../slides/21/ajax-express.html#/47)
 
-Check out the video below to see how the site will work. Pay attention to:
+Check out the animation below to see how the site should work. Pay attention to:
 
-* the button presses
-* the changes in the ui
-* ...and the network tab
-* notice that there are no page refreshes!
+* the button presses and the corresponding changes in the ui
+* ...as well as the  network tab
+* (notice that there are no page refreshes!)
 
+The animation below shows:
+
+1. loading the initial page / data
+2. asking a question
+3. adding answers to a question
+
+<img src="../resources/img/hw07-qandait/all.gif">
 
 ### Submission Process
 
@@ -99,38 +105,83 @@ Note that this will be implemented __as a single page web app__. This means that
 	* database setup (a mongoose model, database connection, etc.) is provided through `db.js`
 	* a partially implemented Express application is in `app.js`
 		* it has basic setup for body parsing, static files, etc.
-		* it has stubs for route handlers, but the implementations are left
+		* it has stubs for route handlers, but the implementations are left out
 2. Client side code
 	* there are static files present in `public`
-	* the html (`index.html`) and css (`style.css`) are already built
-	* but the client side JavaScript is not implemented (`index.js`), so you'll have to write all of your client side code there
+	* the html is already present in `index.html`, and __you can add markup if you like__
+	* there are some suggested css rules in `style.css`, but feel free to discard these in favor of your own css
+	* the client side JavaScript is mostly left unimplemented (`index.js`), so you'll have to write the majority of it
+
+### Reading Data
+
+1. Check out the schema in `db.js` to familiarize yourself with the "data model"
+2. Add some questions to the database (use the commandline client to do the following)... here's an example (feel free to add your own questions/answers)
+	<pre><code data-trim contenteditable>db.questions.insert({
+  "question": "What's the most delicious dessert?", 
+  "answers": ["ice cream on a pizza", "choco taco"]
+})
+</code></pre>
+3. In the server side code (`app.js`), fill in the route for `GET /questions/` so that it gives back all of the questions (and their answers) from the database as json (you can use `res.json` or `res.send` with a JavaScript object... and express will stringify the object and set the appropriate headers)
+4. Test this route in your browser; you should get back a json document
+5. In the client side JavaScript code (`index.js`), once the DOM has been loaded, make a background request (using `XMLHttpRequest` or `fetch` if you're already familiar with promises) to get all of the questions
+	* if an error occurs with the request (a 404, or an event listener for error get triggered), minimally use  `console.log` to output the error
+	* however, feel free to add more robust error handling, such as displaying a friendly error message in the DOM
+6. For every question in the JSON response from the server, create elements for each question and answer, along with a button to add an answer
+ 	* append the elements to the `main` element in `index.html` (do this using client-side JavaScript)
+	* do not use any libraries to do this (no jQuery, React, vue, etc.)
+	* the exact elements to create up to you; the reference solution uses a heading for the question, an unordered list for the answers, and an input button for the submit button, but you can mark up this part any way you like
+7. Opening up `localhost:3000/index.html` in your browser, with the network tab open, should:
+	* show a page with all answers and questions
+	* along with an extra request in the network tab going to `localhost:3000/questions` (this is the background request)
+8. It should look something like this:
+
+<img src="../resources/img/hw07-qandait/read.gif">
+
+### Modals
+
+Modal dialog boxes can be implemented by creating an element with a z-index higher than other elements. You can have it stretch out to the width and height of the window, and fix it to the upper left-hand corner.
+
+Some example markup and css is given for this... but you can style modals any way you like.
+
+As for the JavaScript implementation...
+
+1. start off with all modals not visible (the starter css initializes them to `display: none`)
+2. when the ask button is clicked... or any of the question's corresponding answer button is clicked, make the modal visible
+3. sooo... add some click event listeners to the ask and answer buttons 
+	* these should either modify the `style` attribute of the appropriate modal 
+	* ... or apply css classes (either your own, or the ones supplied as hints)
+
 
 ### Adding New Questions
 
-1. In the route, `POST /questions/add`,  create a new question
-    * it should give back a JSON object as the response
-    * it should send back the object inserted, if successful
+
+1. In the route, `POST /questions/`,  create a new question in the database
+    * it should give back a JSON response
+    * if a new question is successfully created in the database, it should send back the object inserted as the response
     * otherwise, send back an object with a key called error... with a value containing an error message
-2. In the client side, create a button `Add A Question` and add an on click handler to it
-    * it should show the provided HTML modal with an AJAX form for submitting questions
-    * once the question is submitted, use AJAX POST to send the question to the server and save it in the database
+2. In the client side,  add a on click handler to the Ask a Question button (if you already haven't done so)
+    * it should show the provided HTML modal with a form for submitting questions
+    * when the button for the question is pressed, use an AJAX POST to send the question to the server and save it in the database
     * in the AJAX callback
       * On success
-        * the question is added to the page (can be a `div` or `tr`)
-        * the server should send the unique <code>object_id</code> back to the client
-        * create an additional empty HTML row with <code>id=object_id</code> right below the question for containing answers later
-          * this row contains a button `Post Your Answer` which will be describe in the next section
-        * the <code>object_id</code> is for the purpose of dynamically adding answers (use `document.getElelemntById()` with `appendChild()`)
+        * use the return JSON containing the saved question to....
+		* add the `question` text to the page
+        * use the `_id` attribute as an `id` attribute on a new html element that will contain this questions answers (to be used in the next part)
+        * add a button, `Add an Answer`, to pop up the modal for answering a question (which will be describe in the next section)
+    	* close the modal and clear all fields
       * On failure
-        * display failure messages
-    * close the modal and clear all fields
+        * it's adequate to just log out the error message to the console
+		* ...or you can add a message in the DOM (perhaps in the modal)
+3. Here's an example of how this may work:
 
+<img src="../resources/img/hw07-qandait/ask.gif">
 
 ### Adding New Answers
 
-1. In the route, `POST /questions/answers/add`,  create a new answer
+
+1. In the route, `POST /questions/:id/answers/`,  create a new answer
     * it should give back a JSON object as the response
-    * it should receive the unique <code>object_id</code> from the client
+    * it should receive the unique <code>object_id</code>, (`_id`) from the client for a particular question
     * use the unique <code>object_id</code> to find associated document (question) in the database
     * update the document with answers sent from the client (by pushing the answer to the array of strings)
     * otherwise, send back an object with a key called error... with a value containing an error message
@@ -146,6 +197,8 @@ Note that this will be implemented __as a single page web app__. This means that
       * On failure
         * display failure messages
     * close the modal and clear all fields
+
+<img src="../resources/img/hw07-qandait/answer.gif">
 
 ### Creating Modal
 
