@@ -473,6 +473,12 @@ __Due Saturday 4/13 at 11pm:__
 * Previous class on Promises
 * AJAX Polling
 * [Example Code for AJAX Polling / Chat](code/chat.zip)
+* Example Code for AJAX and Promises
+  * [Example Code for AJAX Polling / Chat](code/chat.zip)
+  * [app.js](examples/ajax-promises/app.js)
+  * [package.json](examples/ajax-promises/package.json)
+  * [public/index.html](examples/ajax-promises/public/index.html)
+  * [public/js/main.js](examples/ajax-promises/public/js/main.js)
 ",,,
 y,,21,17-Apr,Wed,* SocketIO, * [Socket.io](slides/23/socketio.html),"
 * [Socket IO How-To](http://socket.io/docs/)
