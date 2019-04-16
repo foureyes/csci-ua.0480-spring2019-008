@@ -212,6 +212,18 @@ As for the JavaScript implementation...
 
 <img src="../resources/img/hw07-qandait/answer.gif">
 
+### Extra Credit
+
+Implement either (or both) of the following features for extra credit. __You must link to the exact line of code containing your call(s) to fetch and/or async and await in your README.md__:
+
+```
+# Extra Credit
+
+[example usage of fetch](http://url.to/specific/line/of/code/in/github)
+```
+
+1. (5 points) use [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) instead of `XMLHttpRequest`.
+2. (10 points) use [fetch with async functions and await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) instead of `XMLHttpRequest`
 </div>
 
 </div>
