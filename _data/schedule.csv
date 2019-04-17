@@ -479,31 +479,7 @@ __Due Saturday 4/13 at 11pm:__
   * [public/index.html](examples/ajax-promises/public/index.html)
   * [public/js/main.js](examples/ajax-promises/public/js/main.js)
 ",,,
-y,,21,17-Apr,Wed,* SocketIO, * [Socket.io](slides/23/socketio.html),"
-* [Socket IO How-To](http://socket.io/docs/)
-","__Due Monday 4/24 at 11pm:__ 
-
-* [Homework #9](homework/09.html)
-
-<!--
-* [Final Project Miletsone #03](final-project.html#milestone03)
--->",m2 due
-y,,22,22-Apr,Mon,* SocketIO Continued,See previous slides,,"Due __today__ while you're in class:
-
-* [Socket IO Lab](homework/socket-io-lab.html)
-    * [8AM Section: Form to submit](https://docs.google.com/forms/d/e/1FAIpQLSdv48myt0n46KOknno3jM-wREpmcsDHM3omfp0zuXla2x4Q-w/viewform)
-    * [11AM Section: Form to submit](https://docs.google.com/forms/d/e/1FAIpQLSe1twiz1Tw9IrXorK76woaA0lH0bYjvnNzQPgRutYgO5K5zlg/viewform)
-
-<!--
-Due 4/27 at 11pm
-
-* [final project instructions](final-project.html#final_submit)
-* [submit final project using this form](https://docs.google.com/forms/d/e/1FAIpQLSeAwaHmPxvmWzvMYHdswd5h72ZUhwPvL-57sK-S4CyBn_jxpQ/viewform)
--->
-",
-y,,23,24-Apr,Wed,"* Frontend Framework  
-
-","* Final Project
+,,21,17-Apr,Wed,* Frontend Framework ,"
 * [React Basics](slides/26/react.html)
 * [React Revisited](slides/26/react-state-parent.html)
 * (Optional) [React and Express / Using Webpack](slides/26/react-webpack-continued.html)
@@ -511,6 +487,30 @@ y,,23,24-Apr,Wed,"* Frontend Framework
 * [Build With React](http://buildwithreact.com/)
 * [React Events](https://facebook.github.io/react/docs/events.html#supported-events)
 * [Using create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/README.md#getting-started)
+","
+<!--__Due Monday 4/24 at 11pm:__ 
+
+* [Homework #9](homework/09.html)
+-->
+
+<!--
+* [Final Project Miletsone #03](final-project.html#milestone03)
+-->",m2 due
+y,,22,22-Apr,Mon,* Frontend Framework Continued,"* [React Basics](slides/26/react.html) (from previous class)
+* [React Revisited](slides/26/react-state-parent.html) (from previous class)
+* [React and Express / Using Webpack](slides/26/react-webpack-continued.html)
+* React review, multiple child clickers and forms
+* React lab demo
+",,"
+Due __today__ while you're in class:
+
+* [React Lab](homework/react-lab.html)
+    * [Form to submit](https://docs.google.com/forms/d/e/1FAIpQLSde-vCFp3eJ9vFII9534X_FErSum5G8j3r2q4Uide7skzszaQ/viewform)
+",
+y,,23,24-Apr,Wed,* SocketIO,"* Final Project
+* [Socket.io](slides/23/socketio.html)
+
+","* [Socket IO How-To](http://socket.io/docs/)
 
 Practice Questions
 
@@ -530,20 +530,19 @@ Practice Questions
 * Final Exam 5/7
 -->
 
-
-
-
 ",m3 due
-y,,24,29-Apr,Mon,* Frontend Framework Continued,"* [React Basics](slides/26/react.html) (from previous class)
-* [React Revisited](slides/26/react-state-parent.html) (from previous class)
-* [React and Express / Using Webpack](slides/26/react-webpack-continued.html)
-* React review, multiple child clickers and forms
-* React lab demo
-",,"
-Due __today__ while you're in class:
+y,,24,29-Apr,Mon,* SocketIO Continued,See previous slides,,"Due __today__ while you're in class:
 
-* [React Lab](homework/react-lab.html)
-    * [Form to submit](https://docs.google.com/forms/d/e/1FAIpQLSde-vCFp3eJ9vFII9534X_FErSum5G8j3r2q4Uide7skzszaQ/viewform)
+* [Socket IO Lab](homework/socket-io-lab.html)
+    * [8AM Section: Form to submit](https://docs.google.com/forms/d/e/1FAIpQLSdv48myt0n46KOknno3jM-wREpmcsDHM3omfp0zuXla2x4Q-w/viewform)
+    * [11AM Section: Form to submit](https://docs.google.com/forms/d/e/1FAIpQLSe1twiz1Tw9IrXorK76woaA0lH0bYjvnNzQPgRutYgO5K5zlg/viewform)
+
+<!--
+Due 4/27 at 11pm
+
+* [final project instructions](final-project.html#final_submit)
+* [submit final project using this form](https://docs.google.com/forms/d/e/1FAIpQLSeAwaHmPxvmWzvMYHdswd5h72ZUhwPvL-57sK-S4CyBn_jxpQ/viewform)
+-->
 ",
 y,,25,01-May,Wed,"* TBD (everything together, wasm, webgl, electron or webaudio?)",,,,
 y,,26,06-May,Mon,"* TBD (everything together, wasm, webgl, electron or webaudio?)",,,* TBD Lab,
