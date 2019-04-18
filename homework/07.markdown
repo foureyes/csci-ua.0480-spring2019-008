@@ -115,7 +115,8 @@ Note that this will be implemented __as a single page web app__. This means that
 ### Getting Existing Questions (Reading Data)
 
 1. Check out the schema in `db.js` to familiarize yourself with the "data model"
-2. Add some questions to the database (use the commandline client to do the following)... here's an example (feel free to add your own questions/answers)
+2. if you'd like (this may make other parts easier), you can remove the `_id` field from the `Question` schema in `db.js` since the `_id` field is automatically created for you without having to explicitly add it to the schema
+3. Add some questions to the database (use the commandline client to do the following)... here's an example (feel free to add your own questions/answers)
 	<pre><code data-trim contenteditable>db.questions.insert({
   "question": "What's the most delicious dessert?", 
   "answers": ["ice cream on a pizza", "choco taco"]
@@ -159,6 +160,9 @@ As for the JavaScript implementation...
     * it should give back a JSON response
     * if a new question is successfully created in the database, it should send back the object inserted as the response
     * otherwise, send back an object with a key called error... with a value containing an error message
+	* note that to populate the `_id` field, you can either:
+		* remove it from the schema in `db.js` to allow it to be automatically created
+		* ...or use `_id: mongoose.Types.ObjectId()` to manually generate one
 2. On the client side, add a on click handler to the `Ask a Question` button (if you already haven't done so)
     * it should show the provided HTML modal with a form for submitting questions (again, do this if you already haven't done so from the previous instructions)
     * when the button in the modal's form is pressed....
