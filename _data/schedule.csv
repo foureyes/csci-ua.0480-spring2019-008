@@ -483,6 +483,7 @@ __Due Saturday 4/13 at 11pm:__
 * [React Basics](slides/26/react.html)
 * [React Revisited](slides/26/react-state-parent.html)
 * (Optional) [React and Express / Using Webpack](slides/26/react-webpack-continued.html)
+* Example Code: [index.js / Clicker Component](examples/react/demo/src/index.js) (React Basics)
 ","* [Hello World](https://facebook.github.io/react/docs/hello-world.html) and [Official Tutorial](https://facebook.github.io/react/tutorial/tutorial.html)
 * [Build With React](http://buildwithreact.com/)
 * [React Events](https://facebook.github.io/react/docs/events.html#supported-events)
@@ -499,6 +500,11 @@ __Due Saturday 4/13 at 11pm:__
 ,,22,22-Apr,Mon,* Frontend Framework Continued,"* [React Basics](slides/26/react.html) (from previous class)
 * [React Revisited](slides/26/react-state-parent.html) (from previous class)
 * [React and Express / Using Webpack](slides/26/react-webpack-continued.html)
+* Example Code: [index.js / Sum of Counters, Text Input](examples/react/demo/src/index.js) (Parent and Child Components, Text Input)
+* Example with React and fetch
+	* [index.js](examples/react-parents/demo/src/index.js) (React)
+	* [app.js](examples/react-parents/api/app.js) (Express API)
+	* [db.js](examples/react-parents/api/db.js) (Mongoose Schema)
 
 <!--
 * React review, multiple child clickers and forms
