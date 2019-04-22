@@ -32,7 +32,7 @@ pre {
 	<div class="panel-heading">Final Project</div>
 	<div class="panel-body" markdown="block">
 
-# Final Project, __Final Milestone Due 4/26__
+# Final Project, __Final Milestone Due__ <strike>4/26</strike> 4/29
 
 Earlier milestones due throughout April
 
@@ -246,14 +246,13 @@ Choose at least __8 points__ worth of these following topics (research and imple
 <br>
 <br>
 
-### __Due Date 4/26 at 11PM__ - Final Project Complete and Code is fully  _Deployed_ (40 points)
+### __Due Date__ <strike>4/26</strike> 4/29  __at 11PM__ - Final Project Complete and Code is fully  _Deployed_ (40 points)
 
-{% comment %}
 * __all commits must be in by Friday, April 27th__ 
 * __project must be deployed__ on cims servers (or other platform, such as Heroku, gomix, zeit, etc.)     
 	* if your application needs to be restarted while being graded; I will contact you     
 	* you will not receive a penalty for restarting after the due date 
-* __the [final project form submission](https://docs.google.com/forms/d/e/1FAIpQLSeAwaHmPxvmWzvMYHdswd5h72ZUhwPvL-57sK-S4CyBn_jxpQ/viewform) must be filled out__ (if a form is not submitted, you will receive a 0 for your project)
+* __the [final project form submission](https://docs.google.com/forms/d/e/1FAIpQLSfpI94OS-dQkjFpPgVuYyJm2Yo7-kmcUPEX6qF97PmH25f_Ww/viewform) must be filled out__ (if a form is not submitted, you will receive a 0 for your project)
 * __Research Topic Notes__
 	* if you require a __specific user to be logged in__, please add the username and password in the form submission above
 	* if you used __unit testing__ or __functional testing__, upload a screen shot or an animated gif of your tests running to the documentation folder of your project; link to it in your form submission
@@ -264,6 +263,7 @@ Choose at least __8 points__ worth of these following topics (research and imple
 <br>
 <br>
 
+{% comment %}
 <a name="suggestions">
 
 ## Potential Projects
