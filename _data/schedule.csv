@@ -496,16 +496,21 @@ __Due Saturday 4/13 at 11pm:__
 <!--
 * [Final Project Miletsone #03](final-project.html#milestone03)
 -->",m2 due
-y,,22,22-Apr,Mon,* Frontend Framework Continued,"* [React Basics](slides/26/react.html) (from previous class)
+,,22,22-Apr,Mon,* Frontend Framework Continued,"* [React Basics](slides/26/react.html) (from previous class)
 * [React Revisited](slides/26/react-state-parent.html) (from previous class)
 * [React and Express / Using Webpack](slides/26/react-webpack-continued.html)
+
+<!--
 * React review, multiple child clickers and forms
 * React lab demo
+-->
 ",,"
+<!--
 Due __today__ while you're in class:
 
 * [React Lab](homework/react-lab.html)
     * [Form to submit](https://docs.google.com/forms/d/e/1FAIpQLSde-vCFp3eJ9vFII9534X_FErSum5G8j3r2q4Uide7skzszaQ/viewform)
+-->
 ",
 y,,23,24-Apr,Wed,* SocketIO,"* Final Project
 * [Socket.io](slides/23/socketio.html)
