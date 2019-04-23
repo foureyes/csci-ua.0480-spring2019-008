@@ -1,13 +1,13 @@
 ---
 layout: homework
-title: CSCI-UA.0480 - Socket IO Lab
+title: CSCI-UA.0480 -  React Lab
 ---
 
 <div class="panel panel-default">
   <div class="panel-heading">React Lab</div>
   <div class="panel-body" markdown="block">
 
-# React Lab - Binary Number or Card Calculator (10 points for In-Class Project/Quiz Grade)
+# React Lab - MemorEmoji (10 points for In-Class Project/Quiz Grade)
 
 ## Submission Process
 
@@ -38,15 +38,13 @@ You'll be using the following concepts:
     * state
     * events
     * nested components
-    * form elements
+    * conditional rendering
+    * form elements (extra credits)
 
 
 ### Description
 
-Create __one of these two applications__:
-
-1. an application that calculates the decimal value of an 8-bit binary number 
-1. an application that calculates the total of a hand of cards
+Create an __MemorEmoji__ same as you created in Homework 6 but only using __React__.
 
 ## Instructions
 
@@ -72,38 +70,23 @@ You can develop your application with any tools that you like. If you'd like to 
 
 ### Implementation
 
-Choose __one of these two small React applications__ to implement &rarr;
 
-1. __Binary Number__
-    * create an application that calculates the decimal value of an 8-bit binary number
-    * start with 8 bits all set to 0
-    * add the decimal value of the binary number composed of the 8 bits
-    * each bit can be clicked so that it is set to either 0 or 1
-    * every time a bit is clicked, the value of the bit will be toggled (0 goes to 1, 1 goes to 0)
-    * recalculate the decimal value every time a bit is updated
-    * the bits should all be adjacent to each other, any other styling is your discretion
+1. __Game Board__
+    * create a game board that allows players to play MemorEmoji game (same rules as in Homework 6)
+    * define the number of cards as any even number
+    * define the maximum turns allowed
+    * define the card values by using emojis or characters
     * see the example interaction below:
-        ![bin](../resources/img/hw10-screen.gif)
-2. __Card Calculator__
-    * create an application that:
-        * uses a comma separated list of card values 
-        * ...to create a series of cards and 
-        * ... display the total value of all of the _valid_ cards in the list
-    * create a text input that allows entry of a comma separated list 
-    * using only the valid faces from the list, display the cards in the DOM 
-        * __they can all be the same suit__
-        * valid faces are J, Q, K, A
-        * or numbers 2 through 10
-    * the cards should styled such that:
-        * each card has a width and a height
-        * each card is displayed adjacent to each other
-        * any other styling is your discretion
-    * lastly, display the total of the valid cards (that is, the cards shown in the DOM)
-        * numbers will be counted as their numeric value
-        * J, Q, and K are worth 10
-        * an ace (A) will always count as 11
-    * see the example below:
-        ![calc](../resources/img/lab02-card-calculator.gif)
+        1. Number of Cards = 4, Max Turns = 4, card values = '😁,😁,😂,😂'
+        ![bin](../resources/img/react-lab-no_win.gif)
+        1. Number of Cards = 4, Max Turns = 4, card values = '😁,😁,😂,😂'
+        ![bin](../resources/img/react-lab-win.gif)
+2. __Using Form to Set Dimensions (Extra Credit)__
+    * instead of hard-coding the dimensions, create a form for players to set number of cards, maximum turns, and the card values and order
+    * set each card value by entering a string seperating each card value by commas
+    * the game board implemented above should reflect the dimensions submitted through the form
+    * see the example interaction below:
+        ![bin](../resources/img/react-lab-form.gif)
 
 ### Deployment
 
