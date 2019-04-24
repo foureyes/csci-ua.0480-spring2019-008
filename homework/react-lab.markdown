@@ -7,13 +7,13 @@ title: CSCI-UA.0480 -  React Lab
   <div class="panel-heading">React Lab</div>
   <div class="panel-body" markdown="block">
 
-# React Lab - MemorEmoji (10 points for In-Class Project/Quiz Grade)
+# React Lab - MemorEmoji (In-Class Project/Homework 08 Grade)
 
 ## Submission Process
 
-* work in groups of 2 or 3
+* work in groups of 2 - 4 students
 * choose one of the applications described below in the Overview &rarr; Description and implement it
-* __submit using [this form](https://docs.google.com/forms/d/e/1FAIpQLSde-vCFp3eJ9vFII9534X_FErSum5G8j3r2q4Uide7skzszaQ/viewform)__
+* __submit using [this form](https://docs.google.com/forms/d/e/1FAIpQLScj7vvs0AI3i5nS-NsWU_CC7RPpOz_YvR_CaDrjpzkVOK-cpQ/viewform)__
 * __each person on the team should submit their own individual form__
 * once you've submitted:
     * raise your hand to let me know
@@ -23,9 +23,17 @@ title: CSCI-UA.0480 -  React Lab
 
 ## Scoring
 
-* __+7 points__ for showing up and submitting form 
-* __+2 points__ form submitted with a _reasonable_ amount of _valid looking_ code
-* __+1 point__ code deployed on [codepen.io](https://codepen.io)
+Total Score
+
+* __75 points__ submitting _any_ code
+* __80 points__ (Part 1) code deployed on [codepen.io](https://codepen.io), [glitch](glitch.com), and single card toggle works
+* __90 points__ (Part 2) code deployed and multi-card toggle works with hardcoded components / elements
+* __100 points__ (Part 3)code deployed and multi-card toggle works with dynamically created elements
+
+Extra Credit 
+
+* __+15 points__ (Part 4, extra credit) matching game implemented 
+* __+20 points__ (Part 5, extra credit) game over message implemented
 
 ## Overview
 
@@ -44,23 +52,21 @@ You'll be using the following concepts:
 
 ### Description
 
-Create an __MemorEmoji__ same as you created in Homework 6 but only using __React__.
+Create a game similar to  __MemorEmoji__ from  Homework 6, but using __React__ instead of plain JavaScript.
 
 ## Instructions
 
 ### Setup
 
-You can develop your application with any tools that you like. If you'd like to use what we learned in the lectures, you can choose one of these methods:
+You can develop your application with any tools that you like. If you'd like to use what we learned in the lectures, you can choose one of these method (however, you can only deploy on 2 and 3):
 
 1. use `create-react-app`
     * allows quick setup for local development
     * you can use your own text editor!
     * [see the instructions on setting up create-react-app in the slides](../slides/26/react-state-parent.html#/15)
     * [but also, __if you are having path issues, especially on windows__, see this github ticket](https://github.com/facebookincubator/create-react-app/issues/138#issuecomment-334316575)
-2. remix a react-babel-webpack boilerplate using [glitch.com](https://glitch.com/~react-babel)
-    * add your code to `client/index.js`
-    * a cheap way to add styles is to add a `style` tag in `views/index.html` and write your css directly there
-    * the boilerplate includes `render` directly rather than `ReactDOM`, so when you call `ReactDOM.render(...)` at the end, just call `render` instead
+2. remix a react starter boilerplate using [glitch.com](https://glitch.com/edit/#!/remix/starter-react)
+    * add your code to `app.jsx`
 3. create a new project (pen) in [codepen.io](https://codepen.io)
     * debugging might be difficult
     * ...but your application will already be deployed!
@@ -68,36 +74,54 @@ You can develop your application with any tools that you like. If you'd like to 
         <br>
         ![codepen](../resources/img/codepen.gif)
 
-### Implementation
+### Part 1 - Single Card
 
+Create a React component or components so that you can toggle a card from being face down or face up. Note that rather than using css, you can manipulate the DOM directly in your jsx (for example, favor conditionally adding a text node to your JSX rather than setting visibility hidden). 
 
-1. __Game Board__
-    * create a game board that allows players to play MemorEmoji game (same rules as in Homework 6)
-    * define the number of cards as any even number
-    * define the maximum turns allowed
-    * define the card values by using emojis or characters
-    * see the example interaction below:
-        1. Number of Cards = 4, Max Turns = 4, card values = '😁,😁,😂,😂'
-        ![bin](../resources/img/react-lab-no_win.gif)
-        1. Number of Cards = 4, Max Turns = 4, card values = '😁,😁,😂,😂'
-        ![bin](../resources/img/react-lab-win.gif)
-2. __Using Form to Set Dimensions (Extra Credit)__
-    * instead of hard-coding the dimensions, create a form for players to set number of cards, maximum turns, and the card values and order
-    * set each card value by entering a string seperating each card value by commas
-    * the game board implemented above should reflect the dimensions submitted through the form
-    * see the example interaction below:
-        ![bin](../resources/img/react-lab-form.gif)
+Lastly, to add a class to a React element, use `className=foo`, where `foo` is is your class name.
+
+<video controls>
+    <source src="../resources/video/lab08-1.webm" type="video/webm">
+    Sorry, your browser doesn't support embedded videos.
+</video>
+
+### Part 2 - Multiple Cards
+
+Instead of just a single component that reacts to clicks, create several that can be clicked. Try to use parent and child components to do this. Clicking on any card toggles it from being face down to face up...or from face up to face down. 
+
+<video controls>
+    <source src="../resources/video/lab08-2.webm" type="video/webm">
+    Sorry, your browser doesn't support embedded videos.
+</video>
+
+### Part 3 - Game
+
+Now... only allow the player to flip two cards at a time. Once they flipped two cards, display a message and a confirmation button to proceed to the next turn. If the two cards flipped are the same, keep them face up. Otherwise, turn the cards back over so that the value is hidden.
+
+<video controls>
+    <source src="../resources/video/lab08-3.webm" type="video/webm">
+    Sorry, your browser doesn't support embedded videos.
+</video>
+
+### Part 4 - Game Over
+
+When the game ends (all of the cards are face up and matched), replace the cards with a message that says: "Game Over"
+
+<video controls>
+    <source src="../resources/video/lab08-4.webm" type="video/webm">
+    Sorry, your browser doesn't support embedded videos.
+</video>
+
 
 ### Deployment
 
 To deploy your app on glitch.com... (only valid if you developed locally, otherwise, your code is already there!)
 
-1. use the [react-babel-webpack boilerplate on glitch.com](https://glitch.com/~react-babel)
-2. add your code to `client/index.js`
+1. use the react starter boilerplate on [glitch.com](https://glitch.com/edit/#!/remix/starter-react)
+2. add your code to `app.jsx`
     * only add your components and your call to render
     * no need to bring in imports (it's already done at the top of `index.js`)
-    * replace your call to `ReactDOM.render(...)` with just `render` 
-3. add styles easily by adding a `style` tag in `views/index.html` and writing your css directly there
+3. add styles easily by adding a `style` tag in `index.html` and writing your css directly there
 
 To deploy your app in codepen.io... (only valid if you developed locally, otherwise, your code is _already there_)
 
