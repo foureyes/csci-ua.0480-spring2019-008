@@ -248,7 +248,7 @@ Choose at least __8 points__ worth of these following topics (research and imple
 
 ### __Due Date__ <strike>4/26</strike> 4/29  __at 11PM__ - Final Project Complete and Code is fully  _Deployed_ (40 points)
 
-* __all commits must be in by Friday, April 27th__ 
+* __all commits must be in by Monday, April 29th__ 
 * __project must be deployed__ on cims servers (or other platform, such as Heroku, gomix, zeit, etc.)     
 	* if your application needs to be restarted while being graded; I will contact you     
 	* you will not receive a penalty for restarting after the due date 
