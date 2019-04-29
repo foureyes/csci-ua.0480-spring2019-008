@@ -551,8 +551,12 @@ __Due Today (4/24) at 11pm__
 -->
 
 ",m3 due
-y,,24,29-Apr,Mon,* SocketIO Continued,See previous slides,,"Due __today__ while you're in class:
-* [Socket IO How-To](http://socket.io/docs/)
+,,24,29-Apr,Mon,* SocketIO ,"
+* [Websockets and socket.io](slides/23/socketio.html)
+* [Rooms](slides/25/socketio-rooms.html)
+",* [Socket IO Docs / How-To](http://socket.io/docs/),,
+y,,25,01-May,Wed,* SocketIO Lab,,,"Due __today__ while you're in class:
+
 * [Socket IO Lab](homework/socket-io-lab.html)
     * [8AM Section: Form to submit](https://docs.google.com/forms/d/e/1FAIpQLSdv48myt0n46KOknno3jM-wREpmcsDHM3omfp0zuXla2x4Q-w/viewform)
     * [11AM Section: Form to submit](https://docs.google.com/forms/d/e/1FAIpQLSe1twiz1Tw9IrXorK76woaA0lH0bYjvnNzQPgRutYgO5K5zlg/viewform)
@@ -564,7 +568,6 @@ Due 4/27 at 11pm
 * [submit final project using this form](https://docs.google.com/forms/d/e/1FAIpQLSeAwaHmPxvmWzvMYHdswd5h72ZUhwPvL-57sK-S4CyBn_jxpQ/viewform)
 -->
 ",
-y,,25,01-May,Wed,"* TBD (everything together, wasm, webgl, electron or webaudio?)",,,,
-y,,26,06-May,Mon,"* TBD (everything together, wasm, webgl, electron or webaudio?)",,,* TBD Lab,
+y,,26,06-May,Mon,* Authentication ,,,* TBD Lab,
 y,,27,08-May,Wed,* Review,,,,
 y,exam,28,13-May,Mon,EXAM #2 (Final Exam),,,,
