@@ -12,7 +12,7 @@ title: CSCI-UA.0480 - Socket IO Lab
 ## Submission Process
 
 * work in groups of 2 or 3
-* __submit using [the form for your section on the schedule](../#class24)__
+* __submit using [the form for your section on the schedule](../#class25)__
 * __each person on the team should submit their own individual form__
 
 ## Scoring
@@ -42,7 +42,10 @@ Make a real time web app that:
 5. everyone connected to the game can click either button
 6. everyone connected to the game can see the emoji move in real time
 7. when someone new connects to the game, the should see the current position of both emoji
-8. (optional) end game and show message when one emoji crosses the finish line
+8. (optional) show total number of connected _users_
+9. (optional) end game and show message when one emoji crosses the finish line
+	* do not allow additional clicks
+	* show an overlay that informs the user that the game is over
 
 
 <img src="../resources/img/hw09-screen.gif" alt="example emoji racer animation">
@@ -54,7 +57,7 @@ Make a real time web app that:
 
 Use the _one-page_ version of the slides to guide you through socket.io:
 
-[https://cs.nyu.edu/courses/fall18/CSCI-UA.0480-003/_site/slides/23/socketio.html?print-pdf](https://cs.nyu.edu/courses/fall18/CSCI-UA.0480-003/_site/slides/23/socketio.html?print-pdf)
+[socketio slides](../slides/23/socketio.html?print-pdf)
 
 1. create a directory to store your project
 2. create your `package.json` and install these packages:
@@ -98,6 +101,28 @@ server.listen(3000);
     <pre><code data-trim contenteditable>
     const socket = io();
 </code></pre>
+
+## More / Optional
+
+### Show the number of connected clients on the game screen
+
+1. whenever someone new connects to the server, increment the count
+2. when someone closes a tab, decrease the count
+3. the count should be immediately updated for all connected clients
+4. `io.on('connect', ...)` should already be present; to listen for disconnects, listen for `disconnect` event on the currently connected client (represented by `socket`)
+
+The example below shows a count that increases and decreases. This is due to other players opening the page in their browser or closing their browser tab:
+
+<img src="../resources/img/hw09-count.gif" alt="example emoji racer count connected clients">
+
+### End the game
+
+1. Display the finish line some number of pixels away from the left edge of the screen
+2. Once one of the emoji reaches the finish line, add an overlay
+3. The overlay should prevent the emoji from being moved
+4. This should appear on all clients 
+
+<img src="../resources/img/hw09-won.gif" alt="win condition">
 
 ## Deployment
 
@@ -151,12 +176,13 @@ An easy way to implement this game is by:
 }    
 
 .player2 {
-  top: 300px
+  top: 300px;
 }    
 
 .play-area {
+  box-sizing: border-box;
   position: relative;
-  width: 800px;
+  width: 600px;
   height: 500px;
   border-right: 3px dashed black;
 }
@@ -190,7 +216,6 @@ function main() {
     display: none;
 }
 </style>
-
 
 </div>
 </div>
