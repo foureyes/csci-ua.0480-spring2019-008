@@ -79,7 +79,7 @@ __Long Polling__ is actually just a slight variation on the regular polling tech
 * however, if there's no new data to return, it keeps the connection open, and returns the data once it becomes available
 * once the client receives data, it immediately sends another request to the server again
 * it's still over http
-* [it looks like this](http://i.stack.imgur.com/ziR5h.png)
+* [it looks like this](https://i.stack.imgur.com/zLnOU.png)
 </section>
 
 <section markdown="block">
@@ -92,7 +92,7 @@ __Server Side Events, or SSEs__ allow servers to push data to their clients!
 * in the background, JavaScript connects to the server
 * the connection remains open, and the server is able to _push_ data
 * the client can't send data back to the server
-* [here's what it looks like](http://i.stack.imgur.com/ziR5h.png)
+* [here's what it looks like](https://i.stack.imgur.com/ziR5h.png)
 </section>
 
 <section markdown="block">
@@ -106,7 +106,7 @@ Finally, there's __WebSocket__. __It's not HTTP__.  __WebSocket__ is actually __
 * but after that, the page uses JavaScript to create a two way connection with the server (there's a point where the protocol is _upgraded_ from HTTP to Web Sockets)
 * the server and client can send messages to each other freely!
 * __allows cross origin communication__ (though, possibly at the cost of security!)
-* [here's what it looks like](http://i.stack.imgur.com/CgDlc.png)
+* [here's what it looks like](https://i.stack.imgur.com/CgDlc.png)
 </section>
 
 <section markdown="block">
