@@ -554,8 +554,17 @@ __Due Today (4/24) at 11pm__
 ,,24,29-Apr,Mon,* SocketIO ,"
 * [Websockets and socket.io](slides/23/socketio.html)
 * [Rooms](slides/25/socketio-rooms.html)
+* Socket.io Example Code Written in Class
+	* [app.js](examples/websockets-demo/app.js) 
+	* [public/index.html](examples/websockets-demo/public/index.html) 
+	* [public/main.js](examples/websockets-demo/public/main.js) 
 ",* [Socket IO Docs / How-To](http://socket.io/docs/),,
-,,25,01-May,Wed,* SocketIO Lab,,,"Due __today__ while you're in class:
+,,25,01-May,Wed,* SocketIO Lab,"
+* Socket.io Lunch Suggestion Example Code
+	* [app.js](examples/websockets-demo-2-init/app.js) 
+	* [public/index.html](examples/websockets-demo-2-init/public/index.html) 
+	* [public/main.js](examples/websockets-demo-2-init/public/main.js) 
+",,"Due __today__ while you're in class:
 
 * [Socket IO Lab](homework/socket-io-lab.html)
 * [Form to submit](https://docs.google.com/forms/d/e/1FAIpQLSf1Gc_WWKanBfyXTatCiIRWR5WSpdNYEZ1hbQjuK3F3rr9Hbg/viewform)
