@@ -3,6 +3,15 @@
 <title></title>
 </head>
 <body>
+	<header>
+	{{#if username}}
+	(logged in as {{username}})
+	{{else}}
+	<a href="/login">login</a> | <a href="/register">register</a>
+	{{/if}}
+	</header>
+	<main>
 		{{{body}}}
+	</main>
 </body>
 </html>

@@ -579,6 +579,14 @@ Due 4/27 at 11pm
 ,,26,06-May,Mon,* Authentication ,"From previous class (16, 17):
 
 * [Authentication](slides/16/auth.html)
+* Example Code (includes login, not covered in class)
+	* [app.js](examples/auth/app.js) 
+	* [db.js](examples/auth/db.js) 
+	* [package.json](examples/auth/package.json) 
+	* [views/index.hbs](examples/auth/views/index.hbs) 
+	* [views/layout.hbs](examples/auth/views/layout.hbs) 
+	* [views/login.hbs](examples/auth/views/login.hbs) 
+	* [views/register.hbs](examples/auth/views/register.hbs) 
 * [High-Level Description of SSL/TLS](slides/16/ssl.html)
 * Start Review?
 * Evaluations
