@@ -245,6 +245,8 @@ To prevent the hash of two of the same passwords from being the same, we can __s
 * ...hash the string formed from the salt and password
 * the salt should be unique per-user, per-password (__don't reuse salts... why?__ &rarr;)
 	* {:.fragment} two users with the same password will still have the same hash!
+
+__Note__: some hashing algorithms and libraries will generate the salt for you AND include it in the output of the hashing function
 </section>
 
 <section markdown="block">
@@ -260,6 +262,7 @@ To prevent the hash of two of the same passwords from being the same, we can __s
 And here are some particularly good resources
 
 1. [OWASP Password Storage Cheat Sheet](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Password_Storage_Cheat_Sheet.md)
+2. [Google Cloud Platform Best Practices for User Accounts](https://cloud.google.com/blog/products/gcp/12-best-practices-for-user-account)
 2. [How to securely hash passwords](http://security.stackexchange.com/questions/211/how-to-securely-hash-passwords)
 3. [Salted Password Hashing - Doing it Right](https://crackstation.net/hashing-security.htm)
 4. [NIST - Recommendation for Password-Based Key Derivation](http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf) (slightly out of date, though)
