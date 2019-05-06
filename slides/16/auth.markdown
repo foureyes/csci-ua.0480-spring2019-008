@@ -189,10 +189,12 @@ __Ok... so, how do I find or create an adequate hashing algorithm? What are some
 <section markdown="block">
 ## Hashing Algorithms
 
-__It turns out that these are the ones that are recommended:__ &rarr;
+__It turns out that these are the ones that are [recommended](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Password_Storage_Cheat_Sheet.md#leverage-an-adaptive-one-way-function):__ &rarr;
 
-1. `bcrypt`
-2. `PBKDF2`
+1. `argon2`
+2. `scrypt`
+3. `bcrypt`
+4. `PBKDF2`
 
 <br>
 __But only for _now_ ... as the landscape continues to change:__ &rarr;
@@ -257,9 +259,10 @@ To prevent the hash of two of the same passwords from being the same, we can __s
 
 And here are some particularly good resources
 
-* [How to securely hash passwords](http://security.stackexchange.com/questions/211/how-to-securely-hash-passwords)
-* [Salted Password Hashing - Doing it Right](https://crackstation.net/hashing-security.htm)
-* [NIST - Recommendation for Password-Based Key Derivation](http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf)
+1. [OWASP Password Storage Cheat Sheet](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Password_Storage_Cheat_Sheet.md)
+2. [How to securely hash passwords](http://security.stackexchange.com/questions/211/how-to-securely-hash-passwords)
+3. [Salted Password Hashing - Doing it Right](https://crackstation.net/hashing-security.htm)
+4. [NIST - Recommendation for Password-Based Key Derivation](http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf) (slightly out of date, though)
 
 </section>
 
