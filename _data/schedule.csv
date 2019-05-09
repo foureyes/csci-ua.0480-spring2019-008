@@ -591,5 +591,12 @@ Due 4/27 at 11pm
 * Start Review?
 * Evaluations
 ",,,
-y,,27,08-May,Wed,* Review,,,,
+,,27,08-May,Wed,* Review,"In-Class Review Notes
+
+* [notes.md](examples/final-exam-review/notes.md) 
+* [app.js](examples/final-exam-review/app.js) 
+* [promises.js](examples/final-exam-review/promises.js) 
+* [public/main.js](examples/final-exam-review/public/main.js) 
+* [public/index.html](examples/final-exam-review/public/index.html) 
+",,,
 y,exam,28,13-May,Mon,EXAM #2 (Final Exam),,,,
